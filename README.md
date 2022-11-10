@@ -5,7 +5,7 @@ This is an Micro-frontend host remote system implemented using React and Webpack
 This is a monorepo repository managed using lerna and yarn workspaces.
 
 - `hostApp` is the host application.
-- `finWidget` standalone application which exposes `StockWidget` component.
+- `finWidget` is a standalone application which exposes `StockWidget` component.
 
 ## Starting the App
 
