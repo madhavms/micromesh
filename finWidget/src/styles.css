@@ -1,0 +1,102 @@
+.rounded-lg {
+    border-radius: 0.5rem;
+  }
+  
+  .shadow-md {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  
+  .p-4 {
+    padding: 40px;
+  }
+  
+  .bg-gray-800 {
+    background-color: rgb(31 41 55);
+  }
+  
+  .w-64 {
+    width: 14rem; /* 256px */
+  }
+  
+  .m-auto {
+    margin: auto;
+  }
+  
+  .mt-5 {
+    margin-top: 1.25rem; /* 20px */
+  }
+  
+  .text-2xs {
+    font-size: 0.7rem;
+    line-height: 0.75rem;
+  }
+  
+  .text-sm {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.25rem; /* 20px */
+  }
+  
+  .text-white {
+    color: white;
+  }
+  
+  .font-bold {
+    font-weight: bold;
+  }
+  
+  .text-gray-400 {
+    color: rgb(156 163 175);
+  }
+  
+  .ml-1 {
+    margin-left: 0.25rem; /* 4px */
+  }
+  
+  .flex {
+    display: flex;
+  }
+  
+  .flex-row {
+    flex-direction: row;
+  }
+  
+  .justify-between {
+    justify-content: space-between;
+  }
+  
+  .self-center {
+    align-self: center;
+  }
+  
+  .text-2xl {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+  }
+  
+  .items-center {
+    align-items: center;
+  }
+  
+  .flex-col {
+    flex-direction: column;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
+  .text-red-500 {
+    color: rgb(239 68 68);
+  }
+  
+  .text-green-500 {
+    color: rgb(34 197 94);
+  }
+  
+  .ui-sans-serif {
+    font-family: ui-sans-serif;
+  }
+  
+  .text-center {
+    text-align: center;
+  }

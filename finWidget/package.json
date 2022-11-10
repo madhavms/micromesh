@@ -1,0 +1,28 @@
+{
+  "name": "remote",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-cli serve",
+    "watch": "webpack-cli watch",
+    "build": "webpack --mode production",
+    "serve": "serve dist -p 3001",
+    "clean": "rm -rf dist"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/runtime": "^7.20.1",
+    "babel-loader": "^9.1.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "css-loader": "^6.7.1",
+    "moment": "^2.29.4",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "style-loader": "^3.3.1"
+  }
+}
