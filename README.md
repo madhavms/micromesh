@@ -14,3 +14,12 @@ In this case a stock price widget is loaded at runtime into a host system.
 Run `yarn start`. 
 
 This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 respectively.
+
+### Host Application Demo
+
+![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
+
+
+### Remote Application Demo
+
+![RemoteApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/RemoteApplication.gif)
