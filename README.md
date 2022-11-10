@@ -7,6 +7,8 @@ This is a monorepo repository managed using lerna and yarn workspaces.
 - `hostApp` is the host application.
 - `finWidget` is a standalone application which exposes `StockWidget` component.
 
+In this case a stock price widget is loaded at runtime into a host system.
+
 ## Starting the App
 
 Run `yarn start`. 
