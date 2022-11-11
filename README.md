@@ -2,12 +2,12 @@
 
 This is an Micro-frontend host remote system implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote systems using the webpack module federation plugin. 
 
-This is a monorepo repository managed using lerna and yarn workspaces.
+This repository is a monorepo managed with lerna and yarn workspaces.
 
-- `hostApp` is the host application.
-- `finWidget` is a standalone application which exposes `StockWidget` component.
+- `hostApp` is the host application (http://localhost:3000).
+- `finWidget` is a standalone application which exposes `StockWidget` component (http://localhost:3001).
 
-In this case a stock price widget is loaded at runtime into a host system.
+In this application a stock price widget is loaded at runtime into a host system.
 
 ## Starting the App
 
