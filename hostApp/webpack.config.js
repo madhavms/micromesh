@@ -3,9 +3,7 @@ const { ModuleFederationPlugin } = require("webpack").container;
 const path = require("path");
 
 const lookupRemoteEntryUrl = (port) => {
-
-return `//localhost:${port}/widgetRemote.js`;
-
+  return `//localhost:${port}/widgetRemote.js`;
 };
 
 module.exports = {
@@ -13,17 +11,18 @@ module.exports = {
   mode: "development",
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist")
+      directory: path.join(__dirname, "dist"),
     },
-    headers: { 
+    headers: {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
-  },
-    port: 3000
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
+    },
+    port: 3000,
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   module: {
     rules: [
@@ -32,29 +31,26 @@ module.exports = {
         loader: "babel-loader",
         exclude: /node_modules/,
         options: {
-          presets: ["@babel/preset-react"]
-        }
+          presets: ["@babel/preset-react"],
+        },
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
-      }
-    ]
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   },
   //http://localhost:3001/widgetRemote.js
   plugins: [
     new ModuleFederationPlugin({
       name: "hostApp",
       remotes: {
-        finWidget: `finWidget@${lookupRemoteEntryUrl(3001)}`
+        finWidget: `finWidget@${lookupRemoteEntryUrl(3001)}`,
       },
-      shared: { react: { singleton: true }, "react-dom": { singleton: true } }
+      shared: { react: { singleton: true }, "react-dom": { singleton: true } },
     }),
     new HtmlWebpackPlugin({
-      template: "./public/index.html"
-    })
-  ]
+      template: "./public/index.html",
+    }),
+  ],
 };
