@@ -10,7 +10,6 @@ from utils import global_var
 
 from dotenv import load_dotenv, find_dotenv
 
-
 load_dotenv(find_dotenv())
 
 app = FastAPI()
@@ -22,21 +21,23 @@ app.add_middleware(
     allow_headers=['*']
 )
 
+def load_data():
+    with open(global_var.STOCK_DATA_PATH) as f:
+        return json.load(f)
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to StockAPI"}
 
 @app.get('/stocks')
 def get_all_stocks():
-    res = requests.get(global_var.STOCK_DATA_URL)
-    stock_data = json.loads(res.text)
+    stock_data = load_data()
     return stock_data
 
 
 @app.get('/stocks/{id}')
 def get_stock(id):
-    res = requests.get(global_var.STOCK_DATA_URL)
-    response = json.loads(res.text)
+    response = load_data()
     for stock_data in response:
         if stock_data['id'] == id:
             return stock_data
