@@ -7,13 +7,19 @@ This repository is a monorepo managed with lerna and yarn workspaces.
 - `hostApp` is the host application (http://localhost:3000).
 - `finWidget` is a standalone application which exposes `StockWidget` component (http://localhost:3001).
 
-In this application a stock price widget is loaded at runtime into a host system.
+In this application a stock price widget is loaded at runtime into a host system. The widget receives dummy stock prices from the API written using Python FASTAPI framework.
 
-## Starting the App
+## Starting the Frontend App:
 
 Run `yarn start`.
 
 This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 respectively.
+
+## Starting the Python API Service:
+
+1. `cd finAPI`
+
+2. ` uvicorn main:app --reload`
 
 ### Host Application Demo
 
