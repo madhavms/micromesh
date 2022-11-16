@@ -23,20 +23,18 @@ function StockWidget(props) {
   useEffect(() => {
     axios
       .get(
-        "https://gist.githubusercontent.com/madhavms/5f9f5323076ddc25a5b687c2831338bc/raw/344d6c88dff05eb37f735cb69694ba3f5e5f679c/dummyStockData.json"
+        `http://localhost:8000/stocks/${props.symbol}`
       )
-      .then((result) => {
-        if (!result.data || result.data.length <= 0 || !props?.symbol) {
+      .then((response) => {
+        if (!response.data || !props?.symbol) {
           return;
         }
-        const stockDetail = result.data.filter(
-          (stock) => stock.id === props.symbol
-        )[0];
-
+        const stockDetail = response.data;
         stockDetail.last = (
           stockDetail.last +
           [1, -1][Math.floor(Math.random() * 1 + 0.5)] * variance
         ).toFixed(2);
+        console.log(stockDetail,stockDetail.stock_exchange)
         setStock({
           stockExchange: stockDetail.stock_exchange,
           name: stockDetail.name
