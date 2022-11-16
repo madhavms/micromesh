@@ -1,0 +1,3 @@
+[{"id":"AMZN","name":"Amazon","stock_exchange":"NYSE","open":120.605,"high":120.605,"low":120.605,"last":121},
+{"id":"AAPL","name":"Apple","stock_exchange":"NYSE","open":150.96,"high":151.32,"low":149.53,"last":150.49},
+{"id":"GME","name":"Gamestop","stock_exchange":"NYSE","open":26.37,"high":27.48,"low":26.15,"last":27.37}]
