@@ -4,7 +4,8 @@ import axios from "axios";
 
 function StockWidget(props) {
 
-  const [variance, setVariance] = useState(0.5);
+  const [uniqueId, setUniqueId] = useState('');
+
 
   const [quote, setQuote] = useState({
     price: "--",
@@ -17,24 +18,22 @@ function StockWidget(props) {
   });
 
   useEffect(() => {
-    setInterval(() => setVariance(Math.floor(Math.random() * 10) + 0.5), 3000);
+    setInterval(() => {
+      setUniqueId(new Date().getTime()) // get a unique id - this grabs seconds since unix epoch
+    }, 3000);
   }, []);
 
   useEffect(() => {
     axios
       .get(
-        `http://localhost:8000/stocks/${props.symbol}`
+        `http://localhost:8000/stocks/${props.symbol}?v=${uniqueId}`
       )
       .then((response) => {
         if (!response.data || !props?.symbol) {
           return;
         }
         const stockDetail = response.data;
-        stockDetail.last = (
-          stockDetail.last +
-          [1, -1][Math.floor(Math.random() * 1 + 0.5)] * variance
-        ).toFixed(2);
-        console.log(stockDetail,stockDetail.stock_exchange)
+
         setStock({
           stockExchange: stockDetail.stock_exchange,
           name: stockDetail.name
@@ -48,7 +47,7 @@ function StockWidget(props) {
           time: moment(stockDetail.date).format("YYYY-MM-DD HH:mm")
         });
       });
-  }, [variance]);
+  }, [uniqueId]);
 
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
 
