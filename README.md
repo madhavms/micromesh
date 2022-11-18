@@ -17,7 +17,7 @@ This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 r
 
 ## Starting the Python API Service:
 
-1. `cd finAPI`
+1. `cd finAPI/stockapi`
 
 2. ` uvicorn main:app --reload`
 
