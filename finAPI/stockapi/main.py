@@ -17,14 +17,15 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['http://localhost:3000','http://localhost:3001'],
+    allow_origins=['http://localhost:3000', 'http://localhost:3001'],
     allow_methods=['*'],
     allow_headers=['*']
 )
 
+
 def add_variance(stock):
-    pos_or_neg = random.randint(0,1)
-    randNum = random.uniform(1, 15) 
+    pos_or_neg = random.randint(0, 1)
+    randNum = random.uniform(1, 15)
     randNum = randNum if pos_or_neg == 1 else -randNum
     stock['last'] = round(stock['last'] + randNum, 2)
     return stock
@@ -34,9 +35,11 @@ def load_data():
     with open(global_var.STOCK_DATA_PATH) as f:
         return json.load(f)
 
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to StockAPI"}
+
 
 @app.get('/stocks')
 def get_all_stocks():
