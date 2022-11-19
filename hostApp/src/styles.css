@@ -1,3 +1,10 @@
+.fin-widget {
+  width: 250px; 
+  margin: auto; 
+  margin-top: 20px;
+}
+
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
