@@ -32,15 +32,18 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <div className="container">
       <h1 className="text-center">Host Application</h1>
-      <select onChange = {handleChange} style = {{marginLeft:250}}>
+      <select onChange = {handleChange} className="select">
+      <option value="" selected disabled >Select a stock</option>
       {allStockList.map(stock => <option value = {stock.id} key={stock.id}>{stock.name}</option>)}
       </select>
       &nbsp;
       {stockList.map((widget) => (
         <React.Suspense fallback="...loading">
+        <div>
         <StockWidget symbol={widget.id} />
+        </div>  
         </React.Suspense>
       ))}
     </div>
