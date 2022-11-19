@@ -16,6 +16,9 @@ const Widget = (props) => (
   </React.Suspense>
 );
 
+let widgets = Array.from(widgetDivs);
+widgets.map(widget => widget.draggable = true)
+
 // Inject our React App into each class
 widgetDivs.forEach((div) => {
   ReactDOM.render(<Widget symbol={div.dataset.symbol} />, div);
