@@ -46,6 +46,14 @@ def get_all_stocks():
     stock_data = load_data()
     return stock_data
 
+@app.get('/stocklist')
+def get_stock_list():
+    stock_list = []
+    stock_data = load_data()
+    for stock in stock_data:
+        stock_list.append({'id':stock['id'], 'name':stock['name']})
+    return stock_list
+
 
 @app.get('/stocks/{id}')
 def get_stock(id):
