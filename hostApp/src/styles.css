@@ -1,9 +1,16 @@
 .fin-widget {
   width: 250px; 
-  margin: auto; 
   margin-top: 20px;
 }
 
+.redbutton{
+  background-color: #f44336;
+  padding: 15px;
+  border-radius: 10px;
+  color:white;
+  font-weight: bold;
+  font-size: 15px;
+} /* Red */
 
 .rounded-lg {
   border-radius: 0.5rem;
@@ -122,4 +129,28 @@
   font-weight: bold;
   text-align: center;
   font-size: 1rem;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.spacer {
+  width:100px;
+  height:100px;
+  margin:10px;
+}
+
+.image {
+  margin: 10px;
+  width:30px;
+  height:30px;
+}
+
+.image:hover {
+  cursor: pointer
 }
