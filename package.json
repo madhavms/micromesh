@@ -24,6 +24,7 @@
     "lerna": "^6.0.3",
     "moment": "^2.29.4",
     "react": "^16.13.0",
-    "react-dom": "^16.13.0"
+    "react-dom": "^16.13.0",
+    "svg-inline-loader": "^0.8.2"
   }
 }
