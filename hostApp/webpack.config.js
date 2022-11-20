@@ -38,6 +38,10 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.svg$/, 
+        loader: 'svg-inline-loader'
+      }
     ],
   },
   //http://localhost:3001/widgetRemote.js
