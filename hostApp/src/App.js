@@ -14,8 +14,8 @@ const App = () => {
   };
 
   const handleDelete = (e) => {
-    let id = e.target.getAttribute('value');
-    console.log('hi',id)
+    let id = e.target.getAttribute("value");
+    console.log("hi", id);
     setStockList([...stockList.filter((stock) => stock.id !== id)]);
   };
 
@@ -54,8 +54,13 @@ const App = () => {
         <div key={widget.id} className="flex-container">
           <React.Suspense fallback="...loading">
             <StockWidget symbol={widget.id} />
-            <div >
-            <img value={widget.id} onClick={handleDelete} className="image" src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"></img>
+            <div>
+              <img
+                value={widget.id}
+                onClick={handleDelete}
+                className="image"
+                src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
+              ></img>
             </div>
           </React.Suspense>
         </div>
