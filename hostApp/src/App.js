@@ -15,7 +15,6 @@ const App = () => {
 
   const handleDelete = (e) => {
     let id = e.target.getAttribute("value");
-    console.log("hi", id);
     setStockList([...stockList.filter((stock) => stock.id !== id)]);
   };
 
