@@ -26,5 +26,8 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "svg-inline-loader": "^0.8.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.19.6"
   }
 }
