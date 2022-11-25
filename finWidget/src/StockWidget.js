@@ -16,9 +16,11 @@ function StockWidget(props) {
   });
 
   useEffect(() => {
-    setInterval(() => {
+    const id = setInterval(() => {
       setUniqueId(new Date().getTime()); // get a unique id - this grabs seconds since unix epoch
     }, 3000);
+
+    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
