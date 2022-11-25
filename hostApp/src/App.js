@@ -27,13 +27,13 @@ const App = () => {
   };
 
   useEffect(() => {
-    axios.get("http://localhost:8000/stocklist").then((response) => {
-      if (!response.data) {
-        return;
-      }
-      const stockData = response.data;
-      setAllStockList(stockData);
-    });
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
+
+    (async () => {
+      const {data} = await axios.get("http://localhost:8000/stocklist");
+      setAllStockList(data);
+    })();
   }, []);
 
   return (
