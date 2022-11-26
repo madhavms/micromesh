@@ -46,6 +46,19 @@ const App = () => {
   const handleDragEnd = () => {
     console.log("Ending drag...");
     setDragging(false);
+    const dragItemI = dragItem.current;
+    const enteredNodeI = enteredNode.current
+    console.log('dragItemI=',dragItemI);
+    console.log('enteredNodeI=',enteredNodeI);
+    setStockList((prevList) => {
+      let newList = JSON.parse(JSON.stringify(prevList));
+      [newList[enteredNodeI], newList[dragItemI]] = [
+        newList[dragItemI],
+        newList[enteredNodeI],
+      ];
+      localStorage.setItem("stockList", JSON.stringify(newList));
+      return newList;
+    });
     dragNode.current.removeEventListener("dragend", handleDragEnd);
     dragItem.current = null;
     dragNode.current = null;
@@ -60,20 +73,13 @@ const App = () => {
       console.log("TARGET IS NOT THE SAME");
       console.log(`currentItem = ${currentItem}`);
       console.log("Entering drag. widgetI = ", widgetI);
-      enteredNode.current = currentItem;
-      setStockList((prevList) => {
-        let newList = JSON.parse(JSON.stringify(prevList));
-        [newList[currentItem], newList[widgetI]] = [
-          newList[widgetI],
-          newList[currentItem],
-        ];
-        localStorage.setItem("stockList", JSON.stringify(newList));
-        return newList;
-      });
+      enteredNode.current = widgetI;
     }
   };
 
-  const handleDragOver = (e) => e.preventDefault();
+  const handleDragOver = (e) => {
+    e.preventDefault()
+  };
 
   useEffect(() => {
     const cancelToken = axios.CancelToken;
