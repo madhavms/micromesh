@@ -53,7 +53,7 @@ function StockWidget(props) {
     !!props.symbol && (
       <div
         className={
-          "quote rounded-lg shadow-md p-4 bg-gray-800 w-64 m-auto mt-5"
+          "quote rounded-lg shadow-md p-4 bg-gray-800 w-64"
         }
       >
         <span className={"quoteSymbol text-sm text-white font-bold"}>
