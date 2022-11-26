@@ -44,12 +44,10 @@ const App = () => {
   };
 
   const handleDragEnd = () => {
-    console.log("Ending drag...");
     setDragging(false);
     const dragItemI = dragItem.current;
-    const enteredNodeI = enteredNode.current
-    if(typeof dragItemI === 'number' && typeof enteredNodeI === 'number') {
-      console.log('hey')
+    const enteredNodeI = enteredNode.current;
+    if (typeof dragItemI === "number" && typeof enteredNodeI === "number") {
       setStockList((prevList) => {
         let newList = JSON.parse(JSON.stringify(prevList));
         [newList[enteredNodeI], newList[dragItemI]] = [
@@ -64,23 +62,19 @@ const App = () => {
       dragNode.current = null;
       enteredNode.current = null;
     }
-    
   };
 
   const handleDragEnter = (e, params) => {
     let { widgetI } = params;
     const currentItem = dragItem.current;
-    
-    if (currentItem!==widgetI && enteredNode.current != currentItem) {
-      console.log("TARGET IS NOT THE SAME");
-      console.log(`currentItem = ${currentItem}`);
-      console.log("Entering drag. widgetI = ", widgetI);
+
+    if (currentItem !== widgetI && enteredNode.current != currentItem) {
       enteredNode.current = widgetI;
     }
   };
 
   const handleDragOver = (e) => {
-    e.preventDefault()
+    e.preventDefault();
   };
 
   useEffect(() => {
@@ -126,9 +120,7 @@ const App = () => {
               src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
             ></img>
           </React.Suspense>
-
         </div>
-        
       ))}
     </div>
   );
