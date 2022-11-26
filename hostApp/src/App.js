@@ -64,6 +64,7 @@ const App = () => {
         ))}
       </select>
       &nbsp;
+      <WidgetPlaceholder/>
       {stockList.map((widget,widgetI) => (
         <div value={widget.id} key={widget.id} className="flex-container" onDragStart={(e) => onDragStart(e, {widgetI})}>
           <React.Suspense fallback={<WidgetPlaceholder/>}>
