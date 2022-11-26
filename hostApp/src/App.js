@@ -48,21 +48,23 @@ const App = () => {
     setDragging(false);
     const dragItemI = dragItem.current;
     const enteredNodeI = enteredNode.current
-    console.log('dragItemI=',dragItemI);
-    console.log('enteredNodeI=',enteredNodeI);
-    setStockList((prevList) => {
-      let newList = JSON.parse(JSON.stringify(prevList));
-      [newList[enteredNodeI], newList[dragItemI]] = [
-        newList[dragItemI],
-        newList[enteredNodeI],
-      ];
-      localStorage.setItem("stockList", JSON.stringify(newList));
-      return newList;
-    });
-    dragNode.current.removeEventListener("dragend", handleDragEnd);
-    dragItem.current = null;
-    dragNode.current = null;
-    enteredNode.current = null;
+    if(typeof dragItemI === 'number' && typeof enteredNodeI === 'number') {
+      console.log('hey')
+      setStockList((prevList) => {
+        let newList = JSON.parse(JSON.stringify(prevList));
+        [newList[enteredNodeI], newList[dragItemI]] = [
+          newList[dragItemI],
+          newList[enteredNodeI],
+        ];
+        localStorage.setItem("stockList", JSON.stringify(newList));
+        return newList;
+      });
+      dragNode.current.removeEventListener("dragend", handleDragEnd);
+      dragItem.current = null;
+      dragNode.current = null;
+      enteredNode.current = null;
+    }
+    
   };
 
   const handleDragEnter = (e, params) => {
