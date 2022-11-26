@@ -1,10 +1,16 @@
 const StockWidget = React.lazy(() => import("finWidget/StockWidget"));
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import {WidgetPlaceholder} from "./components/WidgetPlaceholder";
 import "./styles.css";
 
 const App = () => {
-  const [stockList, setStockList] = useState([]);
+  const listCache = JSON.parse(localStorage.getItem("stockList")) || [];
+  const [stockList, setStockList] = useState(listCache);
+  const [dragging, setDragging] = useState(false);
+  const dragItem = useRef();
+  const dragNode = useRef();
+
 
   const [allStockList, setAllStockList] = useState([]);
 
@@ -15,22 +21,31 @@ const App = () => {
 
   const handleDelete = (e) => {
     let id = e.target.getAttribute("value");
-    setStockList([...stockList.filter((stock) => stock.id !== id)]);
+    const listToAdd = [...stockList.filter((stock) => stock.id !== id)]
+    setStockList(listToAdd);
+    localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
 
   const handleChange = (e) => {
     e.preventDefault();
     const id = e.target.value;
     const stock = allStockList.filter((stock) => stock.id === id);
+    const listToAdd = [...stockList, ...stock];
     setStockList((prev) => [...prev, ...stock]);
+    localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
+
+  const onDragStart = (e, params) => {
+    const {widgetI} = params;
+    console.log(widgetI)
+  }
 
   useEffect(() => {
     const cancelToken = axios.CancelToken;
     const source = cancelToken.source();
 
     (async () => {
-      const {data} = await axios.get("http://localhost:8000/stocklist");
+      const { data } = await axios.get("http://localhost:8000/stocklist");
       setAllStockList(data);
     })();
   }, []);
@@ -49,11 +64,11 @@ const App = () => {
         ))}
       </select>
       &nbsp;
-      {stockList.map((widget) => (
-        <div key={widget.id} className="flex-container">
-          <React.Suspense fallback="...loading">
-            <StockWidget symbol={widget.id} />
-            <div>
+      {stockList.map((widget,widgetI) => (
+        <div value={widget.id} key={widget.id} className="flex-container" onDragStart={(e) => onDragStart(e, {widgetI})}>
+          <React.Suspense fallback={<WidgetPlaceholder/>}>
+            <div draggable className="flex mt-5">
+              <StockWidget symbol={widget.id} />
               <img
                 value={widget.id}
                 onClick={handleDelete}
