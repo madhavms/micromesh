@@ -9,8 +9,13 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "dist")
     },
-    port: 3001,
-    allowedHosts:['*','http://1395-149-22-129-209.ngrok.io']
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers":
+        "Origin, X-Requested-With, Content-Type, Accept",
+        "Access-Control-Allow-Private-Network": true
+    },
+    port: 3001
   },
   output: {
     path: path.resolve(__dirname, "dist"),
