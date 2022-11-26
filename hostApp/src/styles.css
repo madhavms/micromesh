@@ -32,6 +32,10 @@
   width: 14rem; /* 256px */
 }
 
+.h-52px {
+  height: 52px;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -60,6 +64,10 @@
 
 .text-gray-400 {
   color: rgb(156 163 175);
+}
+
+mt-1 {
+  margin-top: 0.25rem; 
 }
 
 .ml-1 {
