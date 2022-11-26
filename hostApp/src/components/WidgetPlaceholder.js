@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from "moment";
 export const WidgetPlaceholder = () => 
-(<div draggable className="flex mt-5">
+(<div draggable className="flex">
 <Template/>
 <img
 className="image"
@@ -13,6 +13,7 @@ const Template = () =>
 {  
      const varColor = "text-green-500";
     return(
+        <div>
         <div
         className={
           "quote rounded-lg shadow-md p-4 bg-gray-800 w-64 h-52px"
@@ -50,6 +51,7 @@ const Template = () =>
             </div>
           </div>
         </div>
+      </div>
       </div>
     )          
 }

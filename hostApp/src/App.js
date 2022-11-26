@@ -1,7 +1,7 @@
 const StockWidget = React.lazy(() => import("finWidget/StockWidget"));
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import {WidgetPlaceholder} from "./components/WidgetPlaceholder";
+import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
-
+  const enteredNode = useRef();
 
   const [allStockList, setAllStockList] = useState([]);
 
@@ -21,7 +21,7 @@ const App = () => {
 
   const handleDelete = (e) => {
     let id = e.target.getAttribute("value");
-    const listToAdd = [...stockList.filter((stock) => stock.id !== id)]
+    const listToAdd = [...stockList.filter((stock) => stock.id !== id)];
     setStockList(listToAdd);
     localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
@@ -35,10 +35,45 @@ const App = () => {
     localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
 
-  const onDragStart = (e, params) => {
-    const {widgetI} = params;
-    console.log(widgetI)
-  }
+  const handleDragStart = (e, params) => {
+    const { widgetI } = params;
+    dragItem.current = widgetI;
+    dragNode.current = e.target;
+    dragNode.current.addEventListener("dragend", handleDragEnd);
+    setTimeout(() => setDragging(true), 0);
+  };
+
+  const handleDragEnd = () => {
+    console.log("Ending drag...");
+    setDragging(false);
+    dragNode.current.removeEventListener("dragend", handleDragEnd);
+    dragItem.current = null;
+    dragNode.current = null;
+    enteredNode.current = null;
+  };
+
+  const handleDragEnter = (e, params) => {
+    let { widgetI } = params;
+    const currentItem = dragItem.current;
+    
+    if (currentItem!==widgetI && enteredNode.current != currentItem) {
+      console.log("TARGET IS NOT THE SAME");
+      console.log(`currentItem = ${currentItem}`);
+      console.log("Entering drag. widgetI = ", widgetI);
+      enteredNode.current = currentItem;
+      setStockList((prevList) => {
+        let newList = JSON.parse(JSON.stringify(prevList));
+        [newList[currentItem], newList[widgetI]] = [
+          newList[widgetI],
+          newList[currentItem],
+        ];
+        localStorage.setItem("stockList", JSON.stringify(newList));
+        return newList;
+      });
+    }
+  };
+
+  const handleDragOver = (e) => e.preventDefault();
 
   useEffect(() => {
     const cancelToken = axios.CancelToken;
@@ -64,21 +99,28 @@ const App = () => {
         ))}
       </select>
       &nbsp;
-      <WidgetPlaceholder/>
-      {stockList.map((widget,widgetI) => (
-        <div value={widget.id} key={widget.id} className="flex-container" onDragStart={(e) => onDragStart(e, {widgetI})}>
-          <React.Suspense fallback={<WidgetPlaceholder/>}>
-            <div draggable className="flex mt-5">
-              <StockWidget symbol={widget.id} />
-              <img
-                value={widget.id}
-                onClick={handleDelete}
-                className="image"
-                src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
-              ></img>
-            </div>
+      {stockList.map((widget, widgetI) => (
+        <div
+          draggable
+          value={widget.id}
+          key={widget.id}
+          onDragOver={handleDragOver}
+          onDragStart={(e) => handleDragStart(e, { widgetI })}
+          onDragEnter={dragging ? (e) => handleDragEnter(e, { widgetI }) : null}
+          className="flex mt-5"
+        >
+          <React.Suspense fallback={<WidgetPlaceholder />}>
+            <StockWidget symbol={widget.id} />
+            <img
+              value={widget.id}
+              onClick={handleDelete}
+              className="image"
+              src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
+            ></img>
           </React.Suspense>
+
         </div>
+        
       ))}
     </div>
   );
