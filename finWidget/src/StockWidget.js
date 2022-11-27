@@ -24,38 +24,35 @@ function StockWidget(props) {
   }, []);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:8000/stocks/${props.symbol}?v=${uniqueId}`)
-      .then((response) => {
-        if (!response.data || !props?.symbol) {
-          return;
-        }
-        const stockDetail = response.data;
+    (async () => {
+      const { data } = await axios.get(
+        `http://localhost:8000/stocks/${props.symbol}?v=${uniqueId}`
+      );
+      if (!data || !props?.symbol) {
+        return;
+      }
 
-        setStock({
-          stockExchange: stockDetail.stock_exchange,
-          name: stockDetail.name,
-        });
+      const stockDetail = data;
 
-        setQuote({
-          price: stockDetail.last,
-          var:
-            Math.trunc(-(1 - stockDetail.last / stockDetail.open) * 10000) /
-            100,
-          time: moment(stockDetail.date).format("YYYY-MM-DD HH:mm"),
-        });
+      setStock({
+        stockExchange: stockDetail.stock_exchange,
+        name: stockDetail.name,
       });
+
+      setQuote({
+        price: stockDetail.last,
+        var:
+          Math.trunc(-(1 - stockDetail.last / stockDetail.open) * 10000) / 100,
+        time: moment(stockDetail.date).format("YYYY-MM-DD HH:mm"),
+      });
+    })();
   }, [uniqueId]);
 
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
 
   return (
     !!props.symbol && (
-      <div
-        className={
-          "quote rounded-lg shadow-md p-4 bg-gray-800 w-64"
-        }
-      >
+      <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64"}>
         <span className={"quoteSymbol text-sm text-white font-bold"}>
           {props.symbol}
         </span>
