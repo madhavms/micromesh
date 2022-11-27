@@ -78,12 +78,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    const cancelToken = axios.CancelToken;
-    const source = cancelToken.source();
 
     (async () => {
+      try{
       const { data } = await axios.get("http://localhost:8000/stocklist");
       setAllStockList(data);
+      }
+      catch(err){
+        console.log('Error while fetching data',err)
+      }
     })();
   }, []);
 
@@ -112,13 +115,7 @@ const App = () => {
           className="flex mt-5"
         >
           <React.Suspense fallback={<WidgetPlaceholder />}>
-            <StockWidget symbol={widget.id} />
-            <img
-              value={widget.id}
-              onClick={handleDelete}
-              className="image"
-              src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
-            ></img>
+            <StockWidget symbol={widget.id} handleDelete={handleDelete}/>
           </React.Suspense>
         </div>
       ))}
