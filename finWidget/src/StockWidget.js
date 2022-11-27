@@ -57,7 +57,7 @@ function StockWidget(props) {
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
 
   return !!props.symbol && !isError ? (
-    <Widget props={props} stock={stock} quote={quote} varColor={varColor} />
+    <Widget props={props} stock={stock} quote={quote} varColor={varColor} symbol={props.symbol} handleDelete={props.handleDelete}/>
   ) : (
     <ErrorWidget />
   );
