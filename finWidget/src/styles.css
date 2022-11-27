@@ -100,3 +100,7 @@
 .text-center {
   text-align: center;
 }
+
+.relative {
+  position: relative;
+}
