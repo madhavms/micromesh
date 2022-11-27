@@ -23,6 +23,8 @@ This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 r
 
 ### Host Application Demo
 
+The host application shown below has added a drag and drop functionality using the widget.
+
 ![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
 ### Remote Application Demo
