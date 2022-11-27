@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import axios from "axios";
+import {ErrorWidget} from './components/ErrorWidget'
 
 function StockWidget(props) {
   const [uniqueId, setUniqueId] = useState("");
@@ -55,7 +56,8 @@ function StockWidget(props) {
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
 
   return (
-    !!props.symbol &&(
+    
+    !!props.symbol && !isError ? (
       <div className="flex">
       <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64"}>
         <span className={"quoteSymbol text-sm text-white font-bold"}>
@@ -98,7 +100,8 @@ function StockWidget(props) {
         src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
       ></img>
       </div>
-    )
+    ):<ErrorWidget/>
+    
   );
 }
 
