@@ -4,6 +4,7 @@ import axios from "axios";
 
 function StockWidget(props) {
   const [uniqueId, setUniqueId] = useState("");
+  const [isError, setIsError] = useState(false);
 
   const [quote, setQuote] = useState({
     price: "--",
@@ -25,33 +26,37 @@ function StockWidget(props) {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios.get(
-        `http://localhost:8000/stocks/${props.symbol}?v=${uniqueId}`
-      );
-      if (!data || !props?.symbol) {
-        return;
+        try{
+          const {data} = await axios.get(`http://localhost:8000/stocks/${props.symbol}?v=${uniqueId}`)
+          setIsError(false)
+          if (!data || !props?.symbol) {
+            return;
+          }
+          const stockDetail = data;
+          setStock({
+            stockExchange: stockDetail.stock_exchange,
+            name: stockDetail.name,
+          });
+          setQuote({
+            price: stockDetail.last,
+            var:
+              Math.trunc(-(1 - stockDetail.last / stockDetail.open) * 10000) / 100,
+            time: moment(stockDetail.date).format("YYYY-MM-DD HH:mm"),
+          });
       }
-
-      const stockDetail = data;
-
-      setStock({
-        stockExchange: stockDetail.stock_exchange,
-        name: stockDetail.name,
-      });
-
-      setQuote({
-        price: stockDetail.last,
-        var:
-          Math.trunc(-(1 - stockDetail.last / stockDetail.open) * 10000) / 100,
-        time: moment(stockDetail.date).format("YYYY-MM-DD HH:mm"),
-      });
-    })();
+      catch(error){
+        setIsError(true)
+      }
+    } 
+    )();
+        
   }, [uniqueId]);
 
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
 
   return (
-    !!props.symbol && (
+    !!props.symbol &&(
+      <div className="flex">
       <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64"}>
         <span className={"quoteSymbol text-sm text-white font-bold"}>
           {props.symbol}
@@ -85,6 +90,13 @@ function StockWidget(props) {
             </div>
           </div>
         </div>
+      </div>
+      <img
+        value={props.symbol}
+        onClick={props.handleDelete}
+        className="image"
+        src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
+      ></img>
       </div>
     )
   );
