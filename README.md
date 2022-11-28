@@ -9,7 +9,7 @@ This repository is a monorepo managed with lerna and yarn workspaces.
 
 In this application a stock price widget is loaded at runtime into a host system. The widget receives dummy stock prices from the API written using Python FASTAPI framework.
 
-Usage of widget component:
+Usage of remote widget component:
 1. Lazy load the widget component.
 2. Pass the widget id and the callback to handle widget delete in host application.
 
