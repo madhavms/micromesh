@@ -1,8 +1,8 @@
 const StockWidget = React.lazy(() => import("finWidget/StockWidget"));
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
+import { useFetch } from "./utils/UtilHooks";
 
 const App = () => {
   const listCache = JSON.parse(localStorage.getItem("stockList")) || [];
@@ -11,8 +11,7 @@ const App = () => {
   const dragItem = useRef();
   const dragNode = useRef();
   const enteredNode = useRef();
-
-  const [allStockList, setAllStockList] = useState([]);
+  const allStockList = useFetch("http://localhost:8000/stocklist")
 
   const stockFilter = (stock) => {
     let list = stockList.map((listItem) => listItem.id);
@@ -76,19 +75,6 @@ const App = () => {
   const handleDragOver = (e) => {
     e.preventDefault();
   };
-
-  useEffect(() => {
-
-    (async () => {
-      try{
-      const { data } = await axios.get("http://localhost:8000/stocklist");
-      setAllStockList(data);
-      }
-      catch(err){
-        console.log('Error while fetching data',err)
-      }
-    })();
-  }, []);
 
   return (
     <div className="container">
