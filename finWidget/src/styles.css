@@ -1,3 +1,17 @@
+.fin-widget {
+  width: 250px; 
+  margin-top: 20px;
+}
+
+.redbutton{
+  background-color: #f44336;
+  padding: 15px;
+  border-radius: 10px;
+  color:white;
+  font-weight: bold;
+  font-size: 15px;
+} /* Red */
+
 .rounded-lg {
   border-radius: 0.5rem;
 }
@@ -16,6 +30,10 @@
 
 .w-64 {
   width: 14rem; /* 256px */
+}
+
+.h-52px {
+  height: 52px;
 }
 
 .m-auto {
@@ -46,6 +64,10 @@
 
 .text-gray-400 {
   color: rgb(156 163 175);
+}
+
+mt-1 {
+  margin-top: 0.25rem; 
 }
 
 .ml-1 {
@@ -101,13 +123,42 @@
   text-align: center;
 }
 
-.relative {
-  position: relative;
-}
-
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.select {
+  width: 240px;
+  padding: 15px;
+  margin-top: 30px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.spacer {
+  width:100px;
+  height:100px;
+  margin:10px;
+}
+
+.image {
+  margin: 10px;
+  width:30px;
+  height:30px;
+}
+
+.image:hover {
+  cursor: pointer
 }
