@@ -5,7 +5,7 @@ const App = (props) => {
   return (
     <div>
       <h1 className="text-center">Remote Application</h1>
-      <div className="container flex mt-5">
+      <div className="container">
       <StockWidget symbol="AAPL"/>
       </div>
     </div>
