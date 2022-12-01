@@ -8,15 +8,4 @@ const rootElement = document.getElementById("root");
 
 ReactDOM.render(<App />, rootElement);
 
-const widgetDivs = document.querySelectorAll(".fin-widget");
 
-const Widget = (props) => (
-  <React.Suspense fallback="Loading Button">
-    <StockWidget symbol={props.symbol} />
-  </React.Suspense>
-);
-
-// Inject our React App into each class
-widgetDivs.forEach((div) => {
-  ReactDOM.render(<Widget symbol={div.dataset.symbol} />, div);
-});
