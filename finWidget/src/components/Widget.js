@@ -44,6 +44,8 @@ const Widget = (props) => {
         value={props.symbol}
         onClick={props.handleDelete}
         className="image"
+        width="30px"
+        height="30px"
         src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
       ></img>
       </div>
