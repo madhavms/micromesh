@@ -2,6 +2,8 @@
 
 This is an Micro-frontend host remote system implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote systems using the webpack module federation plugin.
 
+In this application the widget(remote application) styles have been are isolated from host using style injection in shadow dom where the remotes are attached.
+
 This repository is a monorepo managed with lerna and yarn workspaces.
 
 - `hostApp` is the host application (http://localhost:3000).
