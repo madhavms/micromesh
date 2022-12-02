@@ -7,19 +7,19 @@ module.exports = {
   mode: "development",
   devServer: {
     static: {
-      directory: path.join(__dirname, "dist")
+      directory: path.join(__dirname, "dist"),
     },
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers":
         "Origin, X-Requested-With, Content-Type, Accept",
-        "Access-Control-Allow-Private-Network": true
+      "Access-Control-Allow-Private-Network": true,
     },
-    port: 3001
+    port: 3001,
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "bundle.js",
   },
   module: {
     rules: [
@@ -28,17 +28,27 @@ module.exports = {
         loader: "babel-loader",
         exclude: /node_modules/,
         options: {
-          presets: ["@babel/preset-react"]
-        }
+          presets: ["@babel/preset-react"],
+        },
       },
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader'
-        ]
-      }
-    ]
+          {
+            loader: "style-loader",
+            options: {
+              insert: (element) => {
+                window["widget-style"] = element;
+                var parent = options.target || document.head;
+
+                parent.appendChild(element);
+              },
+            },
+          },
+          "css-loader",
+        ],
+      },
+    ],
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -46,9 +56,9 @@ module.exports = {
       library: { type: "var", name: "finWidget" },
       filename: "widgetRemote.js",
       exposes: {
-        "./StockWidget": "./src/StockWidget.js"
+        "./StockWidget": "./src/StockWidget.js",
       },
-      shared: { react: { singleton: true }, "react-dom": { singleton: true } }
-    })
-  ]
+      shared: { react: { singleton: true }, "react-dom": { singleton: true } },
+    }),
+  ],
 };
