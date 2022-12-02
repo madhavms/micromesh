@@ -3,11 +3,12 @@ import moment from "moment";
 import axios from "axios";
 import { ErrorWidget } from "./components/ErrorWidget";
 import Widget from "./components/Widget";
+import "./styles.css";
 
 function StockWidget(props) {
   const [uniqueId, setUniqueId] = useState("");
   const [isError, setIsError] = useState(false);
-
+  const {setWidgetStyle, widgetStyle} = props;
   const [quote, setQuote] = useState({
     price: "--",
     var: "--",
@@ -22,6 +23,10 @@ function StockWidget(props) {
     const id = setInterval(() => {
       setUniqueId(new Date().getTime()); // get a unique id - this grabs seconds since unix epoch
     }, 3000);
+
+    if(!!window['widget-style'] && !widgetStyle && typeof setWidgetStyle === 'function'){
+      setWidgetStyle(window['widget-style'])
+    }
 
     return () => clearInterval(id);
   }, []);
@@ -55,7 +60,6 @@ function StockWidget(props) {
   }, [uniqueId]);
 
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
-
   return !!props.symbol && !isError ? (
     <Widget props={props} stock={stock} quote={quote} varColor={varColor} symbol={props.symbol} handleDelete={props.handleDelete}/>
   ) : (
