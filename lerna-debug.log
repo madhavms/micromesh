@@ -1,0 +1,18 @@
+0 silly argv {
+0 silly argv   _: [ 'run' ],
+0 silly argv   parallel: true,
+0 silly argv   lernaVersion: '6.0.3',
+0 silly argv   '$0': '/Users/madhavmanohar/Desktop/react-host-remote/node_modules/.bin/lerna',
+0 silly argv   script: 'start'
+0 silly argv }
+1 notice cli v6.0.3
+2 verbose rootPath /Users/madhavmanohar/Desktop/react-host-remote
+3 verbose run nx.json was not found or is missing targetDefaults. Task dependencies will not be automatically included.
+4 error SystemError [ERR_TTY_INIT_FAILED]: TTY initialization failed: uv_tty_init returned EINVAL (invalid argument)
+4 error     at new SystemError (node:internal/errors:234:5)
+4 error     at new NodeError (node:internal/errors:337:7)
+4 error     at new ReadStream (node:tty:56:11)
+4 error     at process.getStdin [as stdin] (node:internal/bootstrap/switches/is_main_thread:156:15)
+4 error     at /Users/madhavmanohar/Desktop/react-host-remote/node_modules/nx/src/tasks-runner/run-command.js:143:21
+4 error     at Generator.next (<anonymous>)
+4 error     at fulfilled (/Users/madhavmanohar/Desktop/react-host-remote/node_modules/tslib/tslib.js:115:62)
