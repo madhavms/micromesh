@@ -163,3 +163,6 @@ mt-1 {
   cursor: pointer
 }
 
+.cursor:hover {
+  cursor: pointer;
+}
