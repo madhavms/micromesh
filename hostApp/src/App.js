@@ -100,7 +100,7 @@ const App = () => {
           onDragOver={handleDragOver}
           onDragStart={(e) => handleDragStart(e, { widgetI })}
           onDragEnter={dragging ? (e) => handleDragEnter(e, { widgetI }) : null}
-          className="flex mt-5"
+          className="flex mt-5 cursor"
         >
           <React.Suspense fallback={<WidgetPlaceholder />}>
             <ShadowRoot id={widget.id} style={widgetStyle} placeholder={<WidgetPlaceholder />}>
