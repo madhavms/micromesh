@@ -15,8 +15,11 @@ const Template = () => {
   return (
     <div>
       <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64 h-52px"}>
-      <span className="text-white">Sorry unable to load data. <br/>Please contact support.    
-      <br/> (+44 0000 000000)</span>
+        <span className="text-white">
+          Sorry unable to load data. <br />
+          Please contact support.
+          <br /> (+44 0000 000000)
+        </span>
       </div>
     </div>
   );

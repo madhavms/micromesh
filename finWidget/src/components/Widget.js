@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 const Widget = (props) => {
-  const {stock} = props;
-  const {quote} = props;
-  const {varColor} = props;
+  const { stock } = props;
+  const { quote } = props;
+  const { varColor } = props;
   return (
     <div className="flex relative">
       <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64"}>
@@ -48,8 +48,8 @@ const Widget = (props) => {
         height="30px"
         src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
       ></img>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Widget
+export default Widget;

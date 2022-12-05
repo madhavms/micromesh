@@ -103,7 +103,11 @@ const App = () => {
           className="flex mt-5 cursor"
         >
           <React.Suspense fallback={<WidgetPlaceholder />}>
-            <ShadowRoot id={widget.id} style={widgetStyle} placeholder={<WidgetPlaceholder />}>
+            <ShadowRoot
+              id={widget.id}
+              style={widgetStyle}
+              placeholder={<WidgetPlaceholder />}
+            >
               <StockWidget
                 symbol={widget.id}
                 handleDelete={handleDelete}

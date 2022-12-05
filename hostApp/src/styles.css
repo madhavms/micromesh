@@ -1,13 +1,13 @@
 .fin-widget {
-  width: 250px; 
+  width: 250px;
   margin-top: 20px;
 }
 
-.redbutton{
+.redbutton {
   background-color: #f44336;
   padding: 15px;
   border-radius: 10px;
-  color:white;
+  color: white;
   font-weight: bold;
   font-size: 15px;
 } /* Red */
@@ -67,7 +67,7 @@
 }
 
 mt-1 {
-  margin-top: 0.25rem; 
+  margin-top: 0.25rem;
 }
 
 .ml-1 {
@@ -139,28 +139,27 @@ mt-1 {
   font-size: 1rem;
 }
 
-.flex-container{
+.flex-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  
 }
 
 .spacer {
-  width:100px;
-  height:100px;
-  margin:10px;
+  width: 100px;
+  height: 100px;
+  margin: 10px;
 }
 
 .image {
   margin: 10px;
-  width:30px;
-  height:30px;
+  width: 30px;
+  height: 30px;
 }
 
 .image:hover {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .cursor:hover {
