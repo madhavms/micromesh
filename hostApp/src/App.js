@@ -1,6 +1,6 @@
 const StockWidget = React.lazy(() => import("finWidget/StockWidget"));
 import React, { useState } from "react";
-import { DragNDrop } from "./components/DragNDrap";
+import { DragNDrop } from "./components/DragNDrop";
 import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
