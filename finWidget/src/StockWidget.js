@@ -4,9 +4,10 @@ import axios from "axios";
 import { ErrorWidget } from "./components/ErrorWidget";
 import Widget from "./components/Widget";
 import "./styles.css";
+import { useUniqueId } from "./utils/Hooks";
 
 function StockWidget(props) {
-  const [uniqueId, setUniqueId] = useState("");
+  const uniqueId = useUniqueId();
   const [isError, setIsError] = useState(false);
   const {setWidgetStyle, widgetStyle} = props;
   const [quote, setQuote] = useState({
@@ -20,15 +21,9 @@ function StockWidget(props) {
   });
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setUniqueId(new Date().getTime()); // get a unique id - this grabs seconds since unix epoch
-    }, 3000);
-
     if(!!window['widget-style'] && !widgetStyle && typeof setWidgetStyle === 'function'){
       setWidgetStyle(window['widget-style'])
     }
-
-    return () => clearInterval(id);
   }, []);
 
   useEffect(() => {
