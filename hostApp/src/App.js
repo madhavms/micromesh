@@ -1,5 +1,6 @@
 const StockWidget = React.lazy(() => import("finWidget/StockWidget"));
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import { DragNDrop } from "./components/DragNDrap";
 import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
@@ -9,10 +10,6 @@ const App = () => {
   const listCache = JSON.parse(localStorage.getItem("stockList")) || [];
   const [stockList, setStockList] = useState(listCache);
   const [widgetStyle, setWidgetStyle] = useState("");
-  const [dragging, setDragging] = useState(false);
-  const dragItem = useRef();
-  const dragNode = useRef();
-  const enteredNode = useRef();
   const allStockList = useFetch("http://localhost:8000/stocklist");
 
   const stockFilter = (stock) => {
@@ -36,48 +33,6 @@ const App = () => {
     localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
 
-  const handleDragStart = (e, params) => {
-    const { widgetI } = params;
-    dragItem.current = widgetI;
-    dragNode.current = e.target;
-    dragNode.current.addEventListener("dragend", handleDragEnd);
-    setTimeout(() => setDragging(true), 0);
-  };
-
-  const handleDragEnd = () => {
-    setDragging(false);
-    const dragItemI = dragItem.current;
-    const enteredNodeI = enteredNode.current;
-    if (typeof dragItemI === "number" && typeof enteredNodeI === "number") {
-      setStockList((prevList) => {
-        let newList = JSON.parse(JSON.stringify(prevList));
-        [newList[enteredNodeI], newList[dragItemI]] = [
-          newList[dragItemI],
-          newList[enteredNodeI],
-        ];
-        localStorage.setItem("stockList", JSON.stringify(newList));
-        return newList;
-      });
-      dragNode.current.removeEventListener("dragend", handleDragEnd);
-      dragItem.current = null;
-      dragNode.current = null;
-      enteredNode.current = null;
-    }
-  };
-
-  const handleDragEnter = (e, params) => {
-    let { widgetI } = params;
-    const currentItem = dragItem.current;
-
-    if (currentItem !== widgetI && enteredNode.current != currentItem) {
-      enteredNode.current = widgetI;
-    }
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
-  };
-
   return (
     <div className="container">
       <h1 className="text-center">Host Application</h1>
@@ -93,14 +48,11 @@ const App = () => {
       </select>
       &nbsp;
       {stockList.map((widget, widgetI) => (
-        <div
+        <DragNDrop
           key={widget.id}
-          draggable
-          value={widget.id}
-          onDragOver={handleDragOver}
-          onDragStart={(e) => handleDragStart(e, { widgetI })}
-          onDragEnter={dragging ? (e) => handleDragEnter(e, { widgetI }) : null}
-          className="flex mt-5 cursor"
+          id={widget.id}
+          widgetI={widgetI}
+          setStockList={setStockList}
         >
           <React.Suspense fallback={<WidgetPlaceholder />}>
             <ShadowRoot
@@ -116,7 +68,7 @@ const App = () => {
               />
             </ShadowRoot>
           </React.Suspense>
-        </div>
+        </DragNDrop>
       ))}
     </div>
   );
