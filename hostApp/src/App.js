@@ -8,19 +8,19 @@ import { useFetch } from "./utils/UtilHooks";
 
 const App = () => {
   const listCache = JSON.parse(localStorage.getItem("stockList")) || [];
-  const [stockList, setStockList] = useState(listCache);
+  const [displayStockList, setDisplayStockList] = useState(listCache);
   const [widgetStyle, setWidgetStyle] = useState("");
   const allStockList = useFetch("http://localhost:8000/stocklist");
 
   const stockFilter = (stock) => {
-    let list = stockList.map((listItem) => listItem.id);
+    let list = displayStockList.map((listItem) => listItem.id);
     return !list.includes(stock.id);
   };
 
   const handleDelete = (e) => {
     let id = e.target.getAttribute("value");
-    const listToAdd = [...stockList.filter((stock) => stock.id !== id)];
-    setStockList(listToAdd);
+    const listToAdd = [...displayStockList.filter((stock) => stock.id !== id)];
+    setDisplayStockList(listToAdd);
     localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
 
@@ -28,8 +28,8 @@ const App = () => {
     e.preventDefault();
     const id = e.target.value;
     const stock = allStockList.filter((stock) => stock.id === id);
-    const listToAdd = [...stockList, ...stock];
-    setStockList((prev) => [...prev, ...stock]);
+    const listToAdd = [...displayStockList, ...stock];
+    setDisplayStockList((prev) => [...prev, ...stock]);
     localStorage.setItem("stockList", JSON.stringify(listToAdd));
   };
 
@@ -47,12 +47,12 @@ const App = () => {
         ))}
       </select>
       &nbsp;
-      {stockList.map((widget, widgetI) => (
+      {displayStockList.map((widget, widgetI) => (
         <DragNDrop
           key={widget.id}
           id={widget.id}
           widgetI={widgetI}
-          setStockList={setStockList}
+          setDisplayStockList={setDisplayStockList}
         >
           <React.Suspense fallback={<WidgetPlaceholder />}>
             <ShadowRoot

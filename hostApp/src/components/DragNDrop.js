@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from 'react'
 import { DragContextProvider } from '../utils/DragContext';
 import {DragContext} from '../utils/DragContext'
 
-export const DragNDrop = ({children, id, widgetI, setStockList}) => {
+export const DragNDrop = ({children, id, widgetI, setDisplayStockList}) => {
 
     const [dragging, setDragging, dragItem, dragNode, enteredNode] = useContext(DragContext);
     
@@ -20,7 +20,7 @@ export const DragNDrop = ({children, id, widgetI, setStockList}) => {
         const enteredNodeI = enteredNode.current;
         console.log(dragItemI,enteredNodeI )
         if (typeof dragItemI === "number" && typeof enteredNodeI === "number") {
-          setStockList((prevList) => {
+          setDisplayStockList((prevList) => {
             let newList = JSON.parse(JSON.stringify(prevList));
             [newList[enteredNodeI], newList[dragItemI]] = [
               newList[dragItemI],
