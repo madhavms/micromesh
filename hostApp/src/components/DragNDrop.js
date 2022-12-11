@@ -14,7 +14,7 @@ export const DragNDrop = ({ children, id, widgetI, setDisplayStockList }) => {
     setTimeout(() => setDragging(true), 0);
   };
 
-  const handleDragEnd = () => {
+  const handleDragEnd = (e) => {
     setDragging(false);
     const dragItemI = dragItem.current;
     const enteredNodeI = enteredNode.current;
