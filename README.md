@@ -9,7 +9,7 @@ This repository is a monorepo managed with lerna and yarn workspaces.
 - `hostApp` is the host application (http://localhost:3000).
 - `finWidget` is a standalone application which exposes `StockWidget` component (http://localhost:3001).
 
-In this application a stock price widget is loaded at runtime into a host system. The widget receives dummy stock prices from the API written using Python FASTAPI framework.
+In this application a stock price widget is loaded at runtime into a host system. The widget receives dummy stock prices from Websocket API written using Python FASTAPI framework. Websocket enables receiving real time stock price values.
 
 Usage of remote widget component:
 1. Lazy load the widget component.
