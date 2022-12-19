@@ -1,17 +1,21 @@
-## React Microfrontend Host-Remote Systems. Financial Widgets used as remote system.
+## React Microfrontend Host-Remote System
 
-This is an Micro-frontend host remote system implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote widget using the webpack module federation plugin.
+This is an Micro-frontend host remote system to load financial widgets implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote widget using the webpack module federation plugin.
 
+### Style Isolation:
 In this application the widget(remote application) styles are isolated from host using style injection in shadow dom where the remotes are attached.
 
+### Repository Management: 
 This repository is a monorepo managed with lerna and yarn workspaces.
 
 - `hostApp` is the host application (http://localhost:3000).
 - `finWidget` is a standalone application which exposes `StockWidget` component (http://localhost:3001).
 
+### Python FastAPI Backend Serivce (Websocket Communication):
 In this application a stock price widget is loaded at runtime into a host system. The widget receives dummy stock prices from Websocket API written using Python FASTAPI framework. Websocket enables receiving real time stock price values.
 
-Usage of remote widget component:
+
+### Usage of remote widget component:
 1. Lazy load the widget component.
 2. Pass the widget id and the callback to handle widget delete in host application.
 
