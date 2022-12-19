@@ -1,23 +1,9 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import axios from "axios";
 
-const useUniqueId = () => {
-  const [uniqueId, setUniqueId] = useState("00000");
-  useEffect(() => {
-    const id = setInterval(() => {
-      setUniqueId(new Date().getTime()); // get a unique id - this grabs seconds since unix epoch
-    }, 3000);
-
-    return () => clearInterval(id);
-  }, []);
-
-  return uniqueId;
-};
 
 export const useStockData = (symbol) => {
     const [isError, setIsError] = useState(false);
-    const uniqueId = useUniqueId();
     const [quote, setQuote] = useState({
         price: "--",
         var: "--",
@@ -28,18 +14,15 @@ export const useStockData = (symbol) => {
         name: "N/A",
       });
 
-    useEffect(() => {
-        
-        (async () => {
-          try {
-            const { data } = await axios.get(
-              `http://localhost:8000/stocks/${symbol}?v=${uniqueId}`
-            );
-
-            if (!data || !symbol) {
-              return;
-            }
-            setIsError(false);
+      useEffect(() => {
+        const ws = new WebSocket(`ws://localhost:8000/stockprices/${symbol}`);
+        ws.onopen = () => {
+          console.log("Websocket connection established");
+        };
+        ws.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+          console.log(data)
+          setIsError(false);
             const stockDetail = data;
             setStock({
               stockExchange: stockDetail.stock_exchange,
@@ -52,10 +35,16 @@ export const useStockData = (symbol) => {
                 100,
               time: moment(stockDetail.date).format("YYYY-MM-DD HH:mm"),
             });
-          } catch (error) {
-            setIsError(true);
-          }
-        })();
-      }, [uniqueId]); 
+        };
+        ws.onerror = (error) => {
+          setIsError(true);
+          console.error(error);
+        };
+        return () => {
+          ws.close();
+        };
+      }, [symbol]);
+        
+
       return {isError, quote, stock}
 }
