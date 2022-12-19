@@ -15,13 +15,13 @@ This repository is a monorepo managed with lerna and yarn workspaces.
 The widget receives dummy stock prices from the Websocket API written using Python FASTAPI framework. Websocket enables receiving real time stock price values.
 
 
-## Starting the Frontend App:
+### Starting the Frontend App:
 
 Run `yarn start`.
 
 This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 respectively.
 
-## Starting the Python API Service:
+### Starting the Python API Service:
 
 1. `cd finAPI/stockapi`
 
