@@ -21,7 +21,6 @@ export const useStockData = (symbol) => {
         };
         ws.onmessage = (event) => {
           const data = JSON.parse(event.data);
-          console.log(data)
           setIsError(false);
             const stockDetail = data;
             setStock({
