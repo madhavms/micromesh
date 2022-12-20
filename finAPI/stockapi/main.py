@@ -1,17 +1,12 @@
 from fastapi import FastAPI, WebSocket
-from redis_om import get_redis_connection, HashModel
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
-import websockets
 import json
 import random
 import asyncio
 import json
 import random
-
-
 from utils import global_var
-
 from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
@@ -77,7 +72,7 @@ async def generate_stock_prices(websocket, symbol):
                 data_to_send = add_variance(stock_data)
         # Send the dummy stock price to the client
         await websocket.send_text(json.dumps(data_to_send))
-        await asyncio.sleep(3)
+        await asyncio.sleep(2)
 
 @app.websocket("/stockprices/{symbol}")
 async def websocket_endpoint(websocket: WebSocket, symbol: str):
