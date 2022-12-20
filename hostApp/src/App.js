@@ -1,6 +1,7 @@
 const StockWidget = React.lazy(() => import("finWidget/StockWidget"));
 import React, { useState } from "react";
 import { DragNDrop } from "./components/DragNDrop";
+import Navbar from "./components/Navbar";
 import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
@@ -34,8 +35,9 @@ const App = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="text-center">Host Application</h1>
+    <div>
+      <Navbar className="nav"/>
+      <div className="container">
       <select onChange={handleChange} className="select" value="">
         <option key="empty" value="" disabled>
           Select a stock
@@ -47,6 +49,7 @@ const App = () => {
         ))}
       </select>
       &nbsp;
+      <div className="grid-container">
       {displayStockList.map((widget, widgetI) => (
         <DragNDrop
           key={widget.id}
@@ -70,6 +73,8 @@ const App = () => {
           </React.Suspense>
         </DragNDrop>
       ))}
+      </div>
+      </div>
     </div>
   );
 };
