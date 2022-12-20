@@ -5,7 +5,7 @@ const Widget = (props) => {
   const { quote } = props;
   const { varColor } = props;
   return (
-    <div className="flex relative">
+    <div className="flex relative widget-container">
       <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64"}>
         <span className={"quoteSymbol text-sm text-white font-bold"}>
           {props.symbol}
@@ -43,10 +43,10 @@ const Widget = (props) => {
       <img
         value={props.symbol}
         onClick={props.handleDelete}
-        className="image"
+        className="image close-button"
         width="30px"
         height="30px"
-        src="https://gist.githubusercontent.com/madhavms/8cb87494048689fe98177ed2bb6ba329/raw/4d5b97da61310840957cf83fc101004f117a9947/trashcan.svg"
+        src="https://gist.githubusercontent.com/madhavms/3a399c50af05007ff9ab74701a1cb062/raw/ac6d9229c5bb5ce22c92cf045489bf4d904b6246/close-icon.svg"
       ></img>
     </div>
   );
