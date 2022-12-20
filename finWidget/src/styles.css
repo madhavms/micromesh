@@ -159,6 +159,16 @@ mt-1 {
   height:30px;
 }
 
+.widget-container {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .image:hover {
   cursor: pointer
 }
