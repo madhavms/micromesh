@@ -3,6 +3,10 @@
   margin-top: 20px;
 }
 
+* {
+  margin: 0px;
+}
+
 .redbutton{
   background-color: #f44336;
   padding: 15px;
