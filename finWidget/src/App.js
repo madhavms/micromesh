@@ -1,11 +1,13 @@
 import React from "react";
+import Navbar from "./components/Navbar";
 import StockWidget from "./StockWidget";
 
 const App = (props) => {
   return (
     <div>
-      <h1 className="text-center">Remote Application</h1>
+      <Navbar/>
       <div className="container">
+      <br/><br/><br/><br/><br/>
       <StockWidget symbol="AAPL"/>
       </div>
     </div>
