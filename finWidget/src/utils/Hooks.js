@@ -47,3 +47,5 @@ export const useStockData = (symbol) => {
 
       return {isError, quote, stock}
 }
+
+
