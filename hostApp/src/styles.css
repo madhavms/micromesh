@@ -3,6 +3,10 @@
   margin-top: 20px;
 }
 
+* {
+margin:0px;
+}
+
 .redbutton {
   background-color: #f44336;
   padding: 15px;
@@ -164,4 +168,14 @@ mt-1 {
 
 .cursor:hover {
   cursor: pointer;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+}
+
+body {
+  background: #f5f5f5;
 }
