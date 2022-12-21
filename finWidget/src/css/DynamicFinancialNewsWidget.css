@@ -1,0 +1,40 @@
+.dynamic-financial-news-widget {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.news-item {
+  width: calc(50% - 10px);
+  margin: 10px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.news-item-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.news-item-description {
+  font-size: 14px;
+  margin: 10px;
+  color: #666;
+}
+
+.news-item-link {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #337ab7;
+  text-align: right;
+  margin: 10px;
+}
+
+.news-item-link:hover {
+  text-decoration: underline;
+}
