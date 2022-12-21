@@ -1,4 +1,4 @@
-## React Microfrontend Host-Remote System
+## React Microfrontend Host-Remote System with Style Isolation
 
 This is an Micro-frontend host remote system to load financial widgets implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote widget using the webpack module federation plugin.
 
