@@ -4,6 +4,7 @@ import moment from "moment";
 
 export const useStockData = (symbol) => {
     const [isError, setIsError] = useState(false);
+    const [websocket, setWebsocket] = useState(null);
     const [quote, setQuote] = useState({
         price: "--",
         var: "--",
@@ -14,7 +15,7 @@ export const useStockData = (symbol) => {
         name: "N/A",
       });
 
-      useEffect(() => {
+      const connectWebsocket = () => {
         const ws = new WebSocket(`ws://localhost:8000/stockprices/${symbol}`);
         ws.onopen = () => {
           console.log("Websocket connection established");
@@ -39,10 +40,17 @@ export const useStockData = (symbol) => {
           setIsError(true);
           console.error(error);
         };
-        return () => {
-          ws.close();
+        ws.onclose = () => {
+          console.log("Websocket connection closed");
+          // Attempt to reconnect to the websocket after a short delay
+          setTimeout(connectWebsocket, 1000);
         };
-      }, [symbol]);
+        setWebsocket(ws);
+      }
+
+      useEffect(() => {
+        connectWebsocket();
+      }, []);
         
 
       return {isError, quote, stock}
