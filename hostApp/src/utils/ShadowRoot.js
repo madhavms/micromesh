@@ -1,9 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const ShadowRoot = ({ children, style, placeholder }) => {
