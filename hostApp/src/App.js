@@ -36,44 +36,44 @@ const App = () => {
 
   return (
     <div>
-      <Navbar className="nav"/>
+      <Navbar className="nav" />
       <div className="container">
-      <select onChange={handleChange} className="select" value="">
-        <option key="empty" value="" disabled>
-          Select a stock
-        </option>
-        {allStockList.filter(stockFilter).map((stock) => (
-          <option value={stock.id} key={stock.id}>
-            {stock.name}
+        <select onChange={handleChange} className="select" value="">
+          <option key="empty" value="" disabled>
+            Select a stock
           </option>
-        ))}
-      </select>
-      &nbsp;
-      <div className="grid-container">
-      {displayStockList.map((widget, widgetI) => (
-        <DragNDrop
-          key={widget.id}
-          id={widget.id}
-          widgetI={widgetI}
-          setDisplayStockList={setDisplayStockList}
-        >
-          <React.Suspense fallback={<WidgetPlaceholder />}>
-            <ShadowRoot
+          {allStockList.filter(stockFilter).map((stock) => (
+            <option value={stock.id} key={stock.id}>
+              {stock.name}
+            </option>
+          ))}
+        </select>
+        &nbsp;
+        <div className="grid-container">
+          {displayStockList.map((widget, widgetI) => (
+            <DragNDrop
+              key={widget.id}
               id={widget.id}
-              style={widgetStyle}
-              placeholder={<WidgetPlaceholder />}
+              widgetI={widgetI}
+              setDisplayStockList={setDisplayStockList}
             >
-              <StockWidget
-                symbol={widget.id}
-                handleDelete={handleDelete}
-                setWidgetStyle={setWidgetStyle}
-                widgetStyle={widgetStyle}
-              />
-            </ShadowRoot>
-          </React.Suspense>
-        </DragNDrop>
-      ))}
-      </div>
+              <React.Suspense fallback={<WidgetPlaceholder />}>
+                <ShadowRoot
+                  id={widget.id}
+                  style={widgetStyle}
+                  placeholder={<WidgetPlaceholder />}
+                >
+                  <StockWidget
+                    symbol={widget.id}
+                    handleDelete={handleDelete}
+                    setWidgetStyle={setWidgetStyle}
+                    widgetStyle={widgetStyle}
+                  />
+                </ShadowRoot>
+              </React.Suspense>
+            </DragNDrop>
+          ))}
+        </div>
       </div>
     </div>
   );
