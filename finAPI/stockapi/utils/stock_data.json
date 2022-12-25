@@ -34,5 +34,41 @@
     "high": 187.12,
     "low": 182.33,
     "last": 184.46
+  },
+  {
+    "id": "GOOGL",
+    "name": "Alphabet (Google)",
+    "stock_exchange": "NASDAQ",
+    "open": 100.605,
+    "high": 101.00,
+    "low": 100.50,
+    "last": 100.90
+  },
+  {
+    "id": "MSFT",
+    "name": "Microsoft",
+    "stock_exchange": "NASDAQ",
+    "open": 108.605,
+    "high": 109.00,
+    "low": 108.50,
+    "last": 108.90
+  },
+  {
+    "id": "INTC",
+    "name": "Intel",
+    "stock_exchange": "NASDAQ",
+    "open": 52.605,
+    "high": 53.00,
+    "low": 52.50,
+    "last": 52.90
+  },
+  {
+    "id": "CSCO",
+    "name": "Cisco Systems",
+    "stock_exchange": "NASDAQ",
+    "open": 45.605,
+    "high": 46.00,
+    "low": 45.50,
+    "last":45.50
   }
 ]
