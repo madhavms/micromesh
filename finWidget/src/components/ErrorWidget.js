@@ -4,11 +4,11 @@ export const ErrorWidget = () => (
   <div draggable className="flex">
     <Template />
     <img
-        className="image close-button"
-        width="30px"
-        height="30px"
-        src="https://gist.githubusercontent.com/madhavms/3a399c50af05007ff9ab74701a1cb062/raw/ac6d9229c5bb5ce22c92cf045489bf4d904b6246/close-icon.svg"
-      ></img>
+      className="image close-button"
+      width="30px"
+      height="30px"
+      src="https://gist.githubusercontent.com/madhavms/3a399c50af05007ff9ab74701a1cb062/raw/ac6d9229c5bb5ce22c92cf045489bf4d904b6246/close-icon.svg"
+    ></img>
   </div>
 );
 
