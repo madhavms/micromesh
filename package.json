@@ -21,6 +21,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "lerna": "^6.0.3",
     "moment": "^2.29.4",
     "react": "^16.13.0",
