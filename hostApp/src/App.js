@@ -62,7 +62,7 @@ const App = () => {
               widgetI={widgetI}
               setDisplayStockList={setDisplayStockList}
             >
-              <React.Suspense fallback={<WidgetPlaceholder />}>
+              <React.Suspense fallback={<WidgetPlaceholder {...{mode}}/>}>
                 <ShadowRoot
                   id={widget.id}
                   style={widgetStyle}
