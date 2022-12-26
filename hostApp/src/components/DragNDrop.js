@@ -1,5 +1,4 @@
 import React, { useRef, useState, useContext } from "react";
-import { DragContextProvider } from "../utils/DragContext";
 import { DragContext } from "../utils/DragContext";
 
 export const DragNDrop = ({ children, id, widgetI, setDisplayStockList }) => {
