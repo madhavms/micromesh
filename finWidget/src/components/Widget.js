@@ -4,9 +4,12 @@ const Widget = (props) => {
   const { stock } = props;
   const { quote } = props;
   const { varColor } = props;
+  const {mode} = props;
+  const colorClass = mode === 'light' ? 'light': 'dark';
+
   return (
     <div className="flex relative widget-container">
-      <div className={"quote rounded-lg shadow-md p-4 bg-gray-800 w-64"}>
+      <div className={`quote rounded-lg shadow-md p-4 ${colorClass} bg-gray-800 w-64`}>
         <span className={"quoteSymbol text-sm text-white font-bold"}>
           {props.symbol}
         </span>
