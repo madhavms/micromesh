@@ -48,6 +48,11 @@ export const useStockData = (symbol) => {
 
   useEffect(() => {
     connectWebsocket();
+    return () => {
+      if (websocket && websocket.readyState === WebSocket.OPEN) {
+        websocket.close();
+      }
+    };
   }, []);
 
   return { isError, quote, stock };
