@@ -20,17 +20,20 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   appBar: {
-    position: 'fixed',
+    position: "fixed",
     top: 0,
-    width: '100%',
+    width: "100%",
     zIndex: 10,
-    backgroundColor: (props) => (props.mode === "light" ? "#7b68ee" : "#212121"),
+    backgroundColor: (props) =>
+      props.mode === "light" ? "#7b68ee" : "#212121",
   },
 }));
 
-export default function Navbar({mode, setMode}) {
+export default function Navbar({ mode, setMode }) {
   const toggleMode = () => {
-    setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+    const newMode = mode === "light" ? "dark" : "light";
+    setMode(newMode);
+    localStorage.setItem("mode", newMode);
   };
 
   const classes = useStyles({ mode });
