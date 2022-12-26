@@ -152,6 +152,14 @@ mt-1 {
   position: absolute;
 }
 
+.light {
+  background-color: #9BB9D4;
+}
+
+.dark {
+  background-color: #2C2F3C;
+}
+
 .container-dark {
   display: flex;
   justify-content: center;
