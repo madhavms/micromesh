@@ -7,6 +7,7 @@
 margin:0px;
 }
 
+
 .redbutton {
   background-color: #f44336;
   padding: 15px;
@@ -132,6 +133,50 @@ mt-1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: #FAFAFA;
+  overflow: scroll;
+  margin-top: 60px;
+}
+
+.body {
+  background: #FAFAFA;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.body-dark {
+  background: #333333;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.container-dark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #333333;
+  overflow: scroll;
+  margin-top: 60px;
+}
+
+.select-dark {
+  width: 240px;
+  padding: 15px;
+  margin-top: 30px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  color: #ffffff; /* text color */
+  background-color: #333333; /* dropdown background color */
+  border: 1px solid #ffffff; /* border color */
+}
+
+.select-dark option {
+  color: #ffffff; /* option text color */
+  background-color: #212121; /* option background color */
 }
 
 .select {
@@ -141,7 +186,16 @@ mt-1 {
   font-weight: bold;
   text-align: center;
   font-size: 1rem;
+  color: #212121; /* text color */
+  background-color: #ffffff; /* dropdown background color */
+  border: 1px solid #212121; /* border color */
 }
+
+.select option {
+  color: #212121; /* option text color */
+  background-color: #ffffff; /* option background color */
+}
+
 
 .flex-container {
   display: flex;
@@ -175,6 +229,7 @@ mt-1 {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1fr;
   grid-gap: 16px;
+  margin-bottom: 15px;
 }
 
 body {
