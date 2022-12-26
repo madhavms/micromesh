@@ -32,6 +32,14 @@
   background-color: rgb(31 41 55);
 }
 
+.light {
+  background-color: #9BB9D4;
+}
+
+.dark {
+  background-color: #2C2F3C;
+}
+
 .w-64 {
   width: 14rem; /* 256px */
 }
