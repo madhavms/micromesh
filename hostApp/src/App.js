@@ -9,7 +9,7 @@ import { useFetch } from "./utils/UtilHooks";
 
 const App = () => {
   const listCache = JSON.parse(localStorage.getItem("stockList")) || [];
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const [displayStockList, setDisplayStockList] = useState(listCache);
   const [widgetStyle, setWidgetStyle] = useState("");
   const allStockList = useFetch("http://localhost:8000/stocklist");
@@ -39,7 +39,11 @@ const App = () => {
     <div className={mode === "light" ? "body" : "body-dark"}>
       <Navbar className="nav" {...{ mode, setMode }} />
       <div className={mode === "light" ? "container" : "container-dark"}>
-        <select onChange={handleChange} className={mode === "light" ? "select" : "select-dark"} value="">
+        <select
+          onChange={handleChange}
+          className={mode === "light" ? "select" : "select-dark"}
+          value=""
+        >
           <option key="empty" value="" disabled>
             Select a stock
           </option>
