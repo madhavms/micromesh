@@ -73,6 +73,7 @@ const App = () => {
                     handleDelete={handleDelete}
                     setWidgetStyle={setWidgetStyle}
                     widgetStyle={widgetStyle}
+                    mode={mode}
                   />
                 </ShadowRoot>
               </React.Suspense>
