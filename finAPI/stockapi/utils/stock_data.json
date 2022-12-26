@@ -70,5 +70,14 @@
     "high": 46.00,
     "low": 45.50,
     "last":45.50
+  },
+  {
+    "id": "AMD",
+    "name": "Advanced Micro Devices",
+    "stock_exchange": "NASDAQ",
+    "open": 64.605,
+    "high": 67.00,
+    "low": 62.50,
+    "last":61.50
   }
 ]
