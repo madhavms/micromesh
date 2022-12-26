@@ -44,12 +44,13 @@ def get_all_stocks():
     stock_data = load_data()
     return stock_data
 
+
 @app.get('/stocklist')
 def get_stock_list():
     stock_list = []
     stock_data = load_data()
     for stock in stock_data:
-        stock_list.append({'id':stock['id'], 'name':stock['name']})
+        stock_list.append({'id': stock['id'], 'name': stock['name']})
     return stock_list
 
 
@@ -74,8 +75,8 @@ async def generate_stock_prices(websocket, symbol):
         await websocket.send_text(json.dumps(data_to_send))
         await asyncio.sleep(2)
 
+
 @app.websocket("/stockprices/{symbol}")
 async def websocket_endpoint(websocket: WebSocket, symbol: str):
     await websocket.accept()
     await generate_stock_prices(websocket, symbol)
-
