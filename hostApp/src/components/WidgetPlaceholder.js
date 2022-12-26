@@ -2,17 +2,19 @@ import React from "react";
 import moment from "moment";
 export const WidgetPlaceholder = (props) => (
   <div draggable className="flex">
-    <Template {...{props}} />
+    <Template {...{ props }} />
   </div>
 );
 
 const Template = (props) => {
-  const {mode} = props;
-  const colorClass = mode === 'light' ? 'light': 'dark';
+  const { mode } = props;
+  const colorClass = mode === "light" ? "light" : "dark";
   const varColor = "text-green-500";
   return (
     <div>
-      <div className={`quote rounded-lg shadow-md p-4 ${colorClass} w-64 h-52px`}>
+      <div
+        className={`quote rounded-lg shadow-md p-4 ${colorClass} w-64 h-52px`}
+      >
         <span className={"quoteSymbol text-sm text-white font-bold"}>---</span>
         <span
           className={"quoteSymbol ui-sans-serif text-2xs text-gray-400 ml-1"}
