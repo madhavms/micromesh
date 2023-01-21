@@ -43,7 +43,7 @@ export default function Navbar({ mode, setMode }) {
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Remote Application
+            Host Application
           </Typography>
           <IconButton onClick={toggleMode}>
             {mode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
