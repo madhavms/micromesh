@@ -54,6 +54,7 @@ const App = () => {
           ))}
         </select>
         &nbsp;
+
         <div className="grid-container">
           {displayStockList.map((widget, widgetI) => (
             <DragNDrop
