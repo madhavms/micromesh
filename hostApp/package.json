@@ -21,6 +21,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "golden-layout": "^2.6.0"
+    "golden-layout": "^2.6.0",
+    "messagebusmono": "^1.0.10"
   }
 }

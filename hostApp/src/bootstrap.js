@@ -1,8 +1,9 @@
 import App from "./App";
-import React, { StrictMode } from "react";
+import React, { StrictMode, useState } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import { DragContextProvider } from "./utils/DragContext";
+
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(

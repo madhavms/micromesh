@@ -52,7 +52,7 @@ module.exports = {
       remotes: {
         finWidget: `finWidget@${lookupRemoteEntryUrl(3001)}`,
       },
-      shared: { react: { singleton: true }, "react-dom": { singleton: true } },
+      shared: { react: { singleton: true }, "react-dom": { singleton: true }, "messagebusmono": { singleton: true } },
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
