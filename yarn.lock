@@ -3404,9 +3404,8 @@
   dependencies:
     "@material-ui/core" "^4.12.4"
     "babel-plugin-transform-runtime" "^6.23.0"
-    "broadcast-channel" "^4.20.2"
     "golden-layout" "^2.6.0"
-    "messagebusmono" "^1.0.13"
+    "messagebusmono" "^1.0.9"
 
 "hosted-git-info@^2.1.4":
   "integrity" "sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw=="
@@ -4263,10 +4262,12 @@
   "resolved" "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   "version" "1.4.1"
 
-"messagebusmono@^1.0.14", "messagebusmono@^1.0.7":
-  "integrity" "sha512-1964n80cv0xcMODJkS6U01VtJBK4A7LI/ClMa2g3moR0261Xlu7lIeZVqrJ3avGQsvwaPtMSaGtalzkatVoaHQ=="
-  "resolved" "https://registry.npmjs.org/messagebusmono/-/messagebusmono-1.0.14.tgz"
-  "version" "1.0.14"
+"messagebusmono@^1.0.10", "messagebusmono@^1.0.7":
+  "integrity" "sha512-TD2XrXLBbDSKNnCidNZJTJ/mbA3N3QiXSDHi6hRJrYqqnH565jwrwQrv8sGXDUmPVxO69hP02t237x+DKFuZPA=="
+  "resolved" "https://registry.npmjs.org/messagebusmono/-/messagebusmono-1.0.10.tgz"
+  "version" "1.0.10"
+  dependencies:
+    "broadcast-channel" "^4.20.2"
 
 "micromatch@^4.0.4":
   "integrity" "sha512-DMy+ERcEW2q8Z2Po+WNXuw3c5YaUSFjAO5GsJqfEl7UjvtIuFKO6ZrKvcItdy98dwFI2N1tg3zNIdKaQT+aNdA=="
@@ -5790,10 +5791,9 @@
   "version" "1.0.0"
   dependencies:
     "babel-plugin-transform-runtime" "^6.23.0"
-    "broadcast-channel" "^4.20.2"
     "css-loader" "^6.7.1"
     "css-to-string-loader" "^0.1.3"
-    "messagebusmono" "^1.0.14"
+    "messagebusmono" "^1.0.10"
     "moment" "^2.29.4"
     "react" "^16.13.0"
     "react-dom" "^16.13.0"

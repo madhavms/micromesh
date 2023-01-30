@@ -1,26 +1,14 @@
-import { send } from "messagebusmono";
-import React, { useEffect, useState } from "react";
-import { useStockData, useStockList } from "../utils/Hooks";
+import React from "react";
 
 const Widget = (props) => {
-  const [currentSymbol, setCurrentSymbol] = useState("AAPL");
-  const { isError, quote, stock } = useStockData(currentSymbol);
-  const {stockList} = useStockList();
+  const { stock } = props;
+  const { quote } = props;
+  const { varColor } = props;
   const { mode } = props;
   const colorClass = mode === "light" ? "light" : "dark";
-  const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
-
-  useEffect(() => {
-    send({ message: { symbol: currentSymbol } });
-  }, [currentSymbol]);
-
-  const handleChange = (e) => {
-    let id = e.target.value;
-    setCurrentSymbol(id);
-  };
 
   return (
-    <div className="flex widget-container">
+    <div className="flex relative widget-container">
       <div
         className={`quote rounded-lg shadow-md p-4 ${colorClass} bg-gray-800 w-64`}
       >
@@ -56,20 +44,6 @@ const Widget = (props) => {
             </div>
           </div>
         </div>
-        <select
-          onChange={(e) => handleChange(e)}
-          className={mode === "light" ? "select" : "select-dark"}
-          value={currentSymbol}
-        >
-          <option key="empty" value="" disabled>
-            Select a stock
-          </option>
-          {!!stockList && stockList.map((stock) => (
-            <option value={stock.id} key={stock.id}>
-              {stock.id}
-            </option>
-          ))}
-        </select>
       </div>
       <img
         value={props.symbol}

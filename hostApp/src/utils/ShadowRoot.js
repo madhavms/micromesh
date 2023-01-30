@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { v4 as uuidv4 } from 'uuid';
-
 
 const ShadowRoot = ({ children, style, placeholder }) => {
   const [shadowRoot, setShadowRoot] = useState(null);
@@ -28,7 +26,7 @@ const ShadowRoot = ({ children, style, placeholder }) => {
 
   return (
     <Fragment>
-      <div ref={node} className={`host-node-${uuidv4()}`} />
+      <div ref={node} className="host-node" />
       {shadowRoot && createPortal(children, shadowRoot)}
       {!styleLoaded && placeholder}
     </Fragment>
