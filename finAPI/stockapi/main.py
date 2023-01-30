@@ -29,10 +29,13 @@ def add_variance(stock):
     return stock
 
 
-def load_data():
+def load_stock_data():
     with open(global_var.STOCK_DATA_PATH) as f:
         return json.load(f)
 
+def load_risk_data():
+    with open(global_var.RISK_DATA_PATH) as f:
+        return json.load(f)
 
 @app.get("/")
 async def root():
@@ -41,14 +44,14 @@ async def root():
 
 @app.get('/stocks')
 def get_all_stocks():
-    stock_data = load_data()
+    stock_data = load_stock_data()
     return stock_data
 
 
 @app.get('/stocklist')
 def get_stock_list():
     stock_list = []
-    stock_data = load_data()
+    stock_data = load_stock_data()
     for stock in stock_data:
         stock_list.append({'id': stock['id'], 'name': stock['name']})
     return stock_list
@@ -56,17 +59,24 @@ def get_stock_list():
 
 @app.get('/stocks/{id}')
 def get_stock(id):
-    response = load_data()
+    response = load_stock_data()
     for stock_data in response:
         if stock_data['id'] == id:
             return add_variance(stock_data)
     return {}
 
+@app.get('/risk/{id}')
+def get_risk(id):
+    response = load_risk_data()
+    for risk_data in response:
+        if risk_data['id'] == id:
+            return risk_data
+    return {}
 
 async def generate_stock_prices(websocket, symbol):
     while True:
         # Generate a random stock price
-        response = load_data()
+        response = load_stock_data()
         data_to_send = {}
         for stock_data in response:
             if stock_data['id'] == symbol:
