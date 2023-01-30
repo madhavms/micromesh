@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import FinancialNewsWidget from "./NewsWidget";
+import StockRiskWidget from "./RiskWidget";
+import DynamicFinancialNewsWidget from "./NewsWidget";
 import StockWidget from "./StockWidget";
 
 const App = (props) => {
@@ -22,24 +23,23 @@ const App = (props) => {
   ];
   return (
     <div>
-      <Navbar />
-      <div className="container">
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+    <React.Suspense fallback={<div>Loading...</div>}>
+    <Navbar />
+      <div className="remote-container">
+        <div class="widget-remote">
         <h2>Stock Widget</h2>
-        <br />
-        <br />
         <StockWidget symbol="AAPL" />
-        <br />
-        <br />
+        </div>
+        <div class="widget-remote">
         <h2>Financial News Widget</h2>
-        <br />
-        <br />
-        <FinancialNewsWidget news={news} />
+        <DynamicFinancialNewsWidget news={news} />
+        </div>
+        <div class="widget-remote">
+        <h2>Risk Analysis Widget</h2>
+        <StockRiskWidget symbol="AAPL" />
+        </div>
       </div>
+      </React.Suspense>
     </div>
   );
 };
