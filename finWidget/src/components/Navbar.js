@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Navbar() {
   const classes = useStyles();
 
@@ -29,7 +30,7 @@ export default function Navbar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            Remote Application
+            Widget Showcase
           </Typography>
         </Toolbar>
       </AppBar>
