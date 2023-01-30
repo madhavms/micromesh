@@ -1,27 +1,39 @@
-import { BroadcastChannel } from 'broadcast-channel';
-
 export class MessageBus {
   constructor() {
     if (!MessageBus.instance) {
       console.log("Creating new instance");
-      this.channel = new BroadcastChannel('channel-name');
+      this.channel = null;
       this.listeners = [];
+
+      try {
+        this.channel = new BroadcastChannel("widget-channel");
+      } catch (error) {
+        console.error(error);
+      }
+
       MessageBus.instance = this;
     }
     return MessageBus.instance;
   }
 
   send(message) {
-    this.channel.postMessage(message);
+    if (this.channel) {
+      this.channel.postMessage(message);
+    }
   }
 
   subscribe(listener) {
     this.listeners.push(listener);
   }
 
+  unsubscribe(listener) {
+    this.listeners = this.listeners.filter((l) => l !== listener);
+  }
+
   receive() {
-    this.channel.onmessage = (event) => {
-      this.listeners.forEach(listener => listener(event.data));
+    if (this.channel) {
+      this.channel.onmessage = (message) =>
+        this.listeners.forEach((listener) => listener(message));
     }
   }
 }
@@ -41,7 +53,7 @@ export class MessageAPI {
   }
 
   unsubscribe(listener) {
-    this.listeners = this.messageBus.listeners.filter(l => l !== listener);
+    this.messageBus.unsubscribe(listener);
   }
 }
 
