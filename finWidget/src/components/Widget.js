@@ -12,11 +12,12 @@ const Widget = (props) => {
 
   useEffect(() => {
     send({ message: { symbol: currentSymbol } });
-  }, [currentSymbol]);
+  }, []);
 
   const handleChange = (e) => {
     let id = e.target.value;
     setCurrentSymbol(id);
+    send({ message: { symbol: id } })
   };
 
   return (
