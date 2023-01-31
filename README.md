@@ -2,6 +2,8 @@
 
 This is an Micro-frontend host remote system to load financial widgets implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote widget using the webpack module federation plugin.
 
+The host application also provides a client message bus for the widget interoperability.
+
 ### Style Isolation:
 In this application the widget(remote application) styles are isolated from host using style injection in shadow dom where the remotes are attached.
 
