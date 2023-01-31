@@ -7,9 +7,7 @@ function StockRiskWidget({symbol} = null) {
 
   const [currentSymbol, setCurrentSymbol] = useState("");
   const { riskData, isLoading, error } = useStockRisk(currentSymbol);
-
   const handleMessage = (event) => {
-    console
     if(event.data.message && event.data.message.symbol)
     setCurrentSymbol(event.data.message.symbol);
   };
