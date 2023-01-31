@@ -25,15 +25,9 @@ const App = () => {
   const [currentStock, setCurrentStock] = useState("AAPL");
   const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const [widgetStyle, setWidgetStyle] = useState("");
-  const allStockList = useFetch("http://localhost:8000/stocklist");
+
 
   const handleDelete = (e) => {
-  };
-
-  const handleChange = (e) => {
-    let id = e.target.value;
-    setCurrentStock(id);
-    localStorage.setItem("currentStock", JSON.stringify(id));
   };
 
   return (
@@ -45,7 +39,6 @@ const App = () => {
         <div className="grid-container">
           <React.Suspense fallback={<WidgetPlaceholder {...{ mode }} />}>
             <ShadowRoot
-              id={currentStock}
               style={widgetStyle}
               placeholder={<WidgetPlaceholder />}
             >
