@@ -35,7 +35,9 @@ The host application shown below has added a drag and drop functionality using t
 
 ### Remote Application Demo
 
-![RemoteApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/RemoteApplication.gif)
+This is a showcase application for the different widgets published in MFE format.
+
+![RemoteApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetShowcaseApp.gif)
 
 ### Dark-Light Theme Support
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif)
