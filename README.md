@@ -40,5 +40,11 @@ The host application shown below has added a drag and drop functionality using t
 ### Dark-Light Theme Support
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif)
 
-### Message Bus for Widget Interoperability
+### Client Message Bus for Widget Interoperability
+[Message Bus Source Code](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
+
+The stock price and market analysis widgets are composed together to work in unison using the client message API provided by the host shell.
+
+![](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetInteroperability.gif)
+
 
