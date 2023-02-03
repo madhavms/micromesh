@@ -2,6 +2,8 @@
 
 This is an Micro-frontend host remote system to load financial widgets implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote widget using the webpack module federation plugin.
 
+The host application also provides a client message bus for the widget interoperability.
+
 ### Style Isolation:
 In this application the widget(remote application) styles are isolated from host using style injection in shadow dom where the remotes are attached.
 
@@ -29,9 +31,9 @@ This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 r
 
 ### Host Application Demo
 
-The host application shown below has added a drag and drop functionality using the widget.
+The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
-![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
+![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplicationLatest.gif)
 
 ### Remote Application Demo
 
