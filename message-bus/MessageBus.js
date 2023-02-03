@@ -16,21 +16,21 @@ export class MessageBus {
     return MessageBus.instance;
   }
 
-  send(message) {
+  send = (message) => {
     if (this.channel) {
       this.channel.postMessage(message);
     }
   }
 
-  subscribe(listener) {
+  subscribe = (listener) => {
     this.listeners.push(listener);
   }
 
-  unsubscribe(listener) {
+  unsubscribe = (listener) => {
     this.listeners = this.listeners.filter((l) => l !== listener);
   }
 
-  receive() {
+  receive = () => {
     if (this.channel) {
       this.channel.onmessage = (message) =>
         this.listeners.forEach((listener) => listener(message));
@@ -44,21 +44,21 @@ export class MessageAPI {
     this.messageBus.receive();
   }
 
-  send(message) {
+  send = (message) => {
     this.messageBus.send(message);
   }
 
-  subscribe(listener) {
+  subscribe = (listener) => {
     this.messageBus.subscribe(listener);
   }
 
-  unsubscribe(listener) {
+  unsubscribe = (listener) => {
     this.messageBus.unsubscribe(listener);
   }
 }
 
 const messageAPI = new MessageAPI();
 
-export const send = messageAPI.send.bind(messageAPI);
-export const subscribe = messageAPI.subscribe.bind(messageAPI);
-export const unsubscribe = messageAPI.unsubscribe.bind(messageAPI);
+export const send = messageAPI.send;
+export const subscribe = messageAPI.subscribe;
+export const unsubscribe = messageAPI.unsubscribe;
