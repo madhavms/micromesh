@@ -1,11 +1,14 @@
 {
   "name": "messagebusmono",
-  "version": "1.0.14",
+  "version": "1.0.16",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "messagebusmono": "^1.0.15"
+  }
 }
