@@ -41,17 +41,19 @@ This is a showcase application for the different widgets published in MFE format
 
 ![RemoteApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetShowcaseApp.gif)
 
-### Dark-Light Theme Support
+## Application Features
+
+### 1. Dark-Light Theme Support
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif)
 
-### Client Message Bus for Widget Interoperability
+### 2. Client Message Bus for Widget Interoperability
 [Message Bus Source Code](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
 
 The stock price and market analysis widgets are composed together to work in unison using the client message API provided by the host shell.
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetInteroperability.gif)
 
-### CLI for bundling as Federated Modules
+### 3. CLI for bundling as Federated Modules
 
 The CLI shown below provides a consistent bundling strategy to the different app teams which develop, test and deploy their apps independantly. Also the CLI can issue warnings if the remote apps are using incompatible version of packages. 
 
