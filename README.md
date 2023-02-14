@@ -61,6 +61,6 @@ Some libraries such as React will be made singleton and host will be loading the
 
 ![Bundler Warning](https://github.com/madhavms/react-host-remote/blob/main/img/BundlerWarning.png)
 
-Usage: `./bundler-cli.js bundle`
+Usage: `./bundlerCli.js bundle`
 
 Source Code: [Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
