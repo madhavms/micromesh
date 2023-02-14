@@ -19,7 +19,7 @@ commander
       output: {
         path: path.resolve(process.cwd(), "dist"),
         publicPath: pkg.webpackConfig.publicPath,
-        filename:  pkg.webpackConfig.bundleFilename,
+        filename: pkg.webpackConfig.bundleFilename,
       },
       module: {
         rules: [
@@ -57,6 +57,21 @@ commander
         }),
       ],
     };
+
+    const reactVersion = pkg.dependencies.react;
+    const reactDomVersion = pkg.dependencies["react-dom"];
+    const colorRed = "\u001b[31m";
+    const colorReset = "\u001b[0m";
+    if (reactVersion && !/^17\./.test(reactVersion)) {
+      console.warn(
+        `${colorRed}Warning: React version ${reactVersion} detected. This project requires React version 17 or higher.${colorReset}`
+      );
+    }
+    if (reactDomVersion && !/^17\./.test(reactDomVersion)) {
+      console.warn(
+        `${colorRed}Warning: react-dom version ${reactDomVersion} detected. This project requires react-dom version 17 or higher.${colorReset}`
+      );
+    }
 
     webpack(webpackConfig, (err, stats) => {
       if (err) {
