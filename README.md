@@ -57,7 +57,9 @@ The stock price and market analysis widgets are composed together to work in uni
 
 The CLI shown below provides a consistent bundling strategy to the different app teams which develop, test and deploy their apps independantly. Also the CLI can issue warnings if the remote apps are using incompatible version of packages. 
 
-Some libraries such as React will be made singleton and host will be loading the same to avoid multiple instance which has unintended effects and this will be shared by remote apps. So if the remote was running an older version of react they may have issues when loaded as micro-frontend. Hence the CLI issues warnings during bundling time so that this issue could be mitigated.
+Some libraries such as React will be made singleton for module federation and a single copy is shared across the different apps loaded at runtime. This is done to prevent multiple instances of the package which causes unintended consequences. 
+
+So if the remote was running an older version of react they may have issues when its loaded at runtime and uses the version of React loaded by host app. Hence the CLI issues warnings during bundling time of remote apps so that this issue could be mitigated.
 
 ![Bundler Warning](https://github.com/madhavms/react-host-remote/blob/main/img/BundlerWarning.png)
 
