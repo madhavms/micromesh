@@ -47,7 +47,7 @@ This is a showcase application for the different widgets published in MFE format
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif)
 
 ### 2. Client Message Bus for Widget Interoperability
-[Message Bus Source Code](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
+Source Code: [Message Bus](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
 
 The stock price and market analysis widgets are composed together to work in unison using the client message API provided by the host shell. This feature allows for runtime composition of seperately deployed widgets.
 
@@ -59,4 +59,8 @@ The CLI shown below provides a consistent bundling strategy to the different app
 
 Some libraries such as React will be made singleton and host will be loading the same to avoid multiple instance which has unintended effects and this will be shared by remote apps. So if the remote was running an older version of react they may have issues when loaded as micro-frontend. Hence the CLI issues warnings during bundling time so that this issue could be mitigated.
 
-[Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
+![Bundler Warning](https://github.com/madhavms/react-host-remote/blob/main/img/BundlerWarning.png)
+
+Usage: `./bundlerCli.js bundle`
+
+Source Code: [Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
