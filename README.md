@@ -63,4 +63,4 @@ Some libraries such as React will be made singleton and host will be loading the
 
 Usage: `./bundler-cli.js bundle`
 
-[Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
+Source Code: [Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
