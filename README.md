@@ -57,4 +57,4 @@ The CLI shown below provides a consistent bundling strategy to the different app
 
 Some libraries such as React will be made singleton and host will be loading the same to avoid multiple instance which has unintended effects and this will be shared by remote apps. So if the remote was running an older version of react they may have issues when loaded as micro-frontend. Hence the CLI issues warnings during bundling time so that this issue could be mitigated.
 
-![Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
+[Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
