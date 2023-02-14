@@ -49,7 +49,7 @@ This is a showcase application for the different widgets published in MFE format
 ### 2. Client Message Bus for Widget Interoperability
 [Message Bus Source Code](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
 
-The stock price and market analysis widgets are composed together to work in unison using the client message API provided by the host shell.
+The stock price and market analysis widgets are composed together to work in unison using the client message API provided by the host shell. This feature allows for runtime composition of seperately deployed widgets.
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetInteroperability.gif)
 
