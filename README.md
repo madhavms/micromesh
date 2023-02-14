@@ -51,4 +51,10 @@ The stock price and market analysis widgets are composed together to work in uni
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetInteroperability.gif)
 
+### CLI for bundling as Federated Modules
 
+The CLI shown below provides a consistent bundling strategy to the different app teams which develop, test and deploy their apps independantly. Also the CLI can issue warnings if the remote apps are using incompatible version of packages. 
+
+Some libraries such as React will be made singleton and host will be loading the same to avoid multiple instance which has unintended effects and this will be shared by remote apps. So if the remote was running an older version of react they may have issues when loaded as micro-frontend. Hence the CLI issues warnings during bundling time so that this issue could be mitigated.
+
+![](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
