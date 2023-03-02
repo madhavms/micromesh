@@ -33,9 +33,28 @@ def load_stock_data():
     with open(global_var.STOCK_DATA_PATH) as f:
         return json.load(f)
 
+def load_menu_data():
+    with open(global_var.MENU_DATA_PATH) as f:
+        return json.load(f)
+    
+def load_apps_data():
+    with open(global_var.APPS_DATA_PATH) as f:
+        return json.load(f)
+
 def load_risk_data():
     with open(global_var.RISK_DATA_PATH) as f:
         return json.load(f)
+    
+
+@app.get("/widgets")
+async def get_widgets():
+    widgets = load_apps_data()
+    return widgets
+
+@app.get("/menu")
+async def get_menu():
+    widgets = load_menu_data()
+    return widgets
 
 @app.get("/")
 async def root():
