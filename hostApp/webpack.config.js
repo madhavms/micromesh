@@ -49,9 +49,6 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       name: "hostApp",
-      remotes: {
-        finWidget: `finWidget@${lookupRemoteEntryUrl(3001)}`,
-      },
       shared: { react: { singleton: true }, "react-dom": { singleton: true }},
     }),
     new HtmlWebpackPlugin({
