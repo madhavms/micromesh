@@ -3,7 +3,7 @@ import { useStockRisk } from './utils/Hooks';
 import {subscribe, unsubscribe} from "messagebusmono";
 import RiskWidgetPlaceholder from './components/RiskWidgetPlaceholder';
 
-function StockRiskWidget({symbol} = null) {
+function RiskWidget({symbol} = null) {
 
   const [currentSymbol, setCurrentSymbol] = useState("");
   const { riskData, isLoading, error } = useStockRisk(currentSymbol);
@@ -47,4 +47,4 @@ function StockRiskWidget({symbol} = null) {
   );
 }
 
-export default StockRiskWidget;
+export default RiskWidget;
