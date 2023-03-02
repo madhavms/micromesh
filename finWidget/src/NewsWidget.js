@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./css/DynamicFinancialNewsWidget.css";
 
-const DynamicFinancialNewsWidget = () => {
+const DynamicFinancialNewsWidget = (props) => {
   const [news, setNews] = useState([]);
+
 
   const newsList = [
     {
