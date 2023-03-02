@@ -83,7 +83,7 @@ const App = () => {
         <br />
         <br />
         &nbsp;
-        <div className="grid-container">
+        <div >
           <React.Suspense fallback={<WidgetPlaceholder/>}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
