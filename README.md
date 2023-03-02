@@ -44,6 +44,9 @@ This is a showcase application for the different widgets published in MFE format
 ## Application Features
 
 ### 1. Global Menu system for widget discovery
+
+The host shell gets the menu config from the "menu and application discovery" services, based on which it builds the widget discovery menu.
+
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
 ### 2. Dark-Light Theme Support
