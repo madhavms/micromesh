@@ -30,8 +30,9 @@ const App = () => {
     setComponent(null);
   }
 
-  const handleMenuSelection = (e, appId) => {
+  const handleMenuSelection = (e, appId, setDrawerOpen) => {
     e.preventDefault();
+    setDrawerOpen(false);
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
