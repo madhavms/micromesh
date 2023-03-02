@@ -33,7 +33,7 @@ This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 r
 
 The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
-![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplicationLatest.gif)
+![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
 ### Remote Application Demo
 
