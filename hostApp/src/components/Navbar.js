@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) {
-  console.log("menu", menu);
   const toggleMode = () => {
     const newMode = mode === "light" ? "dark" : "light";
     setMode(newMode);
