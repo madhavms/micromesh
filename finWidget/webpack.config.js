@@ -59,6 +59,7 @@ module.exports = {
         "./StockWidget": "./src/StockWidget.js",
         "./RiskWidget": "./src/RiskWidget.js",
         "./StockRiskWidget": "./src/StockRiskWidget.js",
+        "./NewsWidget": "./src/NewsWidget.js"
       },
       shared: { react: { singleton: true }, "react-dom": { singleton: true }},
     }),
