@@ -33,7 +33,7 @@ This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 r
 
 The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
-![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplicationLatest.gif)
+![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
 ### Remote Application Demo
 
@@ -43,10 +43,16 @@ This is a showcase application for the different widgets published in MFE format
 
 ## Application Features
 
-### 1. Dark-Light Theme Support
+### 1. Global Menu system for widget discovery
+
+The host shell gets the menu config from the "menu and application discovery" services, based on which it builds the widget discovery menu.
+
+![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
+
+### 2. Dark-Light Theme Support
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif)
 
-### 2. Client Message Bus for Widget Interoperability
+### 3. Client Message Bus for Widget Interoperability
 Source Code: [Message Bus](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
 
 The client message bus is published as an npm package which can be used for interoperability among the seperately deployed widgets during runtime integration. Hence these widgets can be composed at runtime and still communicate with each other.
@@ -55,7 +61,7 @@ For exmaple here the stock price and market analysis widgets are composed togeth
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetInteroperability.gif)
 
-### 3. CLI for bundling as Federated Modules
+### 4. CLI for bundling as Federated Modules
 
 The CLI shown below provides a consistent bundling strategy to the different app teams which develop, test and deploy their apps independantly. Also the CLI can issue warnings if the remote apps are using incompatible version of packages. 
 
