@@ -86,7 +86,7 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
       >
         <List>
         {menu.length !==0 && menu.map((item) => (
-          <ListItem key={item.appId} button onClick={(e) => handleMenuSelection(e, item.appId)}>
+          <ListItem key={item.appId} button onClick={(e) => handleMenuSelection(e, item.appId, setDrawerOpen)}>
             <ListItemText primary={item.label} />
           </ListItem>
         ))}
