@@ -1,8 +1,9 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import StockRiskWidget from "./RiskWidget";
+import RiskWidget from "./RiskWidget";
 import DynamicFinancialNewsWidget from "./NewsWidget";
 import StockWidget from "./StockWidget";
+import StockRiskWidget from "./StockRiskWidget";
 
 const App = (props) => {
   const news = [
@@ -36,7 +37,7 @@ const App = (props) => {
         </div>
         <div class="widget-remote">
         <h2>Risk Analysis Widget</h2>
-        <StockRiskWidget symbol="AAPL" />
+        <RiskWidget symbol="AAPL" />
         </div>
       </div>
       </React.Suspense>
