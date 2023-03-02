@@ -16,7 +16,7 @@ function StockRiskWidget(props) {
   }, []);
 
   return (
-<div style={{ display: 'flex', flexDirection: 'row' }}>
+<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
   <StockWidget
     symbol="AAPL"
     handleClose={handleClose}
