@@ -3,6 +3,16 @@ import "./css/DynamicFinancialNewsWidget.css";
 
 const DynamicFinancialNewsWidget = (props) => {
   const [news, setNews] = useState([]);
+  const { setWidgetStyle, widgetStyle } = props;
+
+  useEffect(() => {
+    if (
+      !!window["widget-style"] &&
+      typeof setWidgetStyle === "function"
+    ) {
+      setWidgetStyle(window["widget-style"]);
+    }
+  }, []);
 
 
   const newsList = [
