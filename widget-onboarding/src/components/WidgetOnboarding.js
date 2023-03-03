@@ -68,21 +68,32 @@ function WidgetOnboardingPage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const resetForm = () => {
+    setWidgetUrl("");
+    setAppId("");
+    setRemoteId("");
+    setLabel("");
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const widgetData = { url: widgetUrl, appId, remoteId };
     const menuData = { appId, label };
-    axios.all([
-      axios.post("http://127.0.0.1:8000/widgets/", widgetData),
-      axios.post("http://127.0.0.1:8000/menu/", menuData)
-    ])
-      .then(axios.spread((widgetResponse, menuResponse) => {
-        console.log(widgetResponse.data);
-        console.log(menuResponse.data);
-        setSuccessMessage("Widget onboarded successfully!");
-        setErrorMessage("");
-      }))
-      .catch(error => {
+    axios
+      .all([
+        axios.post("http://127.0.0.1:8000/widgets/", widgetData),
+        axios.post("http://127.0.0.1:8000/menu/", menuData),
+      ])
+      .then(
+        axios.spread((widgetResponse, menuResponse) => {
+          console.log(widgetResponse.data);
+          console.log(menuResponse.data);
+          setSuccessMessage("Widget onboarded successfully!");
+          resetForm();
+          setErrorMessage("");
+        })
+      )
+      .catch((error) => {
         console.log(error);
         setErrorMessage("Widget onboarding failed. Please try again.");
         setSuccessMessage("");
@@ -95,15 +106,27 @@ function WidgetOnboardingPage() {
       <FormWrapper onSubmit={handleSubmit}>
         <InputWrapper>
           <Label>Widget URL:</Label>
-          <Input type="text" value={widgetUrl} onChange={event => setWidgetUrl(event.target.value)} />
+          <Input
+            type="text"
+            value={widgetUrl}
+            onChange={(event) => setWidgetUrl(event.target.value)}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>App ID:</Label>
-          <Input type="text" value={appId} onChange={event => setAppId(event.target.value)} />
+          <Input
+            type="text"
+            value={appId}
+            onChange={(event) => setAppId(event.target.value)}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>Remote ID:</Label>
-          <Input type="text" value={remoteId} onChange={event => setRemoteId(event.target.value)} />
+          <Input
+            type="text"
+            value={remoteId}
+            onChange={(event) => setRemoteId(event.target.value)}
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>Label:</Label>
@@ -122,9 +145,6 @@ function WidgetOnboardingPage() {
       </FormWrapper>
     </PageWrapper>
   );
-};
+}
 
 export default WidgetOnboardingPage;
-
-
-
