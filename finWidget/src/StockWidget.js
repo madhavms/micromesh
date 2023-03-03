@@ -9,7 +9,6 @@ function StockWidget(props) {
   useEffect(() => {
     if (
       !!window["widget-style"] &&
-      !widgetStyle &&
       typeof setWidgetStyle === "function"
     ) {
       setWidgetStyle(window["widget-style"]);
