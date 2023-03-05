@@ -5,7 +5,7 @@ import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
 import { send, subscribe, unsubscribe } from "messagebusmono";
 
-const App = () => {
+const NewApp = () => {
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -99,4 +99,4 @@ const App = () => {
     </div>
   );
 };
-export default App;
+export default NewApp;
