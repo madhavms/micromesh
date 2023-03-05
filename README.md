@@ -49,10 +49,18 @@ The host shell gets the menu config from the "menu and application discovery" se
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### 2. Dark-Light Theme Support
+### 2. Onboarding Page for Microfrontend Apps
+
+This onboarding screen is used by the app development teams to onboard their micro frontend application to the host application.
+The form requires info such as the url of the remote entry file, app id, remote id and the label which would be displayed on the menu.
+
+
+![](https://github.com/madhavms/react-host-remote/blob/main/img/OnboardingPage.gif)
+
+### 3. Dark-Light Theme Support
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif)
 
-### 3. Client Message Bus for Widget Interoperability
+### 4. Client Message Bus for Widget Interoperability
 Source Code: [Message Bus](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
 
 The client message bus is published as an npm package which can be used for interoperability among the seperately deployed widgets during runtime integration. Hence these widgets can be composed at runtime and still communicate with each other.
@@ -61,7 +69,7 @@ For exmaple here the stock price and market analysis widgets are composed togeth
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetInteroperability.gif)
 
-### 4. CLI for bundling as Federated Modules
+### 5. CLI for bundling as Federated Modules
 
 The CLI shown below provides a consistent bundling strategy to the different app teams which develop, test and deploy their apps independantly. Also the CLI can issue warnings if the remote apps are using incompatible version of packages. 
 
