@@ -86,8 +86,6 @@ function WidgetOnboardingPage() {
       ])
       .then(
         axios.spread((widgetResponse, menuResponse) => {
-          console.log(widgetResponse.data);
-          console.log(menuResponse.data);
           setSuccessMessage("Widget onboarded successfully!");
           resetForm();
           setErrorMessage("");
