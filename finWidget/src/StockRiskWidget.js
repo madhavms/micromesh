@@ -3,8 +3,7 @@ import StockWidget from "./StockWidget";
 import RiskWidget from "./RiskWidget";
 
 function StockRiskWidget(props) {
-  const { setWidgetStyle, widgetStyle, handleClose } = props;
-
+  const { setWidgetStyle, widgetStyle, handleClose, uuid } = props;
   useEffect(() => {
     if (
       !!window["widget-style"] &&
@@ -20,8 +19,9 @@ function StockRiskWidget(props) {
   <StockWidget
     symbol="AAPL"
     handleClose={handleClose}
+    uuid={uuid}
   />
-  <RiskWidget />
+  <RiskWidget symbol="AAPL" uuid={uuid}/>
 </div>
 
   );
