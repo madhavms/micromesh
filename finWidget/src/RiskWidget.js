@@ -3,13 +3,13 @@ import { useStockRisk } from './utils/Hooks';
 import {subscribe, unsubscribe} from "messagebusmono";
 import RiskWidgetPlaceholder from './components/RiskWidgetPlaceholder';
 
-function RiskWidget({symbol} = null) {
-
+function RiskWidget(props) {
+  const {uuid, symbol} = props;
   const [currentSymbol, setCurrentSymbol] = useState("");
   const { riskData, isLoading, error } = useStockRisk(currentSymbol);
   const handleMessage = (event) => {
-    if(event.data.message && event.data.message.symbol)
-    setCurrentSymbol(event.data.message.symbol);
+    if(event.data.data.message && event.data.data.message.symbol && event.data.data.uuid === uuid)
+    setCurrentSymbol(event.data.data.message.symbol);
   };
 
   useEffect(() => {
