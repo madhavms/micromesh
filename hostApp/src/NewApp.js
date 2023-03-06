@@ -4,6 +4,7 @@ import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
 import { send, subscribe, unsubscribe } from "messagebusmono";
+import { v4 as uuidv4 } from 'uuid';
 
 const NewApp = () => {
   function loadScript(src) {
@@ -21,9 +22,10 @@ const NewApp = () => {
   const [widgetStyle, setWidgetStyle] = useState("");
   const [apps, setApps] = useState([]);
   const [menu, setMenu] = useState([]);
+  const [uuid, setuuid] = useState(uuidv4());
 
   const handleMessage = (event) => {
-    send(event.data);
+    send({data: event.data, uuid});
   };
 
   const handleClose = () => {
@@ -88,7 +90,7 @@ const NewApp = () => {
           <React.Suspense fallback={<WidgetPlaceholder/>}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
-                <Component setWidgetStyle={setWidgetStyle} widgetStyle={widgetStyle} handleClose={handleClose}/>
+                <Component setWidgetStyle={setWidgetStyle} widgetStyle={widgetStyle} handleClose={handleClose} uuid={uuid}/>
               ) : (
                 <div></div>
               )}
