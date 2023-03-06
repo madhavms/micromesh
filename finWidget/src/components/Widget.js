@@ -6,18 +6,18 @@ const Widget = (props) => {
   const [currentSymbol, setCurrentSymbol] = useState("AAPL");
   const { isError, quote, stock } = useStockData(currentSymbol);
   const {stockList} = useStockList();
-  const { mode } = props;
+  const { mode, uuid } = props;
   const colorClass = mode === "light" ? "light" : "dark";
   const varColor = quote.var < 0 ? "text-red-500" : "text-green-500";
 
   useEffect(() => {
-    send({ message: { symbol: currentSymbol } });
+    send({ message: { symbol: currentSymbol }, uuid });
   }, []);
 
   const handleChange = (e) => {
     let id = e.target.value;
     setCurrentSymbol(id);
-    send({ message: { symbol: id } })
+    send({message: { symbol: id } , uuid})
   };
 
   return (
