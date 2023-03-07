@@ -15,14 +15,18 @@ function StockRiskWidget(props) {
   }, []);
 
   return (
-<div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-  <StockWidget
-    symbol="AAPL"
-    handleClose={handleClose}
-    uuid={uuid}
-  />
-  <RiskWidget symbol="AAPL" uuid={uuid}/>
-</div>
+    <div style={{ display: 'flex', flexDirection: 'row'}}>
+    <div style={{ flexGrow: 0 }}>
+      <StockWidget
+        symbol="AAPL"
+        handleClose={handleClose}
+        uuid={uuid}
+      />
+    </div>
+    <div style={{ flexGrow: 0 }}>
+      <RiskWidget symbol="AAPL" uuid={uuid}/>
+    </div>
+  </div>
 
   );
 }
