@@ -32,24 +32,41 @@ const NewApp = () => {
     setComponent(null);
   }
 
+  const loadRemoteComponent = (app) => async () => {
+    await loadScript(app.url);
+    const container = window[app.remoteId];
+    await container.init(__webpack_share_scopes__.default);
+    const factory = await window[app.remoteId].get(`./${app.appId}`);
+    const module = factory();
+    return module;
+  };
+
   const handleMenuSelection = (e, appId, setDrawerOpen) => {
-    e.preventDefault();
     setDrawerOpen(false);
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
     if (!!app.appId) {
-      const loadRemoteComponent = async () => {
-        await loadScript(app.url);
-        const container = window[app.remoteId];
-        await container.init(__webpack_share_scopes__.default);
-        const factory = await window[app.remoteId].get(`./${app.appId}`);
-        const module = factory();
-        return module;
-      };
-      setComponent(React.lazy(loadRemoteComponent));
+      setComponent(React.lazy(loadRemoteComponent(app)));
+      sessionStorage.setItem('currentAppId',app.appIdc)
     }
   };
+
+  const cacheCurrentWidget = (appId) => {
+    let app = apps.filter((app) => {
+      return app.appId === appId;
+    })[0];
+    if (!!app.appId) {
+      setComponent(React.lazy(loadRemoteComponent(app)));
+    }
+  }
+
+  useEffect(() => {
+    const appId = sessionStorage.getItem('currentAppId')
+    console.log(appId)
+    if(!!appId)
+    cacheCurrentWidget(appId)
+  }, [])
 
   useEffect(() => {
     subscribe(handleMessage);
