@@ -111,7 +111,7 @@ const NewApp = () => {
         <br />
         &nbsp;
         <div >
-          <React.Suspense fallback={<WidgetPlaceholder/>}>
+          <React.Suspense fallback={"Loading..."}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
                 <Component setWidgetStyle={setWidgetStyle} widgetStyle={widgetStyle} handleClose={handleClose} uuid={uuid}/>
