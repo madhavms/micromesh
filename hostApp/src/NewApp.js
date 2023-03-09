@@ -48,24 +48,27 @@ const NewApp = () => {
     })[0];
     if (!!app.appId) {
       setComponent(React.lazy(loadRemoteComponent(app)));
-      sessionStorage.setItem('currentAppId',app.appIdc)
+      sessionStorage.setItem('currentAppId',app.appId)
     }
   };
 
   const cacheCurrentWidget = (appId) => {
+    let apps = JSON.parse(sessionStorage.getItem('apps'));
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
-    if (!!app.appId) {
+    if (!!appId) {
       setComponent(React.lazy(loadRemoteComponent(app)));
     }
   }
 
   useEffect(() => {
-    const appId = sessionStorage.getItem('currentAppId')
-    console.log(appId)
-    if(!!appId)
-    cacheCurrentWidget(appId)
+    const cachedAppId = sessionStorage.getItem('currentAppId');
+    let apps = JSON.parse(sessionStorage.getItem('apps'));
+    if(cachedAppId !== 'undefined' && !!apps) {
+      console.log('this is hit!!')
+      cacheCurrentWidget(cachedAppId);
+    }
   }, [])
 
   useEffect(() => {
@@ -85,6 +88,7 @@ const NewApp = () => {
     async function fetchApps() {
       const response = await fetch("http://localhost:8000/widgets");
       const data = await response.json();
+      sessionStorage.setItem('apps', JSON.stringify(data));
       setApps(data);
     }
 
