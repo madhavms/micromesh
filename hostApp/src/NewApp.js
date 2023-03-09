@@ -30,6 +30,9 @@ const NewApp = () => {
 
   const handleClose = () => {
     setComponent(null);
+    sessionStorage.setItem('currentAppId',"");
+    sessionStorage.setItem('apps',JSON.stringify([]));
+
   }
 
   const loadRemoteComponent = (app) => async () => {
@@ -53,7 +56,7 @@ const NewApp = () => {
   };
 
   const cacheCurrentWidget = (appId) => {
-    let apps = JSON.parse(sessionStorage.getItem('apps'));
+    let apps = JSON.parse(sessionStorage.getItem('apps')) || [];
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
@@ -64,8 +67,8 @@ const NewApp = () => {
 
   useEffect(() => {
     const cachedAppId = sessionStorage.getItem('currentAppId');
-    let apps = JSON.parse(sessionStorage.getItem('apps'));
-    if(cachedAppId !== 'undefined' && !!apps) {
+    let apps = JSON.parse(sessionStorage.getItem('apps')) || [];
+    if(cachedAppId !== 'undefined' &&  !!apps.length) {
       console.log('this is hit!!')
       cacheCurrentWidget(cachedAppId);
     }
