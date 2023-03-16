@@ -1,0 +1,32 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r finAPI/requirements.txt
+
+      - name: Run unit tests
+        run: |
+          python -m unittest discover -s finAPI/tests -p '*_test.py'
+
+      - name: Deploy to production
+        uses: some-action-to-deploy-to-production
+        with:
+          api_key: ${{ secrets.API_KEY }}
