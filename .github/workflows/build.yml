@@ -21,7 +21,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: your-username/your-repo:latest
+          tags: mad123mano/finapimono:latest
 
       - name: Deploy Docker Compose
         uses: appleboy/ssh-action@master
