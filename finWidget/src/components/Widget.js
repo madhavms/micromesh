@@ -1,10 +1,11 @@
 import { send } from "messagebusmono";
 import React, { useEffect, useState } from "react";
 import { useStockData, useStockList } from "../utils/Hooks";
+import { StockWidgetPlaceholder } from "./StockWIdgetPlaceholder";
 
 const Widget = (props) => {
   const [currentSymbol, setCurrentSymbol] = useState("AAPL");
-  const { isError, quote, stock } = useStockData(currentSymbol);
+  const { isLoading, isError, quote, stock } = useStockData(currentSymbol);
   const {stockList} = useStockList();
   const { mode, uuid } = props;
   const colorClass = mode === "light" ? "light" : "dark";
@@ -19,6 +20,13 @@ const Widget = (props) => {
     setCurrentSymbol(id);
     send({message: { symbol: id } , uuid})
   };
+
+  if (isLoading) {
+    return <StockWidgetPlaceholder />;
+  }
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="flex widget-container">
