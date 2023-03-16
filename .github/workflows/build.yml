@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.DEPLOY_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
-            apt-get update && apt-get install -y docker-compose
+            sudo apt-get update && sudo apt-get install -y docker-compose
             cd react-host-remote
             docker-compose pull
             docker-compose up -d
