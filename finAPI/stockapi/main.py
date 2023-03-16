@@ -6,7 +6,6 @@ import random
 import asyncio
 import json
 import random
-from utils import global_var
 from dotenv import load_dotenv, find_dotenv
 from pydantic import BaseModel
 from sqlalchemy import create_engine, Column, Integer, String
