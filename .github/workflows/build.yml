@@ -18,8 +18,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
@@ -29,16 +29,14 @@ jobs:
           push: true
           tags: mad123mano/finapimono:latest
 
-
       - name: Deploy Docker Compose
         uses: appleboy/ssh-action@master
         with:
-            host: ${{ secrets.DEPLOY_HOST }}
-            username: ${{ secrets.DEPLOY_USERNAME }}
-            password: ${{ secrets.DEPLOY_PASSWORD }}
-        script: |
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          script: |
             sudo apt-get update && sudo apt-get install -y docker-compose
             cd /path/to/project
             docker-compose pull
             docker-compose up -d
-
