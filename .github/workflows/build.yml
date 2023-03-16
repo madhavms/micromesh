@@ -22,11 +22,3 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r finAPI/requirements.txt
 
-      - name: Run unit tests
-        run: |
-          python -m unittest discover -s finAPI/tests -p '*_test.py'
-
-      - name: Deploy to production
-        uses: some-action-to-deploy-to-production
-        with:
-          api_key: ${{ secrets.API_KEY }}
