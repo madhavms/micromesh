@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             sudo apt-get update && sudo apt-get install -y docker-compose
-            git clone https://github.com/madhavms/react-host-remote.git
+            sudo git clone https://github.com/madhavms/react-host-remote.git
             cd react-host-remote
             docker-compose pull
             docker-compose up -d
