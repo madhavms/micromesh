@@ -1,4 +1,4 @@
-from fastapi import FastAPI, WebSocket
+from fastapi import FastAPI, WebSocket, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import json
@@ -107,6 +107,19 @@ async def delete_widget(widget_id: int):
     return {"error": "Widget not found"}
 
 
+@app.put("/widgets/{widget_id}")
+async def update_widget(widget_id: int, widget):
+    db = SessionLocal()
+    db_widget = db.query(Widget).filter(Widget.id == widget_id).first()
+    if not db_widget:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Widget not found")
+    for field, value in widget.dict(exclude_unset=True).items():
+        setattr(db_widget, field, value)
+    db.commit()
+    db.refresh(db_widget)
+    return db_widget
+
+
 # define request model
 class MenuItemCreate(BaseModel):
     appId: str
@@ -121,6 +134,19 @@ async def create_menu_item(menu_item: MenuItemCreate):
     db.commit()
     db.refresh(db_menu_item)
     return db_menu_item
+
+@app.put("/menu/{item_id}")
+async def update_menu_item(item_id: int, menu_item):
+    db = SessionLocal()
+    db_menu_item = db.query(MenuItem).filter(MenuItem.id == item_id).first()
+    if not db_menu_item:
+        raise HTTPException(status_code=404, detail="Menu item not found")
+    for field, value in menu_item.dict(exclude_unset=True).items():
+        setattr(db_menu_item, field, value)
+    db.commit()
+    db.refresh(db_menu_item)
+    return db_menu_item
+
 
 @app.get("/menu/")
 async def read_menu_items():
