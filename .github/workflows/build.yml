@@ -29,6 +29,7 @@ jobs:
           push: true
           tags: mad123mano/finapimono:latest
 
+
       - name: Deploy Docker Compose
         uses: appleboy/ssh-action@master
         with:
