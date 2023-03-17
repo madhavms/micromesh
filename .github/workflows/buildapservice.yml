@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             sudo apt-get update && sudo apt-get install -y docker-compose
-            cd react-host-remote
+            cd react-host-remote/finAPI
             sudo git pull
             sudo docker-compose pull
             sudo docker-compose up -d
