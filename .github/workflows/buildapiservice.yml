@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'finAPI/**'
+      - '.github/workflows/buildapiservice.yml'
 
 jobs:
   build-and-deploy:
