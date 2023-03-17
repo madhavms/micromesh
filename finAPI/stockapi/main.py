@@ -34,7 +34,6 @@ app.add_middleware(
     allow_headers=['*']
 )
 
-
 def add_variance(stock):
     pos_or_neg = random.randint(0, 1)
     randNum = random.uniform(1, 9)
