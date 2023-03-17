@@ -41,5 +41,6 @@ jobs:
             cd react-host-remote
             sudo git pull
             cd finAPI
+            sudo docker stop $(sudo docker ps -aq --filter ancestor=mad123mano/monofinapi:latest)
             sudo docker-compose pull
             sudo docker-compose up -d
