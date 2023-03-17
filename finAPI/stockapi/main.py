@@ -19,7 +19,6 @@ APPS_DATA_PATH = './data_source/apps_data.json'
 
 load_dotenv(find_dotenv())
 
-
 app = FastAPI()
 
 # create SQLite database
