@@ -12,7 +12,13 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+STOCK_DATA_PATH = './data_source/stock_data.json'
+RISK_DATA_PATH = './data_source/risk_data.json'
+MENU_DATA_PATH = './data_source/menu_data.json'
+APPS_DATA_PATH = './data_source/apps_data.json'
+
 load_dotenv(find_dotenv())
+
 
 app = FastAPI()
 
@@ -38,19 +44,19 @@ def add_variance(stock):
 
 
 def load_stock_data():
-    with open(global_var.STOCK_DATA_PATH) as f:
+    with open(STOCK_DATA_PATH) as f:
         return json.load(f)
 
 def load_menu_data():
-    with open(global_var.MENU_DATA_PATH) as f:
+    with open(MENU_DATA_PATH) as f:
         return json.load(f)
     
 def load_apps_data():
-    with open(global_var.APPS_DATA_PATH) as f:
+    with open(APPS_DATA_PATH) as f:
         return json.load(f)
 
 def load_risk_data():
-    with open(global_var.RISK_DATA_PATH) as f:
+    with open(RISK_DATA_PATH) as f:
         return json.load(f)
     
 
