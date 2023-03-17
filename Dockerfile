@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+FROM python:3.8.15
 
 COPY ./finAPI/ /app/finAPI/
 
