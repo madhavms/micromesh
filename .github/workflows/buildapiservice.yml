@@ -27,7 +27,7 @@ jobs:
           context: ./finAPI
           file: ./finAPI/Dockerfile
           push: true
-          tags: mad123mano/finapi:latest
+          tags: ${{secrets.API_DOCKER_IMAGE_TAG}}
           args: |
             PYTHON_VERSION=3.8.15
       - name: Deploy Docker Compose
@@ -38,9 +38,7 @@ jobs:
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             sudo apt-get update && sudo apt-get install -y docker-compose
-            cd react-host-remote
-            sudo git pull
-            cd finAPI
-            sudo docker stop $(sudo docker ps -aq --filter ancestor=mad123mano/monofinapi:latest)
+            curl ${{secrets.COMPOSE_FILE_GIT_PATH}}
+            sudo docker stop $(sudo docker ps -aq --filter ancestor=${{secrets.API_DOCKER_IMAGE_TAG}})
             sudo docker-compose pull
             sudo docker-compose up -d
