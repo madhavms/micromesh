@@ -28,8 +28,8 @@ export const useStockList = () => {
 export const useStockData = (symbol) => {
   const [isError, setIsError] = useState(false);
   const [websocket, setWebsocket] = useState(null);
-
-
+  const [isLoading, setIsLoading] = useState(true);
+  console.log('isLoading=',isLoading)
   const [quote, setQuote] = useState({
     price: "--",
     var: "--",
@@ -51,6 +51,7 @@ export const useStockData = (symbol) => {
       const data = JSON.parse(event.data);
       setIsError(false);
       const stockDetail = data;
+      setIsLoading(false);
       setStock({
         stockExchange: stockDetail.stock_exchange,
         name: stockDetail.name,
@@ -84,7 +85,7 @@ export const useStockData = (symbol) => {
     };
   }, [symbol]);
 
-  return { isError, quote, stock };
+  return { isLoading, isError, quote, stock };
 };
 
 

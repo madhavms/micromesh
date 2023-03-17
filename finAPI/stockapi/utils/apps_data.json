@@ -1,5 +1,0 @@
-[
-    {"url":"http://localhost:3001/widgetRemote.js", "appId":"StockRiskWidget", "remoteId":"finWidget"},
-    {"url":"http://localhost:3001/widgetRemote.js", "appId":"StockWidget", "remoteId":"finWidget"},
-    {"url":"http://localhost:3001/widgetRemote.js", "appId":"NewsWidget", "remoteId":"finWidget"}
-]
