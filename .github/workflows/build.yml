@@ -28,14 +28,9 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: mad123mano/monofinapi:latest
-          cache-from: type=registry,ref=mad123mano/monofinapi:latest
-          cache-to: type=inline
           args: |
             PYTHON_VERSION=3.8.15
           
-      - name: Build Docker Image
-        run: |
-          docker build --no-cache -t mad123mano/monofinapi:latest .
 
       - name: Deploy Docker Compose
         uses: appleboy/ssh-action@master
