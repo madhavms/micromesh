@@ -6,4 +6,5 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir -r finAPI/requirements.txt
 
-CMD ["uvicorn", "finAPI.stockapi.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "finAPI.stockapi.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
