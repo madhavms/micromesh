@@ -40,7 +40,6 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y docker.io docker-compose
             sudo wget -O ${{secrets.API_COMPOSE_FILE_NAME}} -q ${{secrets.COMPOSE_FILE_GIT_PATH}}
-            sudo systemctl stop apache2
             sudo docker stop $(sudo docker ps -aq --filter ancestor=${{secrets.API_DOCKER_IMAGE_TAG}})
             sudo docker-compose pull
             sudo docker-compose up -d

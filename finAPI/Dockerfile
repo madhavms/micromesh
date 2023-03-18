@@ -1,28 +1,17 @@
 FROM python:3.8.15
 
-# Install Apache and mod_proxy_uwsgi
-RUN apt-get update && \
-    apt-get install -y apache2 libapache2-mod-proxy-uwsgi
-
 # Copy your application code to the container
 COPY ./ /app/
 
 WORKDIR /app
 
-RUN kill -9 $(lsof -t -i:443) || echo "No process found on port 443"
-
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Configure Apache
-COPY ./apache.conf /etc/apache2/sites-available/000-default.conf
+# Copy SSL certificates to the container
+COPY ./certs/ssl_keyfile.pem /etc/ssl/private/
+COPY ./certs/ssl_certfile.pem /etc/ssl/certs/
 
-# Expose Apache ports
-EXPOSE 80
 EXPOSE 443
 
-# Start Apache and Uvicorn using supervisord
-RUN apt-get install -y supervisor
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-CMD ["/usr/bin/supervisord"]
+CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "443", "--ssl-keyfile", "/etc/ssl/private/ssl_keyfile.pem", "--ssl-certfile", "/etc/ssl/certs/ssl_certfile.pem"]
