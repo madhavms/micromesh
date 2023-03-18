@@ -37,7 +37,8 @@ jobs:
           username: ${{ secrets.DEPLOY_USERNAME }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
-            sudo apt-get update && sudo apt-get install -y docker-compose
+            sudo apt-get update
+            sudo apt-get install -y docker.io docker-compose
             sudo wget -O ${{secrets.API_COMPOSE_FILE_NAME}} -q ${{secrets.COMPOSE_FILE_GIT_PATH}}
             sudo docker stop $(sudo docker ps -aq --filter ancestor=${{secrets.API_DOCKER_IMAGE_TAG}})
             sudo docker-compose pull
