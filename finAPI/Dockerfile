@@ -7,6 +7,10 @@ RUN apt-get update && \
 # Copy your application code to the container
 COPY ./ /app/
 
+WORKDIR /app
+
+RUN kill -9 $(lsof -t -i:443) || echo "No process found on port 443"
+
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
