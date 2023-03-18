@@ -25,6 +25,7 @@
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-react": "^7.18.6",
     "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "babel-loader": "^9.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
     "broadcast-channel": "^4.20.2",
@@ -35,6 +36,8 @@
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "react-router-dom": "^6.8.2",
-    "reactstrap": "^9.1.6"
+    "reactstrap": "^9.1.6",
+    "style-loader": "^3.3.2",
+    "uuid": "^9.0.0"
   }
 }
