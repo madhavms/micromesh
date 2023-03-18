@@ -5,3 +5,6 @@ services:
     ports:
       - "443:443"
     container_name: finAPI
+    volumes:
+      - /etc/letsencrypt/live/reactmfehost.japaneast.cloudapp.azure.com/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
+      - /etc/letsencrypt/live/reactmfehost.japaneast.cloudapp.azure.com/privkey.pem:/etc/ssl/private/privkey.pem:ro
