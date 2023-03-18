@@ -7,7 +7,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" element={<NewApp/>} />
+        <Route exact path="/react-host-remote" element={<NewApp/>} />
       </Routes>
     </BrowserRouter>
   );
