@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       run: | 
         cd hostApp
-        npm ci
+        npm install
 
     - name: Build React app
       run: | 
