@@ -11,4 +11,3 @@ services:
       - /etc/apache2:/etc/apache2
     environment:
       - APACHE_SERVER_NAME=reactmfehost.japaneast.cloudapp.azure.com
-    command: "bash -c 'sudo source /etc/apache2/envvars && sudo /usr/sbin/apache2 -DFOREGROUND'"
