@@ -29,7 +29,7 @@ jobs:
     - name: Set environment variable
       env:
         FIN_API_URL: ${{ secrets.FIN_API_URL }}
-      run: echo "FIN_API_URL=${FIN_API_URL}" >> $GITHUB_ENV
+      run: echo "FIN_API_URL=${FIN_API_URL}" >> .env
 
     - name: Build React app
       run: | 
