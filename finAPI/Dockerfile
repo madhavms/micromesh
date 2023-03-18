@@ -10,9 +10,6 @@ RUN kill -9 $(lsof -t -i:443) || echo "No process found on port 443"
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY /etc/letsencrypt/live/reactmfehost.eastus.cloudapp.azure.com/fullchain.pem /etc/ssl/certs/
-COPY /etc/letsencrypt/live/reactmfehost.eastus.cloudapp.azure.com/privkey.pem /etc/ssl/private/
-
 EXPOSE 443
 
-CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "443", "--ssl-keyfile", "/etc/ssl/private/privkey.pem", "--ssl-certfile", "/etc/ssl/certs/fullchain.pem"]
+CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "443"]
