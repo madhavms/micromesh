@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
-import { WidgetPlaceholder } from "./components/WidgetPlaceholder";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
 import { send, subscribe, unsubscribe } from "messagebusmono";
 import { v4 as uuidv4 } from 'uuid';
+import MyFallbackComponent from "./components/Placeholder";
 
 const NewApp = () => {
   function loadScript(src) {
@@ -83,13 +83,13 @@ const NewApp = () => {
 
   useEffect(() => {
     async function fetchMenu() {
-      const response = await fetch("http://localhost:8000/menu");
+      const response = await fetch(`${process.env.FIN_API_URL}/menu`);
       const data = await response.json();
       setMenu(data);
     }
 
     async function fetchApps() {
-      const response = await fetch("http://localhost:8000/widgets");
+      const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
       const data = await response.json();
       sessionStorage.setItem('apps', JSON.stringify(data));
       setApps(data);
@@ -111,7 +111,7 @@ const NewApp = () => {
         <br />
         &nbsp;
         <div >
-          <React.Suspense fallback={"Loading..."}>
+          <React.Suspense fallback={<MyFallbackComponent/>}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
                 <Component setWidgetStyle={setWidgetStyle} widgetStyle={widgetStyle} handleClose={handleClose} uuid={uuid}/>
