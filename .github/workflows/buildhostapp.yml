@@ -13,31 +13,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14.x'
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
 
-    - name: Install dependencies
-      run: | 
-        cd hostApp
-        npm install
+      - name: Install dependencies
+        working-directory: ./hostApp
+        run: npm install
 
-    - name: Set environment variable
-      env:
-        FIN_API_URL: ${{ secrets.FIN_API_URL }}
-      run: echo "FIN_API_URL=${FIN_API_URL}" >> .env
+      - name: Set environment variable
+        env:
+          FIN_API_URL: ${{ secrets.FIN_API_URL }}
+        run: echo "FIN_API_URL=${FIN_API_URL}" >> ./hostApp/.env
 
-    - name: Build React app
-      run: | 
-        cd hostApp
-        npm run build
+      - name: Build React app
+        working-directory: ./hostApp
+        run: npm run build
 
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.3
-      with:
-        branch: gh-pages
-        folder: hostApp/build
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.3
+        with:
+          branch: gh-pages
+          folder: ./hostApp/build
