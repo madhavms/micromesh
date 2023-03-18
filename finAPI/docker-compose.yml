@@ -3,8 +3,13 @@ services:
   app:
     image: mad123mano/monofinapi:latest
     ports:
+      - "80:80"
       - "443:443"
     container_name: finAPI
     volumes:
-      - /etc/letsencrypt/live/reactmfehost.japaneast.cloudapp.azure.com/fullchain.pem:/etc/ssl/certs/fullchain.pem:ro
-      - /etc/letsencrypt/live/reactmfehost.japaneast.cloudapp.azure.com/privkey.pem:/etc/ssl/private/privkey.pem:ro
+      - /etc/letsencrypt/live:/etc/letsencrypt/live
+      - /etc/apache2:/etc/apache2
+    restart: always
+    environment:
+      - APACHE_SERVER_NAME=reactmfehost.japaneast.cloudapp.azure.com
+    command: "bash -c 'source /etc/apache2/envvars && /usr/sbin/apache2 -DFOREGROUND'"
