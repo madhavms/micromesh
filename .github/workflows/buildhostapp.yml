@@ -26,16 +26,15 @@ jobs:
         cd hostApp
         npm install
 
-    - name: Build React app
-      run: | 
-        cd hostApp
-        npm run build
-
     - name: Set environment variable
       env:
         FIN_API_URL: ${{ secrets.FIN_API_URL }}
       run: echo "FIN_API_URL=${FIN_API_URL}" >> $GITHUB_ENV
 
+    - name: Build React app
+      run: | 
+        cd hostApp
+        npm run build
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@4.1.3
