@@ -1,0 +1,39 @@
+name: Build and Deploy React App
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'hostApp/**'
+      - '.github/workflows/buildhostapp.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14.x'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build React app
+      run: npm run build
+
+    - name: Set environment variable
+      env:
+        FIN_API_URL: ${{ secrets.FIN_API_URL }}
+      run: echo "FIN_API_URL=${FIN_API_URL}" >> $GITHUB_ENV
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.3
+      with:
+        branch: gh-pages
+        folder: build
