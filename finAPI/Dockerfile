@@ -12,6 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./certs/ssl_keyfile.pem /etc/ssl/private/
 COPY ./certs/ssl_certfile.pem /etc/ssl/certs/
 
+EXPOSE 80
 EXPOSE 443
 
-CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "443", "--ssl-keyfile", "/etc/ssl/private/ssl_keyfile.pem", "--ssl-certfile", "/etc/ssl/certs/ssl_certfile.pem"]
+CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "80", "--ssl-keyfile", "/etc/ssl/private/ssl_keyfile.pem", "--ssl-certfile", "/etc/ssl/certs/ssl_certfile.pem", "--workers", "4", "--proxy-headers"]
+
