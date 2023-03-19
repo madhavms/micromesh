@@ -1,9 +1,9 @@
 FROM python:3.8.15
 
 # Pass the build arguments as environment variables
-ARG CA_BUNDLE_CRT_URL
-ARG CERTIFICATE_CRT_URL
-ARG PRIVATE_KEY_URL
+ARG CA_BUNDLE_CRT
+ARG CERTIFICATE_CRT
+ARG PRIVATE_KEY
 
 # Copy your application code to the container
 COPY ./ /app/
