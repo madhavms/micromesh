@@ -1,6 +1,7 @@
-from fastapi import FastAPI, WebSocket, HTTPException, status
-from fastapi.responses import FileResponse
+from fastapi import FastAPI, WebSocket, HTTPException, status, Response
 from fastapi.middleware.cors import CORSMiddleware
+from io import BytesIO
+import aiohttp
 import requests
 from pathlib import Path
 import json
@@ -215,7 +216,20 @@ async def websocket_endpoint(websocket: WebSocket, symbol: str):
     await websocket.accept()
     await generate_stock_prices(websocket, symbol)
 
+from io import BytesIO
+from fastapi.responses import FileResponse
+
+import aiohttp
+from fastapi import FastAPI, Response
+
+app = FastAPI()
 
 @app.get("/.well-known/pki-validation/0D53200C71F63CDD63C015997A9A691E.txt")
 async def serve_validation_file():
-    return FileResponse(".well-known/pki-validation/0D53200C71F63CDD63C015997A9A691E.txt")
+    url = "https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/.well-known/pki-validation/0D53200C71F63CDD63C015997A9A691E.txt"
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            content = await response.content.read()
+            return Response(content, media_type="text/plain")
+
+
