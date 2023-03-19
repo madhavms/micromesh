@@ -87,6 +87,7 @@ const NewApp = () => {
       const data = await response.json();
       setMenu(data);
     }
+  
 
     async function fetchApps() {
       const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
