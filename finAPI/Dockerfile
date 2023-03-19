@@ -12,9 +12,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 
 # Download SSL certificates
-RUN curl -sS {{ secrets.CA_BUNDLE_CRT }} -o /etc/ssl/certs/ca-certificates.crt \
- && curl -sS {{ secrets.CERTIFICATE_CRT }} -o /etc/ssl/certs/certificate.crt \
- && curl -sS {{ secrets.PRIVATE_KEY }} -o /etc/ssl/private/private.key
+RUN curl -sS ${{ secrets.CA_BUNDLE_CRT }} -o /etc/ssl/certs/ca-certificates.crt \
+ && curl -sS ${{ secrets.CERTIFICATE_CRT }} -o /etc/ssl/certs/certificate.crt \
+ && curl -sS ${{ secrets.PRIVATE_KEY }} -o /etc/ssl/private/private.key
 
 EXPOSE 443
 
