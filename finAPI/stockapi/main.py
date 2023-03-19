@@ -61,7 +61,7 @@ def load_risk_data():
 
 # define Widget model
 class Widget(Base):
-    __tablename__ = "widgets"
+    __tablename__ = "widget_items"
     id = Column(Integer, primary_key=True, index=True)
     url = Column(String, index=True)
     appId = Column(String, index=True)
