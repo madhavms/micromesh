@@ -30,6 +30,10 @@ jobs:
           tags: ${{secrets.API_DOCKER_IMAGE_TAG}}
           args: |
             PYTHON_VERSION=3.8.15
+            CA_BUNDLE_CRT: ${{ secrets.CA_BUNDLE_CRT }}
+            CERTIFICATE_CRT: ${{ secrets.CERTIFICATE_CRT }}
+            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      
       - name: Deploy Docker Compose
         uses: appleboy/ssh-action@master
         with:
