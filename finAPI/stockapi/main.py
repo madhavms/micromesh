@@ -1,4 +1,5 @@
 from fastapi import FastAPI, WebSocket, HTTPException, status
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 import requests
 from pathlib import Path
@@ -213,3 +214,8 @@ async def generate_stock_prices(websocket, symbol):
 async def websocket_endpoint(websocket: WebSocket, symbol: str):
     await websocket.accept()
     await generate_stock_prices(websocket, symbol)
+
+
+@app.get("/.well-known/pki-validation/0D53200C71F63CDD63C015997A9A691E.txt")
+async def serve_validation_file():
+    return FileResponse(".well-known/pki-validation/0D53200C71F63CDD63C015997A9A691E.txt")
