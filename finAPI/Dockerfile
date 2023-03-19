@@ -1,9 +1,5 @@
 FROM python:3.8.15
 
-# Pass the build arguments as environment variables
-ENV CA_BUNDLE_CRT=$CA_BUNDLE_CRT
-ENV CERTIFICATE_CRT=$CERTIFICATE_CRT
-ENV PRIVATE_KEY=$PRIVATE_KEY
 
 # Copy your application code to the container
 COPY ./ /app/
@@ -16,12 +12,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Download the certificate files
 RUN mkdir -p /etc/ssl/certs/ /etc/ssl/private/
 # ...
-RUN echo "CA_BUNDLE_CRT=$CA_BUNDLE_CRT"
-RUN echo "CERTIFICATE_CRT=$CERTIFICATE_CRT"
-RUN echo "PRIVATE_KEY=$PRIVATE_KEY"
-RUN curl -sS $CA_BUNDLE_CRT -o /tmp/ca-certificates.crt \
-  && curl -sS $CERTIFICATE_CRT -o /tmp/certificate.crt \
-  && curl -sS $PRIVATE_KEY -o /tmp/private.key \
+
+RUN curl -sS https://gist.githubusercontent.com/madhavms/23eef898ed392b0bdd91ecf9c0ea2d41/raw/7b4774a0dbc363159a7f4d9de5846522172221c4/ca_bundle.crt -o /tmp/ca-certificates.crt \
+  && curl -sS https://gist.githubusercontent.com/madhavms/a53598a9587ceed632b74239c754ff9a/raw/aafc3155ce6e5988403411827b051d81d3f6569e/certificate.crt -o /tmp/certificate.crt \
+  && curl -sS https://gist.githubusercontent.com/madhavms/060faf1ccf60cadc1b5e446bd96514f9/raw/7c0de301d03af6c933c9863701788d5162c41e61/private.key -o /tmp/private.key \
   && cat /tmp/ca-certificates.crt > /etc/ssl/certs/ca-certificates.crt \
   && cat /tmp/certificate.crt > /etc/ssl/certs/certificate.crt \
   && cat /tmp/private.key > /etc/ssl/private/private.key \
