@@ -25,4 +25,4 @@ RUN curl -sS https://gist.githubusercontent.com/madhavms/23eef898ed392b0bdd91ecf
 
 EXPOSE 443
 
-CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "443", "--ssl-keyfile", "/etc/ssl/private/private.key", "--ssl-certfile", "/etc/ssl/certs/certificate.crt", "--ssl-ca-certfile", "/etc/ssl/certs/ca-certificates.crt", "--workers", "4", "--proxy-headers"]
+CMD ["uvicorn", "stockapi.main:app", "--host", "0.0.0.0", "--port", "443", "--ssl-keyfile", "/etc/ssl/private/private.key", "--ssl-certfile", "/etc/ssl/certs/certificate.crt", "--ssl-ca-certs", "/etc/ssl/certs/ca-certificates.crt", "--workers", "4", "--proxy-headers"]
