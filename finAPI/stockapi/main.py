@@ -1,5 +1,6 @@
 from fastapi import FastAPI, WebSocket, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+import requests
 from pathlib import Path
 import json
 import random
@@ -12,8 +13,8 @@ from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-STOCK_DATA_PATH = './data_source/stock_data.json'
-RISK_DATA_PATH = './data_source/risk_data.json'
+STOCK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/stock_data.json'
+RISK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/risk_data.json'
 MENU_DATA_PATH = './data_source/menu_data.json'
 APPS_DATA_PATH = './data_source/apps_data.json'
 
@@ -42,20 +43,12 @@ def add_variance(stock):
 
 
 def load_stock_data():
-    with open(STOCK_DATA_PATH) as f:
-        return json.load(f)
-
-def load_menu_data():
-    with open(MENU_DATA_PATH) as f:
-        return json.load(f)
-    
-def load_apps_data():
-    with open(APPS_DATA_PATH) as f:
-        return json.load(f)
+    response = requests.get(STOCK_DATA_PATH)
+    return json.loads(response.text)
 
 def load_risk_data():
-    with open(RISK_DATA_PATH) as f:
-        return json.load(f)
+    response = requests.get(RISK_DATA_PATH)
+    return json.loads(response.text)
     
 
 
