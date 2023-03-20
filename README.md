@@ -13,29 +13,29 @@ This repository is a monorepo managed with lerna and yarn workspaces.
 - `hostApp` is the host application (http://localhost:3000).
 - `finWidget` is a standalone application which exposes `StockWidget` component (http://localhost:3001).
 
-### Python Backend Serivce (Websocket Communication):
-The widget receives dummy stock prices from the Websocket API written using Python FASTAPI framework. Websocket enables receiving real time stock price values.
+## Application Startup
 
-
-### Starting the Frontend App:
+### 1.Starting the Frontend App:
 
 Run `yarn start`.
 
 This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 respectively.
 
-### Starting the Python API Service:
+### 2. Starting the Python API Service:
 
 1. `cd finAPI/stockapi`
 
 2. ` uvicorn main:app --reload`
 
-### Host Application Demo
+## Applications
+
+### [1.Micro-frontend Host Application](https://madhavms.github.io/react-host-remote/)
 
 The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
 ![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### Remote Application Demo
+### [2.Widget Showcase App](https://madhavms.github.io/remote-widgets/)
 
 This is a showcase application for the different widgets published in MFE format.
 
@@ -49,7 +49,7 @@ The host shell gets the menu config from the "menu and application discovery" se
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### 2. Onboarding Page for Microfrontend Apps
+### [2. Onboarding Page for Microfrontend Apps](https://madhavms.github.io/onboarding-app/)
 
 This onboarding screen is used by the app development teams to onboard their micro frontend application to the host application.
 The form requires info such as the url of the remote entry file, app id, remote id and the label which would be displayed on the menu.
