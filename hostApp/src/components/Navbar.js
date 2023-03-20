@@ -15,13 +15,11 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Hidden from "@material-ui/core/Hidden";
 
-
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 0
+    flexGrow: 0,
   },
   otherLinks: {
     color: "white",
@@ -44,25 +42,28 @@ const useStyles = makeStyles((theme) => ({
       props.mode === "light" ? "#7b68ee" : "#212121",
   },
   drawer: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   drawerPaper: {
     width: drawerWidth,
-    color:(props) => (props.mode === "dark" ? "white" : "black"),
+    color: (props) => (props.mode === "dark" ? "white" : "black"),
     backgroundColor: (props) =>
-    props.mode === "light" ? "#FAFAFA" : "#212121"
-    
+      props.mode === "light" ? "#FAFAFA" : "#212121",
   },
   menuIcon: {
-    color: (props) =>
-    props.mode === "light" ? "black" : "white",
+    color: (props) => (props.mode === "light" ? "black" : "white"),
   },
   brightness4Icon: {
-    color: "white"
-  }
+    color: "white",
+  },
 }));
 
-export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) {
+export default function Navbar({
+  mode,
+  setMode,
+  menu = [],
+  handleMenuSelection,
+}) {
   const toggleMode = () => {
     const newMode = mode === "light" ? "dark" : "light";
     setMode(newMode);
@@ -81,11 +82,10 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  
 
   return (
     <div className={classes.root}>
@@ -96,21 +96,27 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
             edge="start"
             className={classes.menuButton}
           >
-            <MenuIcon className={classes.menuIcon}/>
+            <MenuIcon className={classes.menuIcon} />
           </IconButton>
           <Hidden xsDown>
-          <Typography variant="subtitle1" className={classes.menuTitle}>
-            Menu
-          </Typography>
+            <Typography variant="subtitle1" className={classes.menuTitle}>
+              Menu
+            </Typography>
           </Hidden>
           <Typography variant="h6" className={classes.title}>
-          MicroMesh
+            MicroMesh
           </Typography>
           <IconButton onClick={toggleMode}>
-            {mode === "light" ? <Brightness7Icon /> : <Brightness4Icon className={classes.brightness4Icon}/>}
+            {mode === "light" ? (
+              <Brightness7Icon />
+            ) : (
+              <Brightness4Icon className={classes.brightness4Icon} />
+            )}
           </IconButton>
           <IconButton onClick={handleMenuOpen}>
-            <Typography variant="subtitle1" className={classes.otherLinks}>Related Apps</Typography>
+            <Typography variant="subtitle1" className={classes.otherLinks}>
+              Related Apps
+            </Typography>
           </IconButton>
           <Menu
             anchorEl={anchorEl}
@@ -148,11 +154,18 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
         onClose={handleDrawerToggle}
       >
         <List>
-        {menu.length !==0 && menu.map((item) => (
-          <ListItem key={item.appId} button onClick={(e) => handleMenuSelection(e, item.appId, setDrawerOpen)}>
-            <ListItemText primary={item.label} />
-          </ListItem>
-        ))}
+          {menu.length !== 0 &&
+            menu.map((item) => (
+              <ListItem
+                key={item.appId}
+                button
+                onClick={(e) =>
+                  handleMenuSelection(e, item.appId, setDrawerOpen)
+                }
+              >
+                <ListItemText primary={item.label} />
+              </ListItem>
+            ))}
         </List>
       </Drawer>
     </div>
