@@ -29,13 +29,13 @@ This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 r
 
 ## Applications
 
-### 1.Micro-frontend Host Application [App Link](https://madhavms.github.io/react-host-remote/)
+### [1.Micro-frontend Host Application](https://madhavms.github.io/react-host-remote/)
 
 The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
 ![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### 2.Widget Showcase App [App Link](https://madhavms.github.io/remote-widgets/)
+### [2.Widget Showcase App](https://madhavms.github.io/remote-widgets/)
 
 This is a showcase application for the different widgets published in MFE format.
 
