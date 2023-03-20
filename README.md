@@ -49,7 +49,7 @@ The host shell gets the menu config from the "menu and application discovery" se
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### 2. Onboarding Page for Microfrontend Apps
+### [2. Onboarding Page for Microfrontend Apps](https://madhavms.github.io/onboarding-app/)
 
 This onboarding screen is used by the app development teams to onboard their micro frontend application to the host application.
 The form requires info such as the url of the remote entry file, app id, remote id and the label which would be displayed on the menu.
