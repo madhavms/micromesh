@@ -25,10 +25,16 @@ jobs:
         working-directory: ./hostApp
         run: npm install
 
-      - name: Set environment variable
+      - name: Set environment variables
         env:
           FIN_API_URL: ${{ secrets.FIN_API_URL }}
-        run: echo "FIN_API_URL=${FIN_API_URL}" >> ./hostApp/.env
+          SHOWCASE_URL: ${{ secrets.SHOWCASE_URL }}
+          ONBOARDING_URL: ${{ secrets.ONBOARDING_URL }}
+        run: |
+          echo "FIN_API_URL=${FIN_API_URL}" >> ./hostApp/.env
+          echo "REACT_APP_SHOWCASE_URL=${SHOWCASE_URL}" >> ./hostApp/.env
+          echo "REACT_APP_ONBOARDING_URL=${ONBOARDING_URL}" >> ./hostApp/.env
+
 
       - name: Build React app
         working-directory: ./hostApp
