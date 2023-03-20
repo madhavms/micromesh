@@ -14,8 +14,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Hidden from "@material-ui/core/Hidden";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 
 
 
@@ -46,11 +44,22 @@ const useStyles = makeStyles((theme) => ({
       props.mode === "light" ? "#7b68ee" : "#212121",
   },
   drawer: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   drawerPaper: {
     width: drawerWidth,
+    color:(props) => (props.mode === "dark" ? "white" : "black"),
+    backgroundColor: (props) =>
+    props.mode === "light" ? "#FAFAFA" : "#212121"
+    
   },
+  menuIcon: {
+    color: (props) =>
+    props.mode === "light" ? "black" : "white",
+  },
+  brightness4Icon: {
+    color: "white"
+  }
 }));
 
 export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) {
@@ -87,7 +96,7 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
             edge="start"
             className={classes.menuButton}
           >
-            <MenuIcon />
+            <MenuIcon className={classes.menuIcon}/>
           </IconButton>
           <Hidden xsDown>
           <Typography variant="subtitle1" className={classes.menuTitle}>
@@ -98,7 +107,7 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
           MicroMesh
           </Typography>
           <IconButton onClick={toggleMode}>
-            {mode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
+            {mode === "light" ? <Brightness7Icon /> : <Brightness4Icon className={classes.brightness4Icon}/>}
           </IconButton>
           <IconButton onClick={handleMenuOpen}>
             <Typography variant="subtitle1" className={classes.otherLinks}>Related Apps</Typography>

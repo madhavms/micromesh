@@ -124,7 +124,7 @@ const NewApp = () => {
           </React.Suspense>
         </div>
       </div>
-      <Footer/>
+      <Footer {...{mode}}/>
     </div>
   );
 };
