@@ -5,6 +5,7 @@ import ShadowRoot from "./utils/ShadowRoot";
 import { send, subscribe, unsubscribe } from "messagebusmono";
 import { v4 as uuidv4 } from 'uuid';
 import MyFallbackComponent from "./components/Placeholder";
+import Footer from "./components/Footer";
 
 const NewApp = () => {
   function loadScript(src) {
@@ -100,8 +101,8 @@ const NewApp = () => {
     fetchApps();
   }, []);
 
-  return (
-    <div className={mode === "light" ? "body" : "body-dark"}>
+  return  (
+    <div className={`${mode === "light" ? "body" : "body-dark"} root-container`}>
       <Navbar
         className="nav"
         {...{ mode, setMode, menu, handleMenuSelection }}
@@ -123,6 +124,7 @@ const NewApp = () => {
           </React.Suspense>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

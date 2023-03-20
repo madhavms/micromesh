@@ -23,7 +23,7 @@ const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 0
   },
   otherLinks: {
     color: "white",
