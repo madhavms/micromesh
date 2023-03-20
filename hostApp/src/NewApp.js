@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
 import { send, subscribe, unsubscribe } from "messagebusmono";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import MyFallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 
@@ -26,15 +26,14 @@ const NewApp = () => {
   const [uuid, setuuid] = useState(uuidv4());
 
   const handleMessage = (event) => {
-    send({data: event.data, uuid});
+    send({ data: event.data, uuid });
   };
 
   const handleClose = () => {
     setComponent(null);
-    sessionStorage.setItem('currentAppId',"");
-    sessionStorage.setItem('apps',JSON.stringify([]));
-
-  }
+    sessionStorage.setItem("currentAppId", "");
+    sessionStorage.setItem("apps", JSON.stringify([]));
+  };
 
   const loadRemoteComponent = (app) => async () => {
     await loadScript(app.url);
@@ -52,28 +51,28 @@ const NewApp = () => {
     })[0];
     if (!!app.appId) {
       setComponent(React.lazy(loadRemoteComponent(app)));
-      sessionStorage.setItem('currentAppId',app.appId)
+      sessionStorage.setItem("currentAppId", app.appId);
     }
   };
 
   const cacheCurrentWidget = (appId) => {
-    let apps = JSON.parse(sessionStorage.getItem('apps')) || [];
+    let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
     if (!!appId) {
       setComponent(React.lazy(loadRemoteComponent(app)));
     }
-  }
+  };
 
   useEffect(() => {
-    const cachedAppId = sessionStorage.getItem('currentAppId');
-    let apps = JSON.parse(sessionStorage.getItem('apps')) || [];
-    if(cachedAppId !== 'undefined' &&  !!apps.length) {
-      console.log('this is hit!!')
+    const cachedAppId = sessionStorage.getItem("currentAppId");
+    let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
+    if (cachedAppId !== "undefined" && !!apps.length) {
+      console.log("this is hit!!");
       cacheCurrentWidget(cachedAppId);
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     subscribe(handleMessage);
@@ -88,12 +87,11 @@ const NewApp = () => {
       const data = await response.json();
       setMenu(data);
     }
-  
 
     async function fetchApps() {
       const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
       const data = await response.json();
-      sessionStorage.setItem('apps', JSON.stringify(data));
+      sessionStorage.setItem("apps", JSON.stringify(data));
       setApps(data);
     }
 
@@ -101,8 +99,10 @@ const NewApp = () => {
     fetchApps();
   }, []);
 
-  return  (
-    <div className={`${mode === "light" ? "body" : "body-dark"} root-container`}>
+  return (
+    <div
+      className={`${mode === "light" ? "body" : "body-dark"} root-container`}
+    >
       <Navbar
         className="nav"
         {...{ mode, setMode, menu, handleMenuSelection }}
@@ -112,11 +112,13 @@ const NewApp = () => {
         <br />
         <br />
         &nbsp;
-        <div >
-          <React.Suspense fallback={<MyFallbackComponent/>}>
+        <div>
+          <React.Suspense fallback={<MyFallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
-                <Component setWidgetStyle={setWidgetStyle} widgetStyle={widgetStyle} handleClose={handleClose} uuid={uuid}/>
+                <Component
+                  {...{ setWidgetStyle, widgetStyle, handleClose, uuid, mode }}
+                />
               ) : (
                 <div></div>
               )}
@@ -124,7 +126,7 @@ const NewApp = () => {
           </React.Suspense>
         </div>
       </div>
-      <Footer {...{mode}}/>
+      <Footer {...{ mode }} />
     </div>
   );
 };
