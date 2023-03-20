@@ -13,6 +13,10 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import Hidden from "@material-ui/core/Hidden";
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 
 
 const drawerWidth = 240;
@@ -31,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     textAlign: "center",
     color: "white",
+    fontSize: "1.25rem",
   },
   appBar: {
     position: "fixed",
@@ -84,11 +89,13 @@ export default function Navbar({ mode, setMode, menu=[], handleMenuSelection }) 
           >
             <MenuIcon />
           </IconButton>
+          <Hidden xsDown>
           <Typography variant="subtitle1" className={classes.menuTitle}>
             Menu
           </Typography>
+          </Hidden>
           <Typography variant="h6" className={classes.title}>
-            Host Application
+          MicroMesh
           </Typography>
           <IconButton onClick={toggleMode}>
             {mode === "light" ? <Brightness7Icon /> : <Brightness4Icon />}
