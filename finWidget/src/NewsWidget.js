@@ -3,7 +3,7 @@ import "./css/DynamicFinancialNewsWidget.css";
 
 const DynamicFinancialNewsWidget = (props) => {
   const [news, setNews] = useState([]);
-  const { setWidgetStyle, widgetStyle } = props;
+  const { setWidgetStyle, widgetStyle, mode } = props;
 
   useEffect(() => {
     if (
@@ -46,14 +46,16 @@ const DynamicFinancialNewsWidget = (props) => {
     return () => clearInterval(interval);
   }, []);
 
+  const modeClass = mode === "dark" ? "dark-mode" : "light-mode";
+
   return (
-    <div className="dynamic-financial-news-widget">
-      <div className="news-item" style={{ width: "300px" }}>
+    <div className={`dynamic-financial-news-widget ${modeClass}`}>
+      <div className={`news-item ${modeClass}`} style={{ width: "300px" }}>
         {news.map((item) => (
           <React.Fragment key={item.id}>
-            <h3 className="news-item-title">{item.title}</h3>
-            <p className="news-item-description">{item.description}</p>
-            <a className="news-item-link">
+            <h3 className={`news-item-title ${modeClass}`}>{item.title}</h3>
+            <p className={`news-item-description ${modeClass}`}>{item.description}</p>
+            <a className={`news-item-link`}>
               Read More
             </a>
           </React.Fragment>
