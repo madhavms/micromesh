@@ -3,6 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Link from "@material-ui/core/Link";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -13,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   link: {
-    color: (props) => (props.mode === "dark" ? "#90CAF9" : "#2196F3")
-  }
+    color: (props) => (props.mode === "dark" ? "#90CAF9" : "#2196F3"),
+    margin: theme.spacing(0.8),
+  },
 }));
 
 export default function Footer({ mode }) {
@@ -22,19 +28,36 @@ export default function Footer({ mode }) {
 
   return (
     <footer className={classes.footer}>
-      <Container maxWidth="sm">
+    <Container maxWidth="sm">
+    <Grid container alignItems="center" justifyContent="center">
+      <Grid item>
         <Typography variant="body1">
           MicroMesh © {new Date().getFullYear()}
         </Typography>
-        <Link
-          href="https://github.com/madhavms/react-host-remote"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes.link}
-        >
-          View on GitHub
-        </Link>
-      </Container>
+      </Grid>
+      <Grid item>
+        <Box>
+          <Link
+            href="https://github.com/madhavms/react-host-remote"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.link}
+          >
+            <GitHubIcon />
+          </Link>
+          <Link
+            href="https://www.linkedin.com/in/madhavmanohars/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.link}
+          >
+            <LinkedInIcon />
+          </Link>
+        </Box>
+      </Grid>
+    </Grid>
+  </Container>
+  
     </footer>
   );
 }
