@@ -1,17 +1,7 @@
-## React Microfrontend Host-Remote System with Style Isolation
+## MicroMesh Microfrontend Platform
 
-This is an Micro-frontend host remote system to load financial widgets implemented using React and Webpack module federation. Here the host application does module loading and dependency resolution of remote widget using the webpack module federation plugin.
+This is an Micro-frontend platform that performs run-time discovery, integration and orchestration of independantly deployed applications bundled in micro-frontend compatible format. Webpack module federation plugin was used to achieve runtime loading and orchestration of modules.
 
-The host application also provides a client message bus for the widget interoperability.
-
-### Style Isolation:
-In this application the widget(remote application) styles are isolated from host using style injection in shadow dom where the remotes are attached.
-
-### Repository Management: 
-This repository is a monorepo managed with lerna and yarn workspaces.
-
-- `hostApp` is the host application (http://localhost:3000).
-- `finWidget` is a standalone application which exposes `StockWidget` component (http://localhost:3001).
 
 ## Application Startup
 
@@ -19,17 +9,17 @@ This repository is a monorepo managed with lerna and yarn workspaces.
 
 Run `yarn start`.
 
-This will build and serve `hostApp` and `finWidget` on the ports 3000 and 3001 respectively.
+This will build and serve `hostApp` on the ports 3000.
 
 ### 2. Starting the Python API Service:
 
 1. `cd finAPI/stockapi`
 
-2. ` uvicorn main:app --reload`
+2. `uvicorn main:app --reload`
 
 ## Applications
 
-### [1.Micro-frontend Host Application](https://madhavms.github.io/react-host-remote/)
+### [1.MicroMesh App](https://madhavms.github.io/react-host-remote/)
 
 The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
@@ -55,7 +45,7 @@ The host shell gets the menu config from the "menu and application discovery" se
 
 ![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### [2. Onboarding Page for Microfrontend Apps](https://madhavms.github.io/onboarding-app/)
+### 2. Onboarding Page for Microfrontend Apps
 
 This onboarding screen is used by the app development teams to onboard their micro frontend application to the host application.
 The form requires info such as the url of the remote entry file, app id, remote id and the label which would be displayed on the menu.
