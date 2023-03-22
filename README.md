@@ -35,7 +35,7 @@ The host application shell performs runtime integration and orchestration of the
 
 ![HostApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
 
-### [2.Widget Showcase App](https://madhavms.github.io/remote-widgets/)
+### [2.Widget Showcase App](https://madhavms.github.io/remote-widgets/) ([Source Code](https://github.com/madhavms/remote-widgets))
 
 This is a showcase application for the different widgets published in MFE format.
 
