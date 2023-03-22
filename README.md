@@ -41,6 +41,12 @@ This is a showcase application for the different widgets published in MFE format
 
 ![RemoteApplication.gif](https://github.com/madhavms/react-host-remote/blob/main/img/WidgetShowcaseApp.gif)
 
+### [3.Widget Onboarding App](https://madhavms.github.io/onboarding-app/) ([Source Code](https://github.com/madhavms/remote-widgets))
+
+This is an to onboard the the react apps which are published in MFE format to the micfro-frontend platform. Once the widget is onboarded it will show up in the global discovery menu of the micro-frontend platform from where it can be accessed.
+
+![OboardingApp.png](https://github.com/madhavms/onboarding-app/blob/main/Img/OboardingApp.png)
+
 ## Application Features
 
 ### 1. Global Menu system for widget discovery
