@@ -43,7 +43,7 @@ This is a showcase application for the different widgets published in MFE format
 
 ### [3.Widget Onboarding App](https://madhavms.github.io/onboarding-app/) ([Source Code](https://github.com/madhavms/remote-widgets))
 
-This is an to onboard the the react apps which are published in MFE format to the micfro-frontend platform. Once the widget is onboarded it will show up in the global discovery menu of the micro-frontend platform from where it can be accessed.
+This is an app to onboard the the react applications which are published in MFE format to the micfro-frontend platform. Once the widget is onboarded it will show up in the global discovery menu of the micro-frontend platform from where it can be accessed.
 
 ![OboardingApp.png](https://github.com/madhavms/onboarding-app/blob/main/Img/OboardingApp.png)
 
