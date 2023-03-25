@@ -48,7 +48,7 @@ jobs:
             PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       
       - name: Authenticate with gcloud
-        uses: google-github-actions/auth@v0.5.2
+        uses: google-github-actions/auth@v1.0.0
         with:
           credentials: ${{ secrets.GCP_CREDENTIALS }}
 
