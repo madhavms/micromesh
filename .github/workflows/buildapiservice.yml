@@ -48,8 +48,9 @@ jobs:
             PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       
       - name: Deploy to Google Cloud Run
-        uses: google-github-actions/deploy-cloudrun@main
+        uses: google-github-actions/deploy-cloudrun@v1
         with:
+          service: micromeshcloudrun
           image: ${{secrets.API_DOCKER_IMAGE_TAG}}
           region: europe-west1
           platform: managed
