@@ -130,4 +130,5 @@ const NewApp = () => {
     </div>
   );
 };
+
 export default NewApp;
