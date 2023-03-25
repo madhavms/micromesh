@@ -25,11 +25,13 @@ jobs:
         uses: docker/setup-buildx-action@v1
 
       - name: Configure Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@main
+        uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.PROJECT_ID }}
-          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
-          export_default_credentials: true
+          service_account_key: |
+            ${{ secrets.GCP_CREDENTIALS }}
+          project_id: monoservice
+          skip_install: true
+
           
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
@@ -48,8 +50,7 @@ jobs:
       - name: Deploy to Google Cloud Run
         uses: google-github-actions/deploy-cloudrun@main
         with:
-          service_name: micromeshcloudrun
-          image_uri: ${{secrets.API_DOCKER_IMAGE_TAG}}
+          image: ${{secrets.API_DOCKER_IMAGE_TAG}}
           region: europe-west1
           platform: managed
           memory: 256Mi
