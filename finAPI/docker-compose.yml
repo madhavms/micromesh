@@ -3,5 +3,5 @@ services:
   app:
     image: mad123mano/monofinapi:latest
     ports:
-      - "443:443"
+      - "8080:8080"
     container_name: finAPI
