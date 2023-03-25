@@ -29,6 +29,7 @@ mongo_client_address = os.environ.get('MONGO_CLIENT_ADDRESS')
 client = MongoClient(mongo_client_address)
 db = client['micromeshdb']
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*'],
