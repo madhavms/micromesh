@@ -43,7 +43,7 @@ This is an app to onboard the the react applications which are published in MFE 
 
 The host shell gets the menu config from the "menu and application discovery" services, based on which it builds the widget discovery menu.
 
-![](https://github.com/madhavms/react-host-remote/blob/main/img/HostApplication.gif)
+![](https://github.com/madhavms/react-host-remote/blob/main/img/MicroMesh.gif)
 
 ### 2. Onboarding Page for Microfrontend Apps
 
