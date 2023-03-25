@@ -14,13 +14,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Login to Docker Hub
+
+      - name: Login to Docker registry
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Configure Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.PROJECT_ID }}
+          service_account_key: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          export_default_credentials: true
+          
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
@@ -35,16 +45,13 @@ jobs:
             CERTIFICATE_CRT: ${{ secrets.CERTIFICATE_CRT }}
             PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
       
-      - name: Deploy Docker Compose
-        uses: appleboy/ssh-action@master
+      - name: Deploy to Google Cloud Run
+        uses: google-github-actions/deploy-cloudrun@main
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USERNAME }}
-          password: ${{ secrets.DEPLOY_PASSWORD }}
-          script: |
-            sudo apt-get update
-            sudo apt-get install -y docker.io docker-compose
-            sudo wget -O ${{secrets.API_COMPOSE_FILE_NAME}} -q ${{secrets.COMPOSE_FILE_GIT_PATH}}
-            sudo docker stop $(sudo docker ps -aq --filter ancestor=${{secrets.API_DOCKER_IMAGE_TAG}})
-            sudo docker-compose pull
-            sudo docker-compose up -d
+          service_name: micromeshcloudrun
+          image_uri: ${{secrets.API_DOCKER_IMAGE_TAG}}
+          region: europe-west1
+          platform: managed
+          memory: 256Mi
+          concurrency: 80
+          max_instances: 5
