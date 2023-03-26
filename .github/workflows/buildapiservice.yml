@@ -11,8 +11,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
+    env:  
       MONGO_CLIENT_ADDRESS: ${{ secrets.MONGO_CLIENT_ADDRESS }}
+      STOCK_DATA_PATH: ${{ secrets.STOCK_DATA_PATH }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

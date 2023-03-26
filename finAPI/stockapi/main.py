@@ -13,10 +13,9 @@ from dotenv import load_dotenv, find_dotenv
 from pydantic import BaseModel
 from pymongo import MongoClient
 
-STOCK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/stock_data.json'
+STOCK_DATA_PATH = os.environ.get('STOCK_DATA_PATH')
 RISK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/risk_data.json'
-MENU_DATA_PATH = './data_source/menu_data.json'
-APPS_DATA_PATH = './data_source/apps_data.json'
+
 
 load_dotenv(find_dotenv())
 
