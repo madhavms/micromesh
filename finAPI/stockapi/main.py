@@ -19,7 +19,7 @@ load_dotenv(find_dotenv())
 app = FastAPI()
 
 STOCK_DATA_PATH = os.environ.get('STOCK_DATA_PATH')
-RISK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/risk_data.json'
+RISK_DATA_PATH = os.environ.get('RISK_DATA_PATH')
 
 # retrieve MongoDB Atlas connection string from environment variable
 mongo_client_address = os.environ.get('MONGO_CLIENT_ADDRESS')

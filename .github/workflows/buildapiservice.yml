@@ -11,9 +11,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:  
-      MONGO_CLIENT_ADDRESS: ${{ secrets.MONGO_CLIENT_ADDRESS }}
-      STOCK_DATA_PATH: ${{ secrets.STOCK_DATA_PATH }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -39,8 +36,12 @@ jobs:
             ${{ secrets.GCP_CREDENTIAL }}
           project_id: monoservice
           skip_install: true
-
           
+      - name: Echo secrets to file
+        run: |
+          echo "MONGO_CLIENT_ADDRESS=${{ secrets.MONGO_CLIENT_ADDRESS }}" >> finAPI/.env
+          echo "STOCK_DATA_PATH=${{ secrets.STOCK_DATA_PATH }}" >> finAPI/.env
+
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
         with:
@@ -55,7 +56,6 @@ jobs:
             CERTIFICATE_CRT: ${{ secrets.CERTIFICATE_CRT }}
             PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
     
-
       - name: Deploy to Google Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:
