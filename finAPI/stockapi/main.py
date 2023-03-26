@@ -88,7 +88,7 @@ async def create_widget(widget: WidgetCreate):
     widget_dict['_id'] = str(result.inserted_id)
     return widget_dict
 
-@app.get("/widgets/")
+@app.get("/widgets")
 async def read_widgets():
     widgets = list(db.widgets.find())
     for widget in widgets:
@@ -130,7 +130,7 @@ async def update_menu_item(item_id: str, menu_item: MenuItem):
         return menu_item_dict
     raise HTTPException(status_code=404, detail="Menu item not found")
 
-@app.get("/menu/")
+@app.get("/menu")
 async def read_menu_items():
     menu_items = list(db.menu.find())
     for menu_item in menu_items:
