@@ -53,7 +53,6 @@ def load_risk_data():
     return json.loads(response.text)
     
 
-
 # define Widget model
 class Widget(BaseModel):
     url: str
