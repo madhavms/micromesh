@@ -13,16 +13,16 @@ from dotenv import load_dotenv, find_dotenv
 from pydantic import BaseModel
 from pymongo import MongoClient
 
-STOCK_DATA_PATH = os.environ.get('STOCK_DATA_PATH')
-RISK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/risk_data.json'
 
 
 load_dotenv(find_dotenv())
-
 app = FastAPI()
 
+STOCK_DATA_PATH = os.environ.get('STOCK_DATA_PATH')
+RISK_DATA_PATH = 'https://raw.githubusercontent.com/madhavms/react-host-remote/main/finAPI/stockapi/data_source/risk_data.json'
+
 # retrieve MongoDB Atlas connection string from environment variable
-mongo_client_address = 'mongodb+srv://madhavmanohars:Babloooo17@cluster0.b0cho3r.mongodb.net/?retryWrites=true&w=majority'
+mongo_client_address = os.environ.get('MONGO_CLIENT_ADDRESS')
 
 # create MongoDB client and database
 client = MongoClient(mongo_client_address)
