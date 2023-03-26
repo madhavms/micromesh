@@ -23,7 +23,7 @@ load_dotenv(find_dotenv())
 app = FastAPI()
 
 # retrieve MongoDB Atlas connection string from environment variable
-mongo_client_address = os.environ.get('MONGO_CLIENT_ADDRESS')
+mongo_client_address = 'mongodb+srv://madhavmanohars:Babloooo17@cluster0.b0cho3r.mongodb.net/?retryWrites=true&w=majority'
 
 # create MongoDB client and database
 client = MongoClient(mongo_client_address)
