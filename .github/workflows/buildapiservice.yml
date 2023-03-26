@@ -41,6 +41,7 @@ jobs:
         run: |
           echo "MONGO_CLIENT_ADDRESS=${{ secrets.MONGO_CLIENT_ADDRESS }}" >> finAPI/.env
           echo "STOCK_DATA_PATH=${{ secrets.STOCK_DATA_PATH }}" >> finAPI/.env
+          echo "RISK_DATA_PATH=${{ secrets.RISK_DATA_PATH }}" >> finAPI/.env
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v2
