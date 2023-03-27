@@ -6,6 +6,7 @@ import { send, subscribe, unsubscribe } from "messagebusmono";
 import { v4 as uuidv4 } from "uuid";
 import MyFallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
+import About from "./components/AboutScreen";
 
 const NewApp = () => {
   function loadScript(src) {
@@ -24,6 +25,8 @@ const NewApp = () => {
   const [apps, setApps] = useState([]);
   const [menu, setMenu] = useState([]);
   const [uuid, setuuid] = useState(uuidv4());
+  const [showAboutPage, setShowAboutPage] = useState(sessionStorage.getItem("showAboutPage") || true )
+  console.log("show about page=",sessionStorage.getItem("showAboutPage")==='false')
 
   const handleMessage = (event) => {
     send({ data: event.data, uuid });
@@ -45,6 +48,8 @@ const NewApp = () => {
   };
 
   const handleMenuSelection = (e, appId, setDrawerOpen) => {
+    setShowAboutPage(false);
+    sessionStorage.setItem("showAboutPage", false)
     setDrawerOpen(false);
     let app = apps.filter((app) => {
       return app.appId === appId;
@@ -69,7 +74,7 @@ const NewApp = () => {
     const cachedAppId = sessionStorage.getItem("currentAppId");
     let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
     if (cachedAppId !== "undefined" && !!apps.length) {
-      console.log("this is hit!!");
+      setShowAboutPage(false);
       cacheCurrentWidget(cachedAppId);
     }
   }, []);
@@ -112,6 +117,7 @@ const NewApp = () => {
         <br />
         <br />
         &nbsp;
+        {showAboutPage && <About {...{mode}}/>}
         <div>
           <React.Suspense fallback={<MyFallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
