@@ -46,8 +46,7 @@ const About = ({ mode }) => {
           </Typography>
           <Box mt={2}>
           <Typography variant="body1" className={classes.text}>
-            To access the global discovery menu and access the microfrontend widgets,
-            please use the left-hand menu.
+            To access the microfrontend widgets, please use the global discovery menu on the left-hand.
           </Typography>
           </Box>
         </Box>
