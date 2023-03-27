@@ -13,13 +13,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   title: {
-    fontSize: "2rem",
+    fontSize: "1.3rem",
     fontWeight: "bold",
     marginBottom: theme.spacing(2),
     textAlign: "center",
   },
   text: {
-    fontSize: "1.2rem",
+    fontSize: "1.15rem",
     lineHeight: "1.5",
   },
   textContainer: {

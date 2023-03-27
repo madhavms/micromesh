@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   otherLinks: {
     color: "white",
+    fontSize: "0.9rem"
   },
   menuButton: {
     marginRight: theme.spacing(2),
