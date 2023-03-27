@@ -2,6 +2,7 @@
 
 This is an Micro-frontend platform that performs run-time discovery, integration and orchestration of independantly deployed applications bundled in micro-frontend compatible format. Webpack module federation plugin was used to achieve runtime loading and orchestration of modules.
 
+![MicroMesh_Architecture.jpg](https://raw.githubusercontent.com/madhavms/react-host-remote/main/img/MicroMesh_Architecture.jpg)
 
 ## Application Startup
 
