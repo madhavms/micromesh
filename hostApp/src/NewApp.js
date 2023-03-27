@@ -25,8 +25,7 @@ const NewApp = () => {
   const [apps, setApps] = useState([]);
   const [menu, setMenu] = useState([]);
   const [uuid, setuuid] = useState(uuidv4());
-  const [showAboutPage, setShowAboutPage] = useState(sessionStorage.getItem("showAboutPage") || true )
-  console.log("show about page=",sessionStorage.getItem("showAboutPage")==='false')
+  const [showAboutPage, setShowAboutPage] = useState(true)
 
   const handleMessage = (event) => {
     send({ data: event.data, uuid });
@@ -36,6 +35,7 @@ const NewApp = () => {
     setComponent(null);
     sessionStorage.setItem("currentAppId", "");
     sessionStorage.setItem("apps", JSON.stringify([]));
+    setShowAboutPage(true)
   };
 
   const loadRemoteComponent = (app) => async () => {
@@ -49,7 +49,6 @@ const NewApp = () => {
 
   const handleMenuSelection = (e, appId, setDrawerOpen) => {
     setShowAboutPage(false);
-    sessionStorage.setItem("showAboutPage", false)
     setDrawerOpen(false);
     let app = apps.filter((app) => {
       return app.appId === appId;
@@ -73,7 +72,8 @@ const NewApp = () => {
   useEffect(() => {
     const cachedAppId = sessionStorage.getItem("currentAppId");
     let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
-    if (cachedAppId !== "undefined" && !!apps.length) {
+    if (cachedAppId !== "undefined" && !!cachedAppId && !!apps.length) {
+      console.log('hit',cachedAppId,apps.length)
       setShowAboutPage(false);
       cacheCurrentWidget(cachedAppId);
     }
