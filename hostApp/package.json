@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://madhavms.github.io/react-host-remote",
+  "homepage": "https://madhavms.github.io/micromesh",
   "scripts": {
     "start": "webpack-cli serve",
     "watch": "webpack-cli watch",
