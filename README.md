@@ -20,7 +20,7 @@ This will build and serve `hostApp` on the ports 3000.
 
 ## Applications
 
-### [1.MicroMesh App](https://madhavms.github.io/react-host-remote/)
+### [1.MicroMesh App](https://madhavms.github.io/widget-showcase/)
 
 The host application shell performs runtime integration and orchestration of the different widgets deployed separately.
 
