@@ -73,7 +73,6 @@ const NewApp = () => {
     const cachedAppId = sessionStorage.getItem("currentAppId");
     let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
     if (cachedAppId !== "undefined" && !!cachedAppId && !!apps.length) {
-      console.log('hit',cachedAppId,apps.length)
       setShowAboutPage(false);
       cacheCurrentWidget(cachedAppId);
     }
@@ -89,13 +88,15 @@ const NewApp = () => {
   useEffect(() => {
     async function fetchMenu() {
       const response = await fetch(`${process.env.FIN_API_URL}/menu`);
-      const data = await response.json();
+      let data = await response.json();
+      if(data['detail'] === 'Not Found') data = [];
       setMenu(data);
     }
 
     async function fetchApps() {
       const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
-      const data = await response.json();
+      let data = await response.json();
+      if(data['detail'] === 'Not Found') data = [];
       sessionStorage.setItem("apps", JSON.stringify(data));
       setApps(data);
     }
