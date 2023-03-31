@@ -88,13 +88,13 @@ const NewApp = () => {
 
   useEffect(() => {
     async function fetchMenu() {
-      const response = await fetch(`https://micromeshcloudrun-msy6pdfnna-ew.a.run.app/menu`);
+      const response = await fetch(`${process.env.FIN_API_URL}/menu`);
       const data = await response.json();
       setMenu(data);
     }
 
     async function fetchApps() {
-      const response = await fetch(`https://micromeshcloudrun-msy6pdfnna-ew.a.run.app/widgets`);
+      const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
       const data = await response.json();
       sessionStorage.setItem("apps", JSON.stringify(data));
       setApps(data);
