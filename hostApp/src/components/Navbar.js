@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 0,
   },
   otherLinks: {
-    color: "white",
+    color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
     fontSize: "0.9rem"
   },
   menuButton: {
@@ -31,8 +31,13 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     textAlign: "center",
-    color: "white",
+    color: (props) =>
+    props.mode === "light" ? "#0059b2" : "white",
     fontSize: "1.25rem",
+  },
+  menuTitle: {
+    color: (props) =>
+    props.mode === "light" ? "#0059b2" : "white",
   },
   appBar: {
     position: "fixed",
@@ -40,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     zIndex: 10,
     backgroundColor: (props) =>
-      props.mode === "light" ? "#7b68ee" : "#212121",
+      props.mode === "light" ? "#FAFAFA" : "#001e3c",
   },
   drawer: {
     width: drawerWidth,
@@ -49,10 +54,10 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     color: (props) => (props.mode === "dark" ? "white" : "black"),
     backgroundColor: (props) =>
-      props.mode === "light" ? "#FAFAFA" : "#212121",
+      props.mode === "light" ? "#FAFAFA" : "#001e3c",
   },
   menuIcon: {
-    color: (props) => (props.mode === "light" ? "black" : "white"),
+    color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
   },
   brightness4Icon: {
     color: "white",

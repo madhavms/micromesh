@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 2),
     marginTop: "auto",
     color: (props) => (props.mode === "dark" ? "white" : "black"),
-    backgroundColor: (props) => (props.mode === "dark" ? "#333333" : "#FAFAFA"),
+    backgroundColor: (props) => (props.mode === "dark" ? "#132f4c" : "#FAFAFA"),
     textAlign: "center",
   },
   link: {

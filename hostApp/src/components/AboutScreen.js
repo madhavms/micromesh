@@ -4,10 +4,11 @@ import { Paper, Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: (props) => (props.mode === "dark" ? "#333333" : "#FAFAFA"),
+    backgroundColor: (props) => (props.mode === "dark" ? "#132f4c" : "#FAFAFA"),
     color: (props) => (props.mode === "dark" ? "#FFFFFF" : "#333333"),
     padding: theme.spacing(3),
-    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+    boxShadow: "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
+    transition: "box-shadow 0.4s ease-in-out",
     border: "none",
   },
   title: {
