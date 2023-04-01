@@ -1,16 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Paper,
-  Typography,
-  Box,
-} from "@material-ui/core";
+import { Paper, Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    backgroundColor: (props) => props.mode === "dark" ? "#333333" : "#FAFAFA",
-    color: (props) => props.mode === "dark" ? "#FFFFFF" : "#333333",
+    backgroundColor: (props) => (props.mode === "dark" ? "#333333" : "#FAFAFA"),
+    color: (props) => (props.mode === "dark" ? "#FFFFFF" : "#333333"),
     padding: theme.spacing(3),
+    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+    border: "none",
   },
   title: {
     fontSize: "1.3rem",
@@ -33,7 +31,12 @@ const About = ({ mode }) => {
   const classes = useStyles({ mode });
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100%">
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+    >
       <Paper className={classes.container}>
         <Typography variant="h1" className={classes.title}>
           MicroMesh Microfrontend Platform
@@ -42,12 +45,15 @@ const About = ({ mode }) => {
           <Typography variant="body1" className={classes.text}>
             This is a micro-frontend platform that performs run-time discovery,
             integration and orchestration of independently deployed applications
-            bundled in micro-frontend compatible format. The application uses Webpack module federation plugin to achieve runtime loading and orchestration of modules.
+            bundled in micro-frontend compatible format. The application uses
+            Webpack module federation plugin to achieve runtime loading and
+            orchestration of modules.
           </Typography>
           <Box mt={2}>
-          <Typography variant="body1" className={classes.text}>
-            To access the microfrontend widgets, please use the global discovery menu on the left-hand.
-          </Typography>
+            <Typography variant="body1" className={classes.text}>
+              To access the microfrontend widgets, please use the global
+              discovery menu on the left-hand.
+            </Typography>
           </Box>
         </Box>
       </Paper>
