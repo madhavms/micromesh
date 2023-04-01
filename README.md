@@ -79,3 +79,7 @@ So if the remote was running an older version of react they may have issues when
 Usage: `./bundlerCli.js bundle`
 
 Source Code: [Federated Bundler](https://github.com/madhavms/react-host-remote/blob/main/federatedBundler/bundlerCli.js)
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/madhavms/micromesh/blob/main/LICENSE)
