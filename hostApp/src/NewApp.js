@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import MyFallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
+import ApplicationFeatures from  "./components/ApplicationFeatures";
 
 const NewApp = () => {
   function loadScript(src) {

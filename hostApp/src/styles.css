@@ -134,6 +134,7 @@ mt-1 {
   align-items: center;
   flex-direction: column;
   background: #FAFAFA;
+  gap:10px;
   overflow: scroll;
   margin-top: 60px;
 }
