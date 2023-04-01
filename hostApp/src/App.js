@@ -6,7 +6,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/micromesh" element={<NewApp />} />
+      <Route path="*" element={<NewApp />} />
       </Routes>
     </BrowserRouter>
   );
