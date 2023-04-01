@@ -135,7 +135,7 @@ mt-1 {
   flex-direction: column;
   background: #FAFAFA;
   gap:10px;
-  overflow: scroll;
+  min-height: 100vh;
   margin-top: 60px;
 }
 
