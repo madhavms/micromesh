@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     zIndex: 10,
     backgroundColor: (props) =>
-      props.mode === "light" ? "#FAFAFA" : "#001e3c",
+      props.mode === "light" ? "#F5F5F5" : "#001e3c",
   },
   drawer: {
     width: drawerWidth,
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     width: drawerWidth,
     color: (props) => (props.mode === "dark" ? "white" : "black"),
     backgroundColor: (props) =>
-      props.mode === "light" ? "#FAFAFA" : "#001e3c",
+      props.mode === "light" ? "#F5F5F5" : "#001e3c",
   },
   menuIcon: {
     color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
@@ -129,6 +129,7 @@ export default function Navbar({
             keepMounted
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
+            className={classes.menu}
           >
             <MenuItem
               onClick={handleMenuClose}
