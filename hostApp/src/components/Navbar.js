@@ -15,6 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Hidden from "@material-ui/core/Hidden";
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   otherLinks: {
     color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
-    fontSize: "0.9rem"
+    fontSize: "0.9rem",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -31,16 +32,13 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     textAlign: "center",
-    color: (props) =>
-    props.mode === "light" ? "#0059b2" : "white",
+    color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
     fontSize: "1.25rem",
   },
   menuTitle: {
-    color: (props) =>
-    props.mode === "light" ? "#0059b2" : "white",
+    color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
   },
   appBar: {
-    position: "fixed",
     top: 0,
     width: "100%",
     zIndex: 10,
@@ -68,7 +66,7 @@ export default function Navbar({
   mode,
   setMode,
   menu = [],
-  handleMenuSelection,
+  handleMenuSelection
 }) {
   const toggleMode = () => {
     const newMode = mode === "light" ? "dark" : "light";

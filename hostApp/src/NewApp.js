@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 import MyFallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
-import ApplicationFeatures from  "./components/ApplicationFeatures";
+import TabsBar from "./components/TabsBar";
 
 const NewApp = () => {
   function loadScript(src) {
@@ -26,7 +26,12 @@ const NewApp = () => {
   const [apps, setApps] = useState([]);
   const [menu, setMenu] = useState([]);
   const [uuid, setuuid] = useState(uuidv4());
-  const [showAboutPage, setShowAboutPage] = useState(true)
+  const [selectedTab, setSelectedTab] = useState(
+    sessionStorage.getItem("selectedTab") || null
+  );
+  const [openTabs, setOpenTabs] = useState(
+    JSON.parse(sessionStorage.getItem("openTabs")) || []
+  );
 
   const handleMessage = (event) => {
     send({ data: event.data, uuid });
@@ -36,7 +41,6 @@ const NewApp = () => {
     setComponent(null);
     sessionStorage.setItem("currentAppId", "");
     sessionStorage.setItem("apps", JSON.stringify([]));
-    setShowAboutPage(true)
   };
 
   const loadRemoteComponent = (app) => async () => {
@@ -49,8 +53,100 @@ const NewApp = () => {
   };
 
   const handleMenuSelection = (e, appId, setDrawerOpen) => {
-    setShowAboutPage(false);
     setDrawerOpen(false);
+
+    let existingTab = openTabs.find((tab) => tab.appId === appId);
+    let baseLabel = e.target.innerText;
+    if (existingTab) {
+      let newLabel = baseLabel;
+      let count = 1;
+
+      let duplicateTabs = openTabs.filter((tab) =>
+        tab.label.startsWith(baseLabel)
+      );
+      if (duplicateTabs.length > 0) {
+        count = duplicateTabs.length + 1;
+        newLabel = `${baseLabel} (${count-1})`;
+      }
+
+      const updatedTabs = [...openTabs, { appId, label: newLabel }];
+      setOpenTabs(updatedTabs);
+      sessionStorage.setItem("openTabs", JSON.stringify(updatedTabs));
+
+      // Set the selected tab to the index of the newly added tab
+      setSelectedTab(updatedTabs.length - 1);
+      sessionStorage.setItem("selectedTab", updatedTabs.length - 1);
+    } else {
+      const updatedTabs = [...openTabs, { appId, label: baseLabel }];
+      setOpenTabs(updatedTabs);
+      sessionStorage.setItem("openTabs", JSON.stringify(updatedTabs));
+
+      // Set the selected tab to the index of the newly added tab
+      setSelectedTab(updatedTabs.length - 1);
+      sessionStorage.setItem("selectedTab", updatedTabs.length - 1);
+    }
+
+    let app = apps.filter((app) => {
+      return app.appId === appId;
+    })[0];
+    if (!!app.appId) {
+      setComponent(React.lazy(loadRemoteComponent(app)));
+      sessionStorage.setItem("currentAppId", app.appId);
+    }
+  };
+
+  const handleCloseTab = (label) => {
+    // Find the index of the tab to be removed
+    const tabIndex = openTabs.findIndex((tab) => tab.label === label);
+    let newApp = "";
+  
+    if (tabIndex !== -1) {
+      // Remove the tab from the openTabs array
+      const newOpenTabs = [...openTabs];
+      newOpenTabs.splice(tabIndex, 1);
+      if(!newOpenTabs.length) {
+        setComponent(null)
+      }
+      // Update the openTabs state
+      setOpenTabs(newOpenTabs);
+      sessionStorage.setItem("openTabs", JSON.stringify(newOpenTabs));
+  
+      // If the removed tab was the currently selected tab, update the selectedTab state
+      if (selectedTab === tabIndex) {
+        setSelectedTab(Math.max(tabIndex - 1, 0));
+        sessionStorage.setItem("selectedTab", Math.max(tabIndex - 1, 0));
+        newApp = newOpenTabs[Math.max(tabIndex - 1, 0)]
+      } else if (selectedTab > tabIndex) {
+        setSelectedTab(selectedTab - 1);
+        sessionStorage.setItem("selectedTab", selectedTab - 1);
+        newApp = newOpenTabs[selectedTab - 1];
+      }
+      let appId = newApp.appId;
+      let app = apps.filter((app) => {
+        return app.appId === appId;
+      })[0];
+      if (!!app.appId) {
+        setComponent(React.lazy(loadRemoteComponent(app)));
+        sessionStorage.setItem("currentAppId", app.appId);
+      }
+      else {
+        sessionStorage.setItem("currentAppId", null);
+      }
+    }
+  };
+  
+
+  const handleTabSelection = (e, label) => {
+    const index = openTabs.findIndex((tab) => tab.label === label);
+    const appId = openTabs[index].appId;
+    setSelectedTab(index);
+    sessionStorage.setItem("selectedTab", index)
+
+    if (!openTabs.find((tab) => tab.label === label)) {
+      setOpenTabs([...openTabs, { appId, label }]);
+      sessionStorage.setItem("openTabs",JSON.stringify([...openTabs, { appId, label}]));
+    }
+
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
@@ -65,7 +161,7 @@ const NewApp = () => {
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
-    if (!!appId) {
+    if (!!appId && !!openTabs.length) {
       setComponent(React.lazy(loadRemoteComponent(app)));
     }
   };
@@ -74,7 +170,6 @@ const NewApp = () => {
     const cachedAppId = sessionStorage.getItem("currentAppId");
     let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
     if (cachedAppId !== "undefined" && !!cachedAppId && !!apps.length) {
-      setShowAboutPage(false);
       cacheCurrentWidget(cachedAppId);
     }
   }, []);
@@ -90,14 +185,14 @@ const NewApp = () => {
     async function fetchMenu() {
       const response = await fetch(`${process.env.FIN_API_URL}/menu`);
       let data = await response.json();
-      if(data['detail'] === 'Not Found') data = [];
+      if (data["detail"] === "Not Found") data = [];
       setMenu(data);
     }
 
     async function fetchApps() {
       const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
       let data = await response.json();
-      if(data['detail'] === 'Not Found') data = [];
+      if (data["detail"] === "Not Found") data = [];
       sessionStorage.setItem("apps", JSON.stringify(data));
       setApps(data);
     }
@@ -110,22 +205,38 @@ const NewApp = () => {
     <div
       className={`${mode === "light" ? "body" : "body-dark"} root-container`}
     >
+      <TabsBar
+        openTabs={openTabs}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+        mode={mode}
+        handleTabSelection={handleTabSelection}
+        handleCloseTab={handleCloseTab}
+      />
       <Navbar
         className="nav"
-        {...{ mode, setMode, menu, handleMenuSelection }}
+        {...{
+          mode,
+          setMode,
+          menu,
+          handleMenuSelection,
+          selectedTab,
+          openTabs,
+          setSelectedTab,
+        }}
       />
       <div className={mode === "light" ? "container" : "container-dark"}>
         <br />
         <br />
         <br />
         &nbsp;
-        {showAboutPage && <About {...{mode}}/>}
+        {!openTabs.length && <About {...{ mode }} />}
         <div>
           <React.Suspense fallback={<MyFallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
                 <Component
-                  {...{ setWidgetStyle, widgetStyle, handleClose, uuid, mode }}
+                  {...{ setWidgetStyle, widgetStyle, uuid, mode }}
                 />
               ) : (
                 <div></div>
