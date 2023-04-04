@@ -40,7 +40,7 @@ This is an app to onboard the the react applications which are published in MFE 
 
 ## Application Features
 
-### 1. Global Discovery Meny and Enhanced Workspace with Tabbed Navigation
+### 1. Global Discovery Menu and Enhanced Workspace with Tabbed Navigation
 
 The MicroMesh platform provides a global disovery menu which helps the users to access onboarded microfrontend applications.
 
