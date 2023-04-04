@@ -40,11 +40,13 @@ This is an app to onboard the the react applications which are published in MFE 
 
 ## Application Features
 
-### 1. Global Menu system for widget discovery
+### 1. Global Discovery Menu and Enhanced Workspace with Tabbed Navigation
 
-The host shell gets the menu config from the "menu and application discovery" services, based on which it builds the widget discovery menu.
+The MicroMesh platform provides a global disovery menu which helps the users to access onboarded microfrontend applications.
 
-![](https://github.com/madhavms/react-host-remote/blob/main/img/MicroMesh.gif)
+The platform also introduces an enhanced workspace feature that utilizes a tabbed navigation system, providing users with a seamless and organized way to access multiple applications simultaneously.
+
+![](https://github.com/madhavms/micromesh/blob/main/img/WorkSpaceFeature.gif)
 
 ### 2. Onboarding Page for Microfrontend Apps
 
