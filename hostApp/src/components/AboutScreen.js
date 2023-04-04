@@ -51,7 +51,8 @@ const About = ({ mode }) => {
           <Box mt={2}>
             <Typography variant="body1" className={classes.text}>
               To access the microfrontend widgets, please use the global
-              discovery menu on the left-hand. The applications will open in seperate workspaces using tabing mechanism allowing multiple widget instances.
+              discovery menu on the left-hand. The MicroMesh platform provides a global disovery menu which helps the users to access onboarded microfrontend applications.
+              The platform also introduces an enhanced workspace feature that utilizes a tabbed navigation system, providing users with a seamless and organized way to access multiple applications simultaneously.
             </Typography>
           </Box>
         </Box>
