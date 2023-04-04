@@ -45,15 +45,13 @@ const About = ({ mode }) => {
         <Box className={classes.textContainer}>
           <Typography variant="body1" className={classes.text}>
             This is a micro-frontend platform that performs run-time discovery,
-            integration and orchestration of independently deployed applications
-            bundled in micro-frontend compatible format. The application uses
-            Webpack module federation plugin to achieve runtime loading and
-            orchestration of modules.
+            loading and orchestration of independently deployed applications
+            bundled in micro-frontend compatible format. 
           </Typography>
           <Box mt={2}>
             <Typography variant="body1" className={classes.text}>
               To access the microfrontend widgets, please use the global
-              discovery menu on the left-hand.
+              discovery menu on the left-hand. The applications will open in seperate workspaces using tabing mechanism allowing multiple widget instances.
             </Typography>
           </Box>
         </Box>

@@ -9,6 +9,12 @@ const useStyles = makeStyles((theme) => ({
   hiddenIndicator: {
     display: 'none',
   },
+  closeIcon: {
+    color: "white"
+  },
+  closeIconSelected: {
+    color: (props) => (props.mode === "light" ? "#0059b2" : "white")
+  },
   tabs: {
     flexGrow: 1,
   },
@@ -45,9 +51,6 @@ const useStyles = makeStyles((theme) => ({
     labelContainer: {
       display: "flex",
       alignItems: "center",
-    },
-    closeIcon: {
-      color: "white",
     }
   }
 
@@ -68,7 +71,7 @@ function TabsBar({ openTabs, selectedTab, mode, handleTabSelection, handleCloseT
       variant="scrollable"
       scrollButtons="auto"
     >
-      {openTabs.map((tab) => (
+      {openTabs.map((tab, index) => (
         <Tab key={tab.label} label={
           <span className={classes.labelContainer}>
             {tab.label}
@@ -81,7 +84,7 @@ function TabsBar({ openTabs, selectedTab, mode, handleTabSelection, handleCloseT
               }}
               size="small"
             >
-              <CloseIcon fontSize="small" className={classes.closeIcon}/>
+              <CloseIcon fontSize="small" className={selectedTab == index ? classes.closeIconSelected : classes.closeIcon}/>
             </IconButton>
           </span>
         } value={tab.label} className={classes.tab}/>
