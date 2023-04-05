@@ -226,10 +226,6 @@ const NewApp = () => {
         }}
       />
       <div className={mode === "light" ? "container" : "container-dark"}>
-        <br />
-        <br />
-        <br />
-        &nbsp;
         {!openTabs.length && <About {...{ mode }} />}
         <div>
           <React.Suspense fallback={<MyFallbackComponent />}>
