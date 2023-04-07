@@ -11,16 +11,28 @@ const useStyles = makeStyles((theme) => ({
       "0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06)",
     transition: "box-shadow 0.4s ease-in-out",
     border: "none",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "80vw",
+    },
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: "40ch",
+    },
   },
   title: {
     fontSize: "1.3rem",
     fontWeight: "bold",
     marginBottom: theme.spacing(2),
     textAlign: "center",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
   },
   text: {
     fontSize: "1.15rem",
     lineHeight: "1.5",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "0.9rem",
+    },
   },
   textContainer: {
     maxWidth: "800px",

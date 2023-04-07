@@ -89,7 +89,7 @@ const NewApp = () => {
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
-    if (!!app.appId) {
+    if (!!app?.appId) {
       setComponent(React.lazy(loadRemoteComponent(app)));
       sessionStorage.setItem("currentAppId", app.appId);
     }
@@ -121,11 +121,11 @@ const NewApp = () => {
         sessionStorage.setItem("selectedTab", selectedTab - 1);
         newApp = newOpenTabs[selectedTab - 1];
       }
-      let appId = newApp.appId;
+      let appId = newApp?.appId;
       let app = apps.filter((app) => {
         return app.appId === appId;
       })[0];
-      if (!!app.appId) {
+      if (!!app?.appId) {
         setComponent(React.lazy(loadRemoteComponent(app)));
         sessionStorage.setItem("currentAppId", app.appId);
       }
@@ -150,7 +150,7 @@ const NewApp = () => {
     let app = apps.filter((app) => {
       return app.appId === appId;
     })[0];
-    if (!!app.appId) {
+    if (!!app?.appId) {
       setComponent(React.lazy(loadRemoteComponent(app)));
       sessionStorage.setItem("currentAppId", app.appId);
     }
@@ -239,7 +239,7 @@ const NewApp = () => {
               )}
             </ShadowRoot>
           </React.Suspense>
-        </div>
+        </div>   
       </div>
       <Footer {...{ mode }} />
     </div>
