@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 
-const NewApp = () => {
+const NewApp = ({apps, menu}) => {
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -23,8 +23,6 @@ const NewApp = () => {
   const [Component, setComponent] = useState(null);
   const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const [widgetStyle, setWidgetStyle] = useState("");
-  const [apps, setApps] = useState([]);
-  const [menu, setMenu] = useState([]);
   const [uuid, setuuid] = useState(uuidv4());
   const [selectedTab, setSelectedTab] = useState(
     sessionStorage.getItem("selectedTab") || null
@@ -37,11 +35,6 @@ const NewApp = () => {
     send({ data: event.data, uuid });
   };
 
-  const handleClose = () => {
-    setComponent(null);
-    sessionStorage.setItem("currentAppId", "");
-    sessionStorage.setItem("apps", JSON.stringify([]));
-  };
 
   const loadRemoteComponent = (app) => async () => {
     await loadScript(app.url);
@@ -179,26 +172,6 @@ const NewApp = () => {
     return () => {
       unsubscribe(handleMessage);
     };
-  }, []);
-
-  useEffect(() => {
-    async function fetchMenu() {
-      const response = await fetch(`${process.env.FIN_API_URL}/menu`);
-      let data = await response.json();
-      if (data["detail"] === "Not Found") data = [];
-      setMenu(data);
-    }
-
-    async function fetchApps() {
-      const response = await fetch(`${process.env.FIN_API_URL}/widgets`);
-      let data = await response.json();
-      if (data["detail"] === "Not Found") data = [];
-      sessionStorage.setItem("apps", JSON.stringify(data));
-      setApps(data);
-    }
-
-    fetchMenu();
-    fetchApps();
   }, []);
 
   return (
