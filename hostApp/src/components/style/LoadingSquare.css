@@ -1,0 +1,116 @@
+.loading-square-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+}
+  
+.loading-square {
+  flex: 0 0 calc(25% - 4px); /* subtract 4px for the margin */
+  height: calc(25% - 4px); /* subtract 4px for the margin */
+  margin: 2px; /* add 2px margin */
+  opacity: 0.2;
+}
+  
+  .loading-square-0 {
+    background-color: #1abc9c;
+    animation: loading-square-animation 1s infinite;
+  }
+  
+  .loading-square-1 {
+    background-color: #2ecc71;
+    animation: loading-square-animation 1s infinite 0.125s;
+  }
+  
+  .loading-square-2 {
+    background-color: #3498db;
+    animation: loading-square-animation 1s infinite 0.25s;
+  }
+  
+  .loading-square-3 {
+    background-color: #9b59b6;
+    animation: loading-square-animation 1s infinite 0.375s;
+  }
+  
+  .loading-square-4 {
+    background-color: #34495e;
+    animation: loading-square-animation 1s infinite 0.5s;
+  }
+  
+  .loading-square-5 {
+    background-color: #f1c40f;
+    animation: loading-square-animation 1s infinite 0.625s;
+  }
+  
+  .loading-square-6 {
+    background-color: #e67e22;
+    animation: loading-square-animation 1s infinite 0.75s;
+  }
+  
+  .loading-square-7 {
+    background-color: #e74c3c;
+    animation: loading-square-animation 1s infinite 0.875s;
+  }
+  
+  .loading-square-8 {
+    background-color: #16a085;
+    animation: loading-square-animation 1s infinite 0.125s reverse;
+  }
+  
+  .loading-square-9 {
+    background-color: #27ae60;
+    animation: loading-square-animation 1s infinite 0.25s reverse;
+  }
+  
+  .loading-square-10 {
+    background-color: #2980b9;
+    animation: loading-square-animation 1s infinite 0.375s reverse;
+  }
+  
+  .loading-square-11 {
+    background-color: #8e44ad;
+    animation: loading-square-animation 1s infinite 0.5s reverse;
+  }
+  
+  .loading-square-12 {
+    background-color: #2c3e50;
+    animation: loading-square-animation 1s infinite 0.625s reverse;
+  }
+  
+  .loading-square-13 {
+    background-color: #f39c12;
+    animation: loading-square-animation 1s infinite 0.75s reverse;
+  }
+  
+  .loading-square-14 {
+    background-color: #c0392b;
+    animation: loading-square-animation 1s infinite 0.875s reverse;
+  }
+  
+  .loading-square-15 {
+    background-color: #95a5a6;
+    animation: loading-square-animation 1s infinite reverse;
+  }
+  
+  .loading-square-text {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  @keyframes loading-square-animation {
+    0% {
+      opacity: 0.2;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.2;
+    }
+  }  

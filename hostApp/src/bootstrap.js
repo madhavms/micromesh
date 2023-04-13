@@ -1,7 +1,8 @@
-import React, { StrictMode, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./styles.css";
 import App from "./App";
+import LoadingSquare from "./components/LoadingSquare";
 
 const rootElement = document.getElementById("root");
 
@@ -29,10 +30,44 @@ async function fetchData() {
   return { apps, menu };
 }
 
-async function renderApp() {
-  const { apps, menu } = await fetchData();
+function AppContainer() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [apps, setApps] = useState([]);
+  const [menu, setMenu] = useState([]);
+  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
-  ReactDOM.render(<App apps={apps} menu={menu} />, rootElement);
+  useEffect(() => {
+    async function loadData() {
+      const { apps, menu } = await fetchData();
+
+      setApps(apps);
+      setMenu(menu);
+
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsTransitioning(true);
+      }, 800);
+    }
+
+    loadData();
+  }, []);
+
+  return isLoading ? (
+    <div
+      className={`${mode === "light" ? "body" : "body-dark"} root-container`}
+    >
+      <LoadingSquare />
+    </div>
+  ) : (
+    <App apps={apps} menu={menu} mode={mode} setMode={setMode} />
+  );
+}
+
+async function renderApp() {
+  await new Promise((resolve) => {
+    ReactDOM.render(<AppContainer />, rootElement, resolve);
+  });
 }
 
 renderApp();

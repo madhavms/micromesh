@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 
-const NewApp = ({apps, menu}) => {
+const NewApp = ({apps, menu, mode, setMode}) => {
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -21,7 +21,6 @@ const NewApp = ({apps, menu}) => {
   }
 
   const [Component, setComponent] = useState(null);
-  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const [widgetStyle, setWidgetStyle] = useState("");
   const [uuid, setuuid] = useState(uuidv4());
   const [selectedTab, setSelectedTab] = useState(
