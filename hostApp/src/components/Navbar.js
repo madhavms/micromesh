@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuTitle: {
     color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
+    cursor: "pointer",
   },
   appBar: {
     top: 0,
@@ -103,7 +104,7 @@ export default function Navbar({
             <MenuIcon className={classes.menuIcon} />
           </IconButton>
           <Hidden xsDown>
-            <Typography variant="subtitle1" className={classes.menuTitle}>
+            <Typography onClick={handleDrawerToggle} variant="subtitle1" className={classes.menuTitle}>
               Menu
             </Typography>
           </Hidden>
