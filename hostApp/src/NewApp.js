@@ -8,18 +8,9 @@ import MyFallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
+import { loadRemoteComponent } from "./helpers/remoteLoader";
 
-const NewApp = ({apps, menu, mode, setMode}) => {
-  function loadScript(src) {
-    return new Promise((resolve, reject) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.onload = resolve;
-      script.onerror = reject;
-      document.head.appendChild(script);
-    });
-  }
-
+const NewApp = ({ apps, menu, mode, setMode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
   const [uuid, setuuid] = useState(uuidv4());
@@ -32,16 +23,6 @@ const NewApp = ({apps, menu, mode, setMode}) => {
 
   const handleMessage = (event) => {
     send({ data: event.data, uuid });
-  };
-
-
-  const loadRemoteComponent = (app) => async () => {
-    await loadScript(app.url);
-    const container = window[app.remoteId];
-    await container.init(__webpack_share_scopes__.default);
-    const factory = await window[app.remoteId].get(`./${app.appId}`);
-    const module = factory();
-    return module;
   };
 
   const handleMenuSelection = (e, appId, setDrawerOpen) => {
@@ -58,7 +39,7 @@ const NewApp = ({apps, menu, mode, setMode}) => {
       );
       if (duplicateTabs.length > 0) {
         count = duplicateTabs.length + 1;
-        newLabel = `${baseLabel} (${count-1})`;
+        newLabel = `${baseLabel} (${count - 1})`;
       }
 
       const updatedTabs = [...openTabs, { appId, label: newLabel }];
@@ -91,23 +72,23 @@ const NewApp = ({apps, menu, mode, setMode}) => {
     // Find the index of the tab to be removed
     const tabIndex = openTabs.findIndex((tab) => tab.label === label);
     let newApp = "";
-  
+
     if (tabIndex !== -1) {
       // Remove the tab from the openTabs array
       const newOpenTabs = [...openTabs];
       newOpenTabs.splice(tabIndex, 1);
-      if(!newOpenTabs.length) {
-        setComponent(null)
+      if (!newOpenTabs.length) {
+        setComponent(null);
       }
       // Update the openTabs state
       setOpenTabs(newOpenTabs);
       sessionStorage.setItem("openTabs", JSON.stringify(newOpenTabs));
-  
+
       // If the removed tab was the currently selected tab, update the selectedTab state
       if (selectedTab === tabIndex) {
         setSelectedTab(Math.max(tabIndex - 1, 0));
         sessionStorage.setItem("selectedTab", Math.max(tabIndex - 1, 0));
-        newApp = newOpenTabs[Math.max(tabIndex - 1, 0)]
+        newApp = newOpenTabs[Math.max(tabIndex - 1, 0)];
       } else if (selectedTab > tabIndex) {
         setSelectedTab(selectedTab - 1);
         sessionStorage.setItem("selectedTab", selectedTab - 1);
@@ -120,23 +101,27 @@ const NewApp = ({apps, menu, mode, setMode}) => {
       if (!!app?.appId) {
         setComponent(React.lazy(loadRemoteComponent(app)));
         sessionStorage.setItem("currentAppId", app.appId);
-      }
-      else {
+      } else {
         sessionStorage.setItem("currentAppId", null);
       }
     }
   };
-  
 
   const handleTabSelection = (e, label) => {
     const index = openTabs.findIndex((tab) => tab.label === label);
     const appId = openTabs[index].appId;
+    if (index === selectedTab) {
+      return;
+    }
     setSelectedTab(index);
-    sessionStorage.setItem("selectedTab", index)
+    sessionStorage.setItem("selectedTab", index);
 
     if (!openTabs.find((tab) => tab.label === label)) {
       setOpenTabs([...openTabs, { appId, label }]);
-      sessionStorage.setItem("openTabs",JSON.stringify([...openTabs, { appId, label}]));
+      sessionStorage.setItem(
+        "openTabs",
+        JSON.stringify([...openTabs, { appId, label }])
+      );
     }
 
     let app = apps.filter((app) => {
@@ -203,15 +188,13 @@ const NewApp = ({apps, menu, mode, setMode}) => {
           <React.Suspense fallback={<MyFallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
-                <Component
-                  {...{ setWidgetStyle, widgetStyle, uuid, mode }}
-                />
+                <Component {...{ setWidgetStyle, widgetStyle, uuid, mode }} />
               ) : (
                 <div></div>
               )}
             </ShadowRoot>
           </React.Suspense>
-        </div>   
+        </div>
       </div>
       <Footer {...{ mode }} />
     </div>
