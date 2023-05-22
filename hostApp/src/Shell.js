@@ -10,7 +10,7 @@ import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 import { loadRemoteComponent } from "./helpers/remoteLoader";
 
-const NewApp = ({ apps, menu, mode, setMode }) => {
+const Shell = ({ apps, menu, mode, setMode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
   const [uuid, setuuid] = useState(uuidv4());
@@ -201,4 +201,4 @@ const NewApp = ({ apps, menu, mode, setMode }) => {
   );
 };
 
-export default NewApp;
+export default Shell;
