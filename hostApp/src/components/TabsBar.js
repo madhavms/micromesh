@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
   tabsContainer: {
     backgroundColor: "black",
     paddingTop: theme.spacing(1.2),
-    maxHeight: "42px",
   },
   tab: {
     color: "white",
