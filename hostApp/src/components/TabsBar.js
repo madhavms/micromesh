@@ -20,12 +20,13 @@ const useStyles = makeStyles((theme) => ({
   },
   tabsContainer: {
     backgroundColor: "black",
+    paddingTop: theme.spacing(1.2),
+    maxHeight: "42px",
   },
   tab: {
     color: "white",
     backgroundColor: "black",
     fontSize:"0.8rem",
-    marginTop: theme.spacing(1),
     borderTopLeftRadius: theme.spacing(1),
     borderTopRightRadius: theme.spacing(1),
     borderBottom: "None",
