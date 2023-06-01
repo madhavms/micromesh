@@ -59,7 +59,6 @@ const useStyles = makeStyles((theme) => ({
 
 function TabsBar({ openTabs, selectedTab, mode, handleTabSelection, handleCloseTab }) {
   const classes = useStyles({ mode });
-  console.log("openTabs?.selectedTab?.label",openTabs[selectedTab],selectedTab)
   return (
     <div className={classes.tabsContainer}>
     <Tabs
