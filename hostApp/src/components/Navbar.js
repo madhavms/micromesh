@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
     fontSize: "1.25rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.1rem",
+    },
   },
   menuTitle: {
     color: (props) => (props.mode === "light" ? "#0059b2" : "white"),
