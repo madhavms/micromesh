@@ -81,7 +81,6 @@ function TabsBar({ workspaces, mode, handleWorkspaceSelection, handleCloseWorksp
                 <IconButton
                   className={classes.closeButton}
                   onClick={(e) => {
-                    console.log('clicked', workspace.label)
                     e.stopPropagation(); // Prevent changing the selected tab
                     handleCloseWorkspace(workspace.label); // Handle tab closing
                   }}

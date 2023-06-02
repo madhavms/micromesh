@@ -12,7 +12,7 @@ export const useFetch = (url) => {
           setStockList(data);
           }
           catch(err){
-            console.log('Error while fetching data',err)
+            console.error('Error while fetching data',err)
           }
         })();
       }, [url]);

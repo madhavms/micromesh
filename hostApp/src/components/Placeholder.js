@@ -1,12 +1,9 @@
 import React, { Suspense } from 'react';
-import { Spinner } from 'reactstrap'; // or any other loading indicator
 
-const MyFallbackComponent = () => {
+const FallbackComponent = () => {
   return (
-    <div className="text-center mt-4">
-      
-    </div>
+    <div className="text-center mt-4"/>
   );
 };
 
-export default MyFallbackComponent;
+export default FallbackComponent;
