@@ -5,6 +5,7 @@ import Tab from "@material-ui/core/Tab";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 
+
 const useStyles = makeStyles((theme) => ({
   hiddenIndicator: {
     display: 'none',
@@ -30,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
     borderTopRightRadius: theme.spacing(1),
     borderBottom: "None",
     "&:hover": {
-     opacity: "0.7"
+      opacity: "0.7"
     },
     "&.Mui-selected:hover": {
       opacity: "1"
-     },
+    },
     "&.Mui-selected": {
       backgroundColor: (props) =>
       props.mode === "light" ? "#F5F5F5" : "#001e3c",
@@ -56,39 +57,45 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-
-function TabsBar({ openTabs, selectedTab, mode, handleTabSelection, handleCloseTab }) {
+function TabsBar({ workspaces, mode, handleTabSelection, handleCloseTab }) {
   const classes = useStyles({ mode });
+  const selectedTab = workspaces.findIndex((workspace) => workspace.isSelected);
+
   return (
     <div className={classes.tabsContainer}>
-    <Tabs
-      value={openTabs[selectedTab]?.label}
-      onChange={(e, newValue) => handleTabSelection(e, newValue)}
-      indicatorColor="primary"
-      textColor="primary"
-      classes={{ indicator: classes.hiddenIndicator }}
-      variant="scrollable"
-      scrollButtons="auto"
-    >
-      {openTabs.map((tab, index) => (
-        <Tab key={tab.label} label={
-          <span className={classes.labelContainer}>
-            {tab.label}
-            <IconButton
-              className={classes.closeButton}
-              onClick={(e) => {
-                console.log('clicked',tab.label)
-                e.stopPropagation(); // Prevent changing the selected tab
-                handleCloseTab(tab.label); // Handle tab closing
-              }}
-              size="small"
-            >
-              <CloseIcon fontSize="small" className={selectedTab == index ? classes.closeIconSelected : classes.closeIcon}/>
-            </IconButton>
-          </span>
-        } value={tab.label} className={classes.tab}/>
-      ))}
-    </Tabs>
+      <Tabs
+        value={selectedTab}
+        onChange={(e, newValue) => handleTabSelection(e, workspaces[newValue]?.label)}
+        indicatorColor="primary"
+        textColor="primary"
+        classes={{ indicator: classes.hiddenIndicator }}
+        variant="scrollable"
+        scrollButtons="auto"
+      >
+        {workspaces.map((workspace, index) => (
+          <Tab
+            key={workspace.label}
+            label={
+              <span className={classes.labelContainer}>
+                {workspace.label}
+                <IconButton
+                  className={classes.closeButton}
+                  onClick={(e) => {
+                    console.log('clicked', workspace.label)
+                    e.stopPropagation(); // Prevent changing the selected tab
+                    handleCloseTab(workspace.label); // Handle tab closing
+                  }}
+                  size="small"
+                >
+                  <CloseIcon fontSize="small" className={workspace.isSelected ? classes.closeIconSelected : classes.closeIcon} />
+                </IconButton>
+              </span>
+            }
+            value={index}
+            className={classes.tab}
+          />
+        ))}
+      </Tabs>
     </div>
   );
 }
