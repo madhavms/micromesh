@@ -56,12 +56,12 @@ def load_risk_data():
 # define Widget model
 class Widget(BaseModel):
     url: str
-    appId: str
-    remoteId: str
+    widget: str
+    scope: str
 
 # define MenuItem model
 class MenuItem(BaseModel):
-    appId: str
+    widget: str
     label: str
 
 
