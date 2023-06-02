@@ -14,11 +14,8 @@ const Shell = ({ apps, menu, mode, setMode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
   const [uuid, setuuid] = useState(uuidv4());
-  const [selectedTab, setSelectedTab] = useState(
-    sessionStorage.getItem("selectedTab") || null
-  );
-  const [openTabs, setOpenTabs] = useState(
-    JSON.parse(sessionStorage.getItem("openTabs")) || []
+  const [workspaces, setWorkspaces] = useState(
+    JSON.parse(sessionStorage.getItem("workspaces")) || []
   );
 
   const handleMessage = (event) => {
@@ -28,126 +25,147 @@ const Shell = ({ apps, menu, mode, setMode }) => {
   const handleMenuSelection = (e, appId, setDrawerOpen) => {
     setDrawerOpen(false);
 
-    let existingTab = openTabs.find((tab) => tab.appId === appId);
+    let existingWorkspace = workspaces.find(
+      (workspace) => workspace.appId === appId
+    );
+
     let baseLabel = e.target.innerText;
-    if (existingTab) {
+
+    if (existingWorkspace) {
       let newLabel = baseLabel;
       let count = 1;
+      let newWorkspace = {};
 
-      let duplicateTabs = openTabs.filter((tab) =>
-        tab.label.startsWith(baseLabel)
+      let duplicateWorkspaces = workspaces.filter((workspace) =>
+        workspace.label.startsWith(baseLabel)
       );
-      if (duplicateTabs.length > 0) {
-        count = duplicateTabs.length + 1;
+      if (duplicateWorkspaces.length > 0) {
+        console.log("duplicateWorkspaces=", duplicateWorkspaces);
+        count = duplicateWorkspaces.length + 1;
         newLabel = `${baseLabel} (${count - 1})`;
+        newWorkspace = {
+          appId: existingWorkspace.appId,
+          label: newLabel,
+          isSelected: true,
+        };
       }
 
-      const updatedTabs = [...openTabs, { appId, label: newLabel }];
-      setOpenTabs(updatedTabs);
-      sessionStorage.setItem("openTabs", JSON.stringify(updatedTabs));
+      const updatedWorkspaces = workspaces.map((workspace) => ({
+        ...workspace,
+        isSelected: workspace.label === newLabel,
+      }));
+      setWorkspaces([...updatedWorkspaces, newWorkspace]);
+      sessionStorage.setItem(
+        "workspaces",
+        JSON.stringify([...updatedWorkspaces, newWorkspace])
+      );
 
-      // Set the selected tab to the index of the newly added tab
-      setSelectedTab(updatedTabs.length - 1);
-      sessionStorage.setItem("selectedTab", updatedTabs.length - 1);
+      let app = apps.find((app) => app.appId === appId);
+      if (app) {
+        setComponent(React.lazy(loadRemoteComponent(app)));
+      }
     } else {
-      const updatedTabs = [...openTabs, { appId, label: baseLabel }];
-      setOpenTabs(updatedTabs);
-      sessionStorage.setItem("openTabs", JSON.stringify(updatedTabs));
+      const updatedWorkspaces = workspaces.map((workspace) => ({
+        ...workspace,
+        isSelected: false,
+      }));
+      setWorkspaces([
+        ...updatedWorkspaces,
+        { appId, label: baseLabel, isSelected: true },
+      ]);
+      sessionStorage.setItem(
+        "workspaces",
+        JSON.stringify([
+          ...updatedWorkspaces,
+          { appId, label: baseLabel, isSelected: true },
+        ])
+      );
 
-      // Set the selected tab to the index of the newly added tab
-      setSelectedTab(updatedTabs.length - 1);
-      sessionStorage.setItem("selectedTab", updatedTabs.length - 1);
-    }
-
-    let app = apps.filter((app) => {
-      return app.appId === appId;
-    })[0];
-    if (!!app?.appId) {
-      setComponent(React.lazy(loadRemoteComponent(app)));
-      sessionStorage.setItem("currentAppId", app.appId);
+      let app = apps.find((app) => app.appId === appId);
+      if (app) {
+        setComponent(React.lazy(loadRemoteComponent(app)));
+      }
     }
   };
 
   const handleCloseTab = (label) => {
-    // Find the index of the tab to be removed
-    const tabIndex = openTabs.findIndex((tab) => tab.label === label);
-    let newApp = "";
+    const updatedWorkspaces = workspaces?.filter(
+      (workspace) => workspace.label !== label
+    );
 
-    if (tabIndex !== -1) {
-      // Remove the tab from the openTabs array
-      const newOpenTabs = [...openTabs];
-      newOpenTabs.splice(tabIndex, 1);
-      if (!newOpenTabs.length) {
-        setComponent(null);
-      }
-      // Update the openTabs state
-      setOpenTabs(newOpenTabs);
-      sessionStorage.setItem("openTabs", JSON.stringify(newOpenTabs));
+    console.log("label=", label);
 
-      // If the removed tab was the currently selected tab, update the selectedTab state
-      if (selectedTab === tabIndex) {
-        setSelectedTab(Math.max(tabIndex - 1, 0));
-        sessionStorage.setItem("selectedTab", Math.max(tabIndex - 1, 0));
-        newApp = newOpenTabs[Math.max(tabIndex - 1, 0)];
-      } else if (selectedTab > tabIndex) {
-        setSelectedTab(selectedTab - 1);
-        sessionStorage.setItem("selectedTab", selectedTab - 1);
-        newApp = newOpenTabs[selectedTab - 1];
-      }
-      let appId = newApp?.appId;
-      let app = apps.filter((app) => {
-        return app.appId === appId;
-      })[0];
-      if (!!app?.appId) {
-        setComponent(React.lazy(loadRemoteComponent(app)));
-        sessionStorage.setItem("currentAppId", app.appId);
-      } else {
-        sessionStorage.setItem("currentAppId", null);
+    if (updatedWorkspaces.length === 0) {
+      setComponent(null);
+      setWorkspaces(updatedWorkspaces);
+      sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
+      return;
+    }
+    if (
+      workspaces.find(
+        (workspace) => workspace.label === label && workspace.isSelected
+      )
+    ) {
+      console.log("workspaces=", workspaces);
+      const selectedIndex = workspaces?.findIndex(
+        (workspace) => workspace.label === label
+      );
+      const newSelectedIndex = Math.max(selectedIndex - 1, 0);
+      const newSelectedWorkspace = updatedWorkspaces[newSelectedIndex];
+
+      if (newSelectedWorkspace) {
+        let app = apps.find((app) => app.appId === newSelectedWorkspace.appId);
+        updatedWorkspaces[newSelectedIndex].isSelected = true;
+        if (app) {
+          setComponent(React.lazy(loadRemoteComponent(app)));
+          setWorkspaces(updatedWorkspaces);
+          sessionStorage.setItem(
+            "workspaces",
+            JSON.stringify(updatedWorkspaces)
+          );
+        }
       }
     }
+    setWorkspaces(updatedWorkspaces);
+    sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
   };
 
   const handleTabSelection = (e, label) => {
-    const index = openTabs.findIndex((tab) => tab.label === label);
-    const appId = openTabs[index].appId;
-    if (index === selectedTab) {
+    const selectedWorkspace = workspaces.find(
+      (workspace) => workspace.label === label
+    );
+
+    if (selectedWorkspace?.isSelected) {
       return;
     }
-    setSelectedTab(index);
-    sessionStorage.setItem("selectedTab", index);
 
-    if (!openTabs.find((tab) => tab.label === label)) {
-      setOpenTabs([...openTabs, { appId, label }]);
-      sessionStorage.setItem(
-        "openTabs",
-        JSON.stringify([...openTabs, { appId, label }])
-      );
-    }
+    if (selectedWorkspace) {
+      const updatedWorkspaces = workspaces.map((workspace) => ({
+        ...workspace,
+        isSelected: workspace.label === selectedWorkspace.label,
+      }));
 
-    let app = apps.filter((app) => {
-      return app.appId === appId;
-    })[0];
-    if (!!app?.appId) {
-      setComponent(React.lazy(loadRemoteComponent(app)));
-      sessionStorage.setItem("currentAppId", app.appId);
+      setWorkspaces(updatedWorkspaces);
+      sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
+
+      let app = apps.find((app) => app.appId === selectedWorkspace.appId);
+      if (app) {
+        setComponent(React.lazy(loadRemoteComponent(app)));
+      }
     }
   };
 
-  const cacheCurrentWidget = (appId) => {
-    let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
-    let app = apps.filter((app) => {
-      return app.appId === appId;
-    })[0];
-    if (!!appId && !!openTabs.length) {
-      setComponent(React.lazy(loadRemoteComponent(app)));
-    }
+  const loadCachedWidget = (selectedApp) => {
+    setComponent(React.lazy(loadRemoteComponent(selectedApp)));
   };
 
   useEffect(() => {
-    const cachedAppId = sessionStorage.getItem("currentAppId");
+    const workspaces = JSON.parse(sessionStorage.getItem("workspaces"));
+    const selectedTab = workspaces?.find((workspace) => workspace.isSelected);
     let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
-    if (cachedAppId !== "undefined" && !!cachedAppId && !!apps.length) {
-      cacheCurrentWidget(cachedAppId);
+    let selectedApp = apps?.find((app) => app?.appId === selectedTab?.appId);
+    if (selectedApp) {
+      loadCachedWidget(selectedApp);
     }
   }, []);
 
@@ -163,9 +181,7 @@ const Shell = ({ apps, menu, mode, setMode }) => {
       className={`${mode === "light" ? "body" : "body-dark"} root-container`}
     >
       <TabsBar
-        openTabs={openTabs}
-        selectedTab={selectedTab}
-        setSelectedTab={setSelectedTab}
+        workspaces={workspaces}
         mode={mode}
         handleTabSelection={handleTabSelection}
         handleCloseTab={handleCloseTab}
@@ -177,13 +193,11 @@ const Shell = ({ apps, menu, mode, setMode }) => {
           setMode,
           menu,
           handleMenuSelection,
-          selectedTab,
-          openTabs,
-          setSelectedTab,
+          workspaces,
         }}
       />
       <div className={mode === "light" ? "container" : "container-dark"}>
-        {!openTabs.length && <About {...{ mode }} />}
+        {!workspaces.length && <About {...{ mode }} />}
         <div>
           <React.Suspense fallback={<MyFallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
