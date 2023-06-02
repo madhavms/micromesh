@@ -9,156 +9,42 @@ import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 import { loadRemoteComponent } from "./helpers/remoteLoader";
+import {useWorkspaces} from "./helpers/workspaceHelper";
 
 const Shell = ({ apps, menu, toggleMode, mode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
   const [uuid, setuuid] = useState(uuidv4());
-  const [workspaces, setWorkspaces] = useState(
-    JSON.parse(sessionStorage.getItem("workspaces")) || []
-  );
+  const {
+    workspaces,
+    handleWorkspaceSelection,
+    handleMenuSelection,
+    handleCloseWorkspace,
+  } = useWorkspaces();
 
   const handleMessage = (event) => {
     send({ data: event.data, uuid });
   };
 
-  const handleMenuSelection = (label, widget) => {
-
-    let existingWorkspace = workspaces.find(
-      (workspace) => workspace.widget === widget
+  const loadWidget = (selectedWorkspace) => {
+    let selectedApp = apps?.find(
+      (app) => app?.widget === selectedWorkspace?.widget
     );
-
-    if (existingWorkspace) {
-      let newLabel = label;
-      let count = 1;
-      let newWorkspace = {};
-
-      let duplicateWorkspaces = workspaces.filter((workspace) =>
-        workspace.label.startsWith(label)
-      );
-      if (duplicateWorkspaces.length > 0) {
-        count = duplicateWorkspaces.length + 1;
-        newLabel = `${label} (${count - 1})`;
-        newWorkspace = {
-          widget: existingWorkspace.widget,
-          label: newLabel,
-          isSelected: true,
-        };
-      }
-
-      const updatedWorkspaces = workspaces.map((workspace) => ({
-        ...workspace,
-        isSelected: workspace.label === newLabel,
-      }));
-      setWorkspaces([...updatedWorkspaces, newWorkspace]);
-      sessionStorage.setItem(
-        "workspaces",
-        JSON.stringify([...updatedWorkspaces, newWorkspace])
-      );
-      let app = apps.find((app) => app.widget === widget);
-      if (app) {
-        setComponent(React.lazy(loadRemoteComponent(app)));
-      }
-    } else {
-      const updatedWorkspaces = workspaces.map((workspace) => ({
-        ...workspace,
-        isSelected: false,
-      }));
-      setWorkspaces([
-        ...updatedWorkspaces,
-        { widget, label: label, isSelected: true },
-      ]);
-      sessionStorage.setItem(
-        "workspaces",
-        JSON.stringify([
-          ...updatedWorkspaces,
-          { widget, label: label, isSelected: true },
-        ])
-      );
-
-      let app = apps.find((app) => app.widget === widget);
-      if (app) {
-        setComponent(React.lazy(loadRemoteComponent(app)));
-      }
-    }
-  };
-
-  const handleCloseWorkspace = (label) => {
-    const updatedWorkspaces = workspaces?.filter(
-      (workspace) => workspace.label !== label
-    );
-    if (updatedWorkspaces.length === 0) {
-      setComponent(null);
-      setWorkspaces(updatedWorkspaces);
-      sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
-      return;
-    }
-    if (
-      workspaces.find(
-        (workspace) => workspace.label === label && workspace.isSelected
-      )
-    ) {
-      const selectedIndex = workspaces?.findIndex(
-        (workspace) => workspace.label === label
-      );
-      const newSelectedIndex = Math.max(selectedIndex - 1, 0);
-      const newSelectedWorkspace = updatedWorkspaces[newSelectedIndex];
-
-      if (newSelectedWorkspace) {
-        let app = apps.find((app) => app.widget === newSelectedWorkspace.widget);
-        updatedWorkspaces[newSelectedIndex].isSelected = true;
-        if (app) {
-          setComponent(React.lazy(loadRemoteComponent(app)));
-          setWorkspaces(updatedWorkspaces);
-          sessionStorage.setItem(
-            "workspaces",
-            JSON.stringify(updatedWorkspaces)
-          );
-        }
-      }
-    }
-    setWorkspaces(updatedWorkspaces);
-    sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
-  };
-
-  const handleWorkspaceSelection = (label) => {
-    const selectedWorkspace = workspaces.find(
-      (workspace) => workspace.label === label
-    );
-
-    if (selectedWorkspace?.isSelected) {
-      return;
-    }
-
-    if (selectedWorkspace) {
-      const updatedWorkspaces = workspaces.map((workspace) => ({
-        ...workspace,
-        isSelected: workspace.label === selectedWorkspace.label,
-      }));
-
-      setWorkspaces(updatedWorkspaces);
-      sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
-
-      let app = apps.find((app) => app.widget === selectedWorkspace.widget);
-      if (app) {
-        setComponent(React.lazy(loadRemoteComponent(app)));
-      }
-    }
-  };
-
-  const loadCachedWidget = (selectedApp) => {
     setComponent(React.lazy(loadRemoteComponent(selectedApp)));
   };
 
   useEffect(() => {
-    const workspaces = JSON.parse(sessionStorage.getItem("workspaces"));
-    const selectedTab = workspaces?.find((workspace) => workspace.isSelected);
-    let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
-    let selectedApp = apps?.find((app) => app?.widget === selectedTab?.widget);
-    if (selectedApp) {
-      loadCachedWidget(selectedApp);
+    const currentworkspaces =
+      workspaces || JSON.parse(sessionStorage.getItem("workspaces"));
+    const selectedWorkspace = currentworkspaces?.find(
+      (workspace) => workspace.isSelected
+    );
+    if (selectedWorkspace) {
+      loadWidget(selectedWorkspace);
+    } else {
+      setComponent(null);
     }
-  }, []);
+  }, [workspaces]);
 
   useEffect(() => {
     subscribe(handleMessage);
