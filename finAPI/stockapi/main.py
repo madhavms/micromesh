@@ -68,13 +68,13 @@ class MenuItem(BaseModel):
 # define request model
 class WidgetCreate(BaseModel):
     url: str
-    appId: str
-    remoteId: str
+    scope: str
+    widget: str
 
 
 # define request model
 class MenuItemCreate(BaseModel):
-    appId: str
+    widget: str
     label: str
 
 
