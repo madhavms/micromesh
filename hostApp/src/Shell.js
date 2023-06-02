@@ -10,7 +10,7 @@ import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 import { loadRemoteComponent } from "./helpers/remoteLoader";
 
-const Shell = ({ apps, menu, mode, setMode }) => {
+const Shell = ({ apps, menu, toggleMode, mode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
   const [uuid, setuuid] = useState(uuidv4());
@@ -22,27 +22,24 @@ const Shell = ({ apps, menu, mode, setMode }) => {
     send({ data: event.data, uuid });
   };
 
-  const handleMenuSelection = (e, appId, setDrawerOpen) => {
-    setDrawerOpen(false);
+  const handleMenuSelection = (label, appId) => {
 
     let existingWorkspace = workspaces.find(
       (workspace) => workspace.appId === appId
     );
 
-    let baseLabel = e.target.innerText;
-
     if (existingWorkspace) {
-      let newLabel = baseLabel;
+      let newLabel = label;
       let count = 1;
       let newWorkspace = {};
 
       let duplicateWorkspaces = workspaces.filter((workspace) =>
-        workspace.label.startsWith(baseLabel)
+        workspace.label.startsWith(label)
       );
       if (duplicateWorkspaces.length > 0) {
         console.log("duplicateWorkspaces=", duplicateWorkspaces);
         count = duplicateWorkspaces.length + 1;
-        newLabel = `${baseLabel} (${count - 1})`;
+        newLabel = `${label} (${count - 1})`;
         newWorkspace = {
           appId: existingWorkspace.appId,
           label: newLabel,
@@ -71,13 +68,13 @@ const Shell = ({ apps, menu, mode, setMode }) => {
       }));
       setWorkspaces([
         ...updatedWorkspaces,
-        { appId, label: baseLabel, isSelected: true },
+        { appId, label: label, isSelected: true },
       ]);
       sessionStorage.setItem(
         "workspaces",
         JSON.stringify([
           ...updatedWorkspaces,
-          { appId, label: baseLabel, isSelected: true },
+          { appId, label: label, isSelected: true },
         ])
       );
 
@@ -190,7 +187,7 @@ const Shell = ({ apps, menu, mode, setMode }) => {
         className="nav"
         {...{
           mode,
-          setMode,
+          toggleMode,
           menu,
           handleMenuSelection,
           workspaces,
