@@ -15,7 +15,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Hidden from "@material-ui/core/Hidden";
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -66,21 +65,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Navbar({
-  mode,
-  setMode,
-  menu = [],
-  handleMenuSelection
-}) {
-  const toggleMode = () => {
-    const newMode = mode === "light" ? "dark" : "light";
-    setMode(newMode);
-    localStorage.setItem("mode", newMode);
-  };
+export default function Navbar({ toggleMode, mode ,menu = [], handleMenuSelection }) {
 
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-
   const classes = useStyles({ mode });
 
   const handleDrawerToggle = () => {
@@ -107,7 +95,11 @@ export default function Navbar({
             <MenuIcon className={classes.menuIcon} />
           </IconButton>
           <Hidden xsDown>
-            <Typography onClick={handleDrawerToggle} variant="subtitle1" className={classes.menuTitle}>
+            <Typography
+              onClick={handleDrawerToggle}
+              variant="subtitle1"
+              className={classes.menuTitle}
+            >
               Menu
             </Typography>
           </Hidden>
@@ -168,9 +160,10 @@ export default function Navbar({
               <ListItem
                 key={item.appId}
                 button
-                onClick={(e) =>
-                  handleMenuSelection(e, item.appId, setDrawerOpen)
-                }
+                onClick={(e) => {
+                  setDrawerOpen(false);
+                  handleMenuSelection(e.target.innerText, item.appId);
+                }}
               >
                 <ListItemText primary={item.label} />
               </ListItem>
