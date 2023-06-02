@@ -85,7 +85,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     }
   };
 
-  const handleCloseTab = (label) => {
+  const handleCloseWorkspace = (label) => {
     const updatedWorkspaces = workspaces?.filter(
       (workspace) => workspace.label !== label
     );
@@ -127,7 +127,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
   };
 
-  const handleTabSelection = (label) => {
+  const handleWorkspaceSelection = (label) => {
     const selectedWorkspace = workspaces.find(
       (workspace) => workspace.label === label
     );
@@ -180,8 +180,8 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       <TabsBar
         workspaces={workspaces}
         mode={mode}
-        handleTabSelection={handleTabSelection}
-        handleCloseTab={handleCloseTab}
+        handleWorkspaceSelection={handleWorkspaceSelection}
+        handleCloseWorkspace={handleCloseWorkspace}
       />
       <Navbar
         className="nav"

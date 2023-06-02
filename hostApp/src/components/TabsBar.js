@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function TabsBar({ workspaces, mode, handleTabSelection, handleCloseTab }) {
+function TabsBar({ workspaces, mode, handleWorkspaceSelection, handleCloseWorkspace }) {
   const classes = useStyles({ mode });
   const selectedTab = workspaces.findIndex((workspace) => workspace.isSelected);
 
@@ -65,7 +65,7 @@ function TabsBar({ workspaces, mode, handleTabSelection, handleCloseTab }) {
     <div className={classes.tabsContainer}>
       <Tabs
         value={selectedTab}
-        onChange={(e, newValue) => handleTabSelection(workspaces[newValue]?.label)}
+        onChange={(e, newValue) => handleWorkspaceSelection(workspaces[newValue]?.label)}
         indicatorColor="primary"
         textColor="primary"
         classes={{ indicator: classes.hiddenIndicator }}
@@ -83,7 +83,7 @@ function TabsBar({ workspaces, mode, handleTabSelection, handleCloseTab }) {
                   onClick={(e) => {
                     console.log('clicked', workspace.label)
                     e.stopPropagation(); // Prevent changing the selected tab
-                    handleCloseTab(workspace.label); // Handle tab closing
+                    handleCloseWorkspace(workspace.label); // Handle tab closing
                   }}
                   size="small"
                 >
