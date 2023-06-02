@@ -4,7 +4,7 @@ import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
 import { send, subscribe, unsubscribe } from "messagebusmono";
 import { v4 as uuidv4 } from "uuid";
-import MyFallbackComponent from "./components/Placeholder";
+import FallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
@@ -22,10 +22,10 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     send({ data: event.data, uuid });
   };
 
-  const handleMenuSelection = (label, appId) => {
+  const handleMenuSelection = (label, widget) => {
 
     let existingWorkspace = workspaces.find(
-      (workspace) => workspace.appId === appId
+      (workspace) => workspace.widget === widget
     );
 
     if (existingWorkspace) {
@@ -37,11 +37,10 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         workspace.label.startsWith(label)
       );
       if (duplicateWorkspaces.length > 0) {
-        console.log("duplicateWorkspaces=", duplicateWorkspaces);
         count = duplicateWorkspaces.length + 1;
         newLabel = `${label} (${count - 1})`;
         newWorkspace = {
-          appId: existingWorkspace.appId,
+          widget: existingWorkspace.widget,
           label: newLabel,
           isSelected: true,
         };
@@ -57,7 +56,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         JSON.stringify([...updatedWorkspaces, newWorkspace])
       );
 
-      let app = apps.find((app) => app.appId === appId);
+      let app = apps.find((app) => app.widget === widget);
       if (app) {
         setComponent(React.lazy(loadRemoteComponent(app)));
       }
@@ -68,17 +67,17 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       }));
       setWorkspaces([
         ...updatedWorkspaces,
-        { appId, label: label, isSelected: true },
+        { widget, label: label, isSelected: true },
       ]);
       sessionStorage.setItem(
         "workspaces",
         JSON.stringify([
           ...updatedWorkspaces,
-          { appId, label: label, isSelected: true },
+          { widget, label: label, isSelected: true },
         ])
       );
 
-      let app = apps.find((app) => app.appId === appId);
+      let app = apps.find((app) => app.widget === widget);
       if (app) {
         setComponent(React.lazy(loadRemoteComponent(app)));
       }
@@ -89,9 +88,6 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     const updatedWorkspaces = workspaces?.filter(
       (workspace) => workspace.label !== label
     );
-
-    console.log("label=", label);
-
     if (updatedWorkspaces.length === 0) {
       setComponent(null);
       setWorkspaces(updatedWorkspaces);
@@ -103,7 +99,6 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         (workspace) => workspace.label === label && workspace.isSelected
       )
     ) {
-      console.log("workspaces=", workspaces);
       const selectedIndex = workspaces?.findIndex(
         (workspace) => workspace.label === label
       );
@@ -111,7 +106,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       const newSelectedWorkspace = updatedWorkspaces[newSelectedIndex];
 
       if (newSelectedWorkspace) {
-        let app = apps.find((app) => app.appId === newSelectedWorkspace.appId);
+        let app = apps.find((app) => app.widget === newSelectedWorkspace.widget);
         updatedWorkspaces[newSelectedIndex].isSelected = true;
         if (app) {
           setComponent(React.lazy(loadRemoteComponent(app)));
@@ -145,7 +140,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       setWorkspaces(updatedWorkspaces);
       sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
 
-      let app = apps.find((app) => app.appId === selectedWorkspace.appId);
+      let app = apps.find((app) => app.widget === selectedWorkspace.widget);
       if (app) {
         setComponent(React.lazy(loadRemoteComponent(app)));
       }
@@ -160,7 +155,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     const workspaces = JSON.parse(sessionStorage.getItem("workspaces"));
     const selectedTab = workspaces?.find((workspace) => workspace.isSelected);
     let apps = JSON.parse(sessionStorage.getItem("apps")) || [];
-    let selectedApp = apps?.find((app) => app?.appId === selectedTab?.appId);
+    let selectedApp = apps?.find((app) => app?.widget === selectedTab?.widget);
     if (selectedApp) {
       loadCachedWidget(selectedApp);
     }
@@ -196,7 +191,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       <div className={mode === "light" ? "container" : "container-dark"}>
         {!workspaces.length && <About {...{ mode }} />}
         <div>
-          <React.Suspense fallback={<MyFallbackComponent />}>
+          <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
                 <Component {...{ setWidgetStyle, widgetStyle, uuid, mode }} />

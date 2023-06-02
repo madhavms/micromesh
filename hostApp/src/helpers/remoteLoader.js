@@ -9,11 +9,11 @@ const loadScript = (src) => {
 };
 
 
-export const loadRemoteComponent = (app) => async () => {
-    await loadScript(app.url);
-    const container = window[app.remoteId];
-    await container.init(__webpack_share_scopes__.default);
-    const factory = await window[app.remoteId].get(`./${app.appId}`);
-    const module = factory();
-    return module;
+export const loadRemoteComponent = ({url, scope, widget}) => async () => {
+  await loadScript(url);
+  const container = window[scope];
+  await container.init(__webpack_share_scopes__.default);
+  const factory = await container.get(widget);
+  const module = factory();
+  return module;
 };

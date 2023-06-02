@@ -158,11 +158,11 @@ export default function Navbar({ toggleMode, mode ,menu = [], handleMenuSelectio
           {menu.length !== 0 &&
             menu.map((item) => (
               <ListItem
-                key={item.appId}
+                key={item.widget}
                 button
                 onClick={(e) => {
                   setDrawerOpen(false);
-                  handleMenuSelection(e.target.innerText, item.appId);
+                  handleMenuSelection(e.target.innerText, item.widget);
                 }}
               >
                 <ListItemText primary={item.label} />
