@@ -37,6 +37,12 @@ function AppContainer() {
   const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  const toggleMode = () => {
+    const newMode = mode === "light" ? "dark" : "light";
+    setMode(newMode);
+    localStorage.setItem("mode", newMode);
+  };
+
   useEffect(() => {
     async function loadData() {
       const { apps, menu } = await fetchData();
@@ -60,7 +66,7 @@ function AppContainer() {
       <LoadingSquare />
     </div>
   ) : (
-    <App apps={apps} menu={menu} mode={mode} setMode={setMode} />
+    <App apps={apps} menu={menu} toggleMode={toggleMode} mode={mode}/>
   );
 }
 
