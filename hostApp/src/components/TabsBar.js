@@ -65,7 +65,7 @@ function TabsBar({ workspaces, mode, handleTabSelection, handleCloseTab }) {
     <div className={classes.tabsContainer}>
       <Tabs
         value={selectedTab}
-        onChange={(e, newValue) => handleTabSelection(e, workspaces[newValue]?.label)}
+        onChange={(e, newValue) => handleTabSelection(workspaces[newValue]?.label)}
         indicatorColor="primary"
         textColor="primary"
         classes={{ indicator: classes.hiddenIndicator }}

@@ -127,7 +127,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     sessionStorage.setItem("workspaces", JSON.stringify(updatedWorkspaces));
   };
 
-  const handleTabSelection = (e, label) => {
+  const handleTabSelection = (label) => {
     const selectedWorkspace = workspaces.find(
       (workspace) => workspace.label === label
     );
