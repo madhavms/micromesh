@@ -55,7 +55,6 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         "workspaces",
         JSON.stringify([...updatedWorkspaces, newWorkspace])
       );
-
       let app = apps.find((app) => app.widget === widget);
       if (app) {
         setComponent(React.lazy(loadRemoteComponent(app)));
