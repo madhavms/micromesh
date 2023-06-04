@@ -154,21 +154,23 @@ export default function Navbar({ toggleMode, mode ,menu = [], handleMenuSelectio
         open={drawerOpen}
         onClose={handleDrawerToggle}
       >
-        <List>
-          {menu.length !== 0 &&
-            menu.map((item) => (
-              <ListItem
-                key={item.widget}
-                button
-                onClick={(e) => {
-                  setDrawerOpen(false);
-                  handleMenuSelection(e.target.innerText, item.widget);
-                }}
-              >
-                <ListItemText primary={item.label} />
-              </ListItem>
-            ))}
-        </List>
+      <List>
+      {menu.length !== 0 &&
+        menu
+          .filter((item) => item.display) // Filter menu items with item.display true
+          .map((item) => (
+            <ListItem
+              key={item.widget}
+              button
+              onClick={(e) => {
+                setDrawerOpen(false);
+                handleMenuSelection(e.target.innerText, item.widget);
+              }}
+            >
+              <ListItemText primary={item.label} />
+            </ListItem>
+          ))}
+    </List>
       </Drawer>
     </div>
   );
