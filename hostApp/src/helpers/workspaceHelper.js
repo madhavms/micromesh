@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
-export const useWorkspaces = () => {
+export const useWorkspaces = ({apps}) => {
 
   const [workspaces, setWorkspaces] = useState(
     JSON.parse(sessionStorage.getItem("workspaces")) || []
@@ -48,7 +49,7 @@ export const useWorkspaces = () => {
         count = duplicateWorkspaces.length + 1;
         newLabel = `${label} (${count - 1})`;
         newWorkspace = {
-          widget: existingWorkspace.widget,
+          widget,
           label: newLabel,
           isSelected: true,
         };

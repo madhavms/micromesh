@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import "./styles.css";
 import ShadowRoot from "./utils/ShadowRoot";
-import { send, subscribe, unsubscribe } from "messagebusmono";
 import { v4 as uuidv4 } from "uuid";
 import FallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 import { loadRemoteComponent } from "./helpers/remoteLoader";
-import {useWorkspaces} from "./helpers/workspaceHelper";
+import { useWorkspaces } from "./helpers/workspaceHelper";
 
 const Shell = ({ apps, menu, toggleMode, mode }) => {
   const [Component, setComponent] = useState(null);
@@ -20,17 +19,61 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     handleWorkspaceSelection,
     handleMenuSelection,
     handleCloseWorkspace,
-  } = useWorkspaces();
-
-  const handleMessage = (event) => {
-    send({ data: event.data, uuid });
-  };
+  } = useWorkspaces({ apps });
 
   const loadWidget = (selectedWorkspace) => {
-    let selectedApp = apps?.find(
-      (app) => app?.widget === selectedWorkspace?.widget
+    const selectedApp = apps.find(
+      (app) => app.widget === selectedWorkspace.widget
     );
-    setComponent(React.lazy(loadRemoteComponent(selectedApp)));
+    const selectedTemplate = selectedApp.template;
+    const widgetsPromises = [];
+
+    selectedTemplate.widgets.forEach((widget, index) => {
+      const selectedWidget = apps.find((app) => app.widget === widget.widget);
+      const widgetPromise = loadRemoteComponent(selectedWidget)()
+        .then((module) => module.default)
+        .catch((error) => {
+          console.error("Error loading widget:", error);
+          return null;
+        });
+
+      widgetsPromises.push(widgetPromise);
+    });
+
+    Promise.all(widgetsPromises)
+      .then((components) => {
+        // components array will contain all the loaded widget components
+        // compose the components and place them in a container
+        const ComposedComponent = () => (
+          <React.Fragment>
+            {selectedTemplate.layouts.map((layout, index) => {
+              const Component = components[index];
+              return (
+                Component && (
+                  <div
+                    key={index}
+                    style={{
+                      top: layout.y,
+                      left: layout.x,
+                      width: layout.w,
+                      height: layout.h,
+                    }}
+                  >
+                    <Component
+                    {...{ setWidgetStyle, widgetStyle, uuid, mode }}
+                    />
+                  </div>
+                )
+              );
+            })}
+          </React.Fragment>
+        );
+
+        setComponent(() => ComposedComponent);
+      })
+      .catch((error) => {
+        console.error("Error loading widgets:", error);
+      });
   };
 
   useEffect(() => {
@@ -45,13 +88,6 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       setComponent(null);
     }
   }, [workspaces]);
-
-  useEffect(() => {
-    subscribe(handleMessage);
-    return () => {
-      unsubscribe(handleMessage);
-    };
-  }, []);
 
   return (
     <div
@@ -78,11 +114,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         <div>
           <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
-              {!!Component ? (
-                <Component {...{ setWidgetStyle, widgetStyle, uuid, mode }} />
-              ) : (
-                <div></div>
-              )}
+              {!!Component ? <Component/> : <div></div>}
             </ShadowRoot>
           </React.Suspense>
         </div>
