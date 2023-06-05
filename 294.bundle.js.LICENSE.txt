@@ -1,10 +1,5 @@
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-
-/** @license React v16.14.0
+/**
+ * @license React
  * react.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
