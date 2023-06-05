@@ -116,7 +116,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         }}
       />
       <div className={mode === "light" ? "container" : "container-dark"}>
-        {!Component && <About {...{ mode }} />}
+        {!Component && workspaces.length === 0 && <About {...{ mode }} />}
         <div>
           <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
