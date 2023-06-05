@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./styles.css";
 import App from "./App";
 import LoadingSquare from "./components/LoadingSquare";
@@ -34,7 +34,7 @@ function AppContainer() {
   const [isLoading, setIsLoading] = useState(true);
   const [apps, setApps] = useState([]);
   const [menu, setMenu] = useState([]);
-  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
+  const [mode, setMode] = useState(() => localStorage.getItem("mode") || "light");
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   const toggleMode = () => {
@@ -60,19 +60,18 @@ function AppContainer() {
   }, []);
 
   return isLoading ? (
-    <div
-      className={`${mode === "light" ? "body" : "body-dark"} root-container`}
-    >
+    <div className={`body${mode === "light" ? "" : "-dark"} root-container`}>
       <LoadingSquare />
     </div>
   ) : (
-    <App apps={apps} menu={menu} toggleMode={toggleMode} mode={mode}/>
+    <App apps={apps} menu={menu} toggleMode={toggleMode} mode={mode} />
   );
 }
 
 async function renderApp() {
   await new Promise((resolve) => {
-    ReactDOM.render(<AppContainer />, rootElement, resolve);
+    createRoot(rootElement).render(<AppContainer />);
+    resolve();
   });
 }
 
