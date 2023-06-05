@@ -30,7 +30,13 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
 
     selectedTemplate.widgets.forEach((widget, index) => {
       const selectedWidget = apps.find((app) => app.widget === widget.widget);
-      const widgetPromise = loadRemoteComponent(selectedWidget)()
+      const subWidget = selectedWidget.template.widgets.find((app) => app.widget === widget.widget);
+      const widgetInfo = {
+        url: selectedWidget.url,
+        scope: subWidget.scope,
+        widget: subWidget.widget
+      }
+      const widgetPromise = loadRemoteComponent(widgetInfo)()
         .then((module) => module.default)
         .catch((error) => {
           console.error("Error loading widget:", error);
