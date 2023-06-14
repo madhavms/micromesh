@@ -53,7 +53,7 @@ const About = ({ mode }) => {
     >
       <Paper className={classes.container}>
         <Typography variant="h1" className={classes.title}>
-          MicroMesh Microfrontend Platform
+          Micromesh Microfrontend Platform
         </Typography>
         <Box className={classes.textContainer}>
           <Typography variant="body1" className={classes.text}>
@@ -64,7 +64,7 @@ const About = ({ mode }) => {
           <Box mt={2}>
             <Typography variant="body1" className={classes.text}>
               To access the microfrontend widgets, use the global discovery menu
-              on the left-hand side. The MicroMesh platform provides a
+              on the left-hand side. The Micromesh platform provides a
               user-friendly global discovery menu to facilitate access to
               onboarded microfrontend applications. Additionally, the platform
               incorporates a practical workspace feature with a tabbed

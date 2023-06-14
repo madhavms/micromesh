@@ -47,7 +47,7 @@ export default function Footer({ mode }) {
         <Grid container alignItems="center" justifyContent="center">
           <Grid item>
             <Typography variant="body1">
-              MicroMesh © {new Date().getFullYear()}
+              Micromesh © {new Date().getFullYear()}
             </Typography>
           </Grid>
           <Grid item>

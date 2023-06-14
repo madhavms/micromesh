@@ -104,7 +104,7 @@ export default function Navbar({ toggleMode, mode ,menu = [], handleMenuSelectio
             </Typography>
           </Hidden>
           <Typography variant="h6" className={classes.title}>
-            MicroMesh
+            Micromesh
           </Typography>
           <IconButton onClick={toggleMode}>
             {mode === "light" ? (
