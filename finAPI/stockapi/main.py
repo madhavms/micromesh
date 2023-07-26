@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 import aiohttp
 import requests
+from typing import List
 from pathlib import Path
 import json
 import random
@@ -71,8 +72,8 @@ class Layout(BaseModel):
 
 class Template(BaseModel):
     id: str
-    layouts: list[Layout]
-    widgets: list[Widget]
+    layouts: List[Layout]
+    widgets: List[Widget]
 
 class WidgetData(BaseModel):
     url: str
