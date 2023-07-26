@@ -22,14 +22,16 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
   } = useWorkspaces({ apps });
 
   const loadWidget = (selectedWorkspace) => {
+    console.log("apps", apps ,  selectedWorkspace.widget);
     const selectedApp = apps.find(
-      (app) => app.widget === selectedWorkspace.widget
+      (app) => app.template.id === selectedWorkspace.widget
     );
+    console.log("selectedApp", selectedApp.template);
     const selectedTemplate = selectedApp.template;
     const widgetsPromises = [];
 
-    selectedTemplate.widgets.forEach((widget, index) => {
-      const selectedWidget = apps.find((app) => app.widget === widget.widget);
+    selectedTemplate.widgets.forEach((widget) => {
+      const selectedWidget = apps.find((app) => app.template.id === widget.widget);
       const subWidget = selectedWidget.template.widgets.find((app) => app.widget === widget.widget);
       const widgetInfo = {
         url: selectedWidget.url,
