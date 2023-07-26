@@ -1,4 +1,4 @@
-## MicroMesh Microfrontend Platform
+## Micromesh Microfrontend Platform
 
 This is an Micro-frontend platform that performs run-time discovery, integration and orchestration of independantly deployed applications bundled in micro-frontend compatible format. Webpack module federation plugin was used to achieve runtime loading and orchestration of modules.
 
