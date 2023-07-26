@@ -55,32 +55,38 @@ def load_risk_data():
 
 # define Widget model
 class Widget(BaseModel):
-    url: str
-    widget: str
     scope: str
+    widget: str
 
 # define MenuItem model
 class MenuItem(BaseModel):
     widget: str
     label: str
 
+class Layout(BaseModel):
+    h: str
+    w: str
+    x: str
+    y: str
 
-# define request model
-class WidgetCreate(BaseModel):
+class Template(BaseModel):
+    id: str
+    layouts: list[Layout]
+    widgets: list[Widget]
+
+class WidgetData(BaseModel):
     url: str
-    scope: str
-    widget: str
+    template: Template
 
-
-# define request model
-class MenuItemCreate(BaseModel):
+class MenuData(BaseModel):
     widget: str
     label: str
+    display: bool
 
 
 # define endpoints
 @app.post("/widgets/")
-async def create_widget(widget: WidgetCreate):
+async def create_widget(widget: WidgetData):
     widget_dict = widget.dict()
     result = db.widgets.insert_one(widget_dict)
     widget_dict['_id'] = str(result.inserted_id)
@@ -113,9 +119,9 @@ async def update_widget(widget_id: str, widget: Widget):
 
 # define endpoints
 @app.post("/menu/")
-async def create_menu_item(menu_item: MenuItemCreate):
+async def create_menu_item(menu_item: MenuItem):
     menu_item_dict = menu_item.dict()
-    result = db.menu    .insert_one(menu_item_dict)
+    result = db.menu.insert_one(menu_item_dict)
     menu_item_dict['_id'] = str(result.inserted_id)
     return menu_item_dict
 
