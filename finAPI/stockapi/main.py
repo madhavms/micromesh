@@ -63,6 +63,7 @@ class Widget(BaseModel):
 class MenuItem(BaseModel):
     widget: str
     label: str
+    display: bool
 
 class Layout(BaseModel):
     h: str
