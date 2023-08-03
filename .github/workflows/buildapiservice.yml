@@ -56,7 +56,7 @@ jobs:
             CA_BUNDLE_CRT: ${{ secrets.CA_BUNDLE_CRT }}
             CERTIFICATE_CRT: ${{ secrets.CERTIFICATE_CRT }}
             PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-    
+
       - name: Deploy to Google Cloud Run
         uses: google-github-actions/deploy-cloudrun@v1
         with:

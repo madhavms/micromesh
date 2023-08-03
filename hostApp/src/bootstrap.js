@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 import App from "./App";
 import LoadingSquare from "./components/LoadingSquare";
+import LoadingCircle from "./components/LoadingCircle";
 
 const rootElement = document.getElementById("root");
 
@@ -61,7 +62,7 @@ function AppContainer() {
 
   return isLoading ? (
     <div className={`body${mode === "light" ? "" : "-dark"} root-container`}>
-      <LoadingSquare />
+      <LoadingCircle />
     </div>
   ) : (
     <App apps={apps} menu={menu} toggleMode={toggleMode} mode={mode} />
