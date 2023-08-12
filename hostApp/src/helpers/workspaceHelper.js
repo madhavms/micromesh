@@ -49,6 +49,7 @@ export const useWorkspaces = ({apps}) => {
         count = duplicateWorkspaces.length + 1;
         newLabel = `${label} (${count - 1})`;
         newWorkspace = {
+          id: uuidv4(),
           widget,
           label: newLabel,
           isSelected: true,
@@ -56,6 +57,7 @@ export const useWorkspaces = ({apps}) => {
       }
     } else {
       newWorkspace = {
+        id: uuidv4(),
         widget,
         label,
         isSelected: true,

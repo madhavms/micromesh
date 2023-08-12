@@ -9,10 +9,12 @@ import About from "./components/AboutScreen";
 import TabsBar from "./components/TabsBar";
 import { loadRemoteComponent } from "./helpers/remoteLoader";
 import { useWorkspaces } from "./helpers/workspaceHelper";
+import { getworkspaceState, setworkspaceState } from "./helpers/workspaceState";
 
 const Shell = ({ apps, menu, toggleMode, mode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
+  const [currentWorkspaceId, setCurrentWorkspaceId] = useState(null);
   const [uuid, setuuid] = useState(uuidv4());
   const {
     workspaces,
@@ -90,6 +92,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     const selectedWorkspace = currentworkspaces?.find(
       (workspace) => workspace.isSelected
     );
+    setCurrentWorkspaceId(selectedWorkspace?.id);
     if (selectedWorkspace) {
       loadWidget(selectedWorkspace);
     } else {
@@ -122,7 +125,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         <div>
           <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
-              {!!Component ? <Component/> : <div></div>}
+              {!!Component ? <Component setworkspaceState={setworkspaceState(currentWorkspaceId)} getworkspaceState={getworkspaceState(currentWorkspaceId)}/> : <div></div>}
             </ShadowRoot>
           </React.Suspense>
         </div>
