@@ -65,7 +65,12 @@ function AppContainer() {
       <LoadingCircle />
     </div>
   ) : (
-    <App apps={apps} menu={menu} toggleMode={toggleMode} mode={mode} />
+    <App 
+    apps={apps} 
+    menu={menu} 
+    toggleMode={toggleMode} 
+    mode={mode} 
+/>
   );
 }
 

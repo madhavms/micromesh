@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export const useWorkspaces = ({apps}) => {
-
-  const [workspaces, setWorkspaces] = useState(
-    JSON.parse(sessionStorage.getItem("workspaces")) || []
+export const useWorkspaces = ({ apps }) => {
+  const getWorkspaces = () => {
+    return JSON.parse(sessionStorage.getItem("workspaces")) || [];
+  };
+  const initialWorkspaces =
+    JSON.parse(sessionStorage.getItem("workspaces")) || [];
+  const initialSelectedWorkspace =
+    initialWorkspaces.find((workspace) => workspace.isSelected)?.id || null;
+  const [workspaces, setWorkspaces] = useState(initialWorkspaces);
+  const [currentWorkspaceId, setCurrentWorkspaceId] = useState(
+    initialSelectedWorkspace
   );
 
   const updateWorkspace = (updatedWorkspaces) => {
@@ -21,18 +28,25 @@ export const useWorkspaces = ({apps}) => {
       return;
     }
 
-    const updatedWorkspaces = workspaces.map((workspace) => ({
+    let currentWorkspaces = getWorkspaces();
+    let workspaceTemp = currentWorkspaces ? currentWorkspaces : workspaces;
+    const updatedWorkspaces = workspaceTemp.map((workspace) => ({
       ...workspace,
       isSelected: workspace.label === label,
     }));
+
     updateWorkspace(updatedWorkspaces);
+    setCurrentWorkspaceId(selectedWorkspace?.id || null);
   };
 
   const handleMenuSelection = (label, widget) => {
-    const existingWorkspace = workspaces.find(
+
+    let currentWorkspaces = getWorkspaces();
+    let workspaceTemp = currentWorkspaces ? currentWorkspaces : workspaces;
+    const existingWorkspace = workspaceTemp.find(
       (workspace) => workspace.widget === widget
     );
-    const updatedWorkspaces = workspaces.map((workspace) => ({
+    const updatedWorkspaces = workspaceTemp.map((workspace) => ({
       ...workspace,
       isSelected: false,
     }));
@@ -42,45 +56,51 @@ export const useWorkspaces = ({apps}) => {
     let count = 1;
 
     if (existingWorkspace) {
-      const duplicateWorkspaces = workspaces.filter((workspace) =>
+      const duplicateWorkspaces = workspaceTemp.filter((workspace) =>
         workspace.label.startsWith(label)
       );
       if (duplicateWorkspaces.length > 0) {
         count = duplicateWorkspaces.length + 1;
         newLabel = `${label} (${count - 1})`;
+        const uuid = uuidv4();
         newWorkspace = {
-          id: uuidv4(),
+          id: uuid,
           widget,
           label: newLabel,
           isSelected: true,
         };
       }
     } else {
+      const uuid = uuidv4();
       newWorkspace = {
-        id: uuidv4(),
+        id: uuid,
         widget,
         label,
         isSelected: true,
       };
     }
 
-    updateWorkspace([...updatedWorkspaces,newWorkspace]);
+    updateWorkspace([...updatedWorkspaces, newWorkspace]);
+    setCurrentWorkspaceId(newWorkspace.id);
   };
 
   const handleCloseWorkspace = (label) => {
-    const updatedWorkspaces = workspaces?.filter(
+    const updatedWorkspaces = workspaces.filter(
       (workspace) => workspace.label !== label
     );
+
     if (updatedWorkspaces.length === 0) {
       updateWorkspace(updatedWorkspaces);
+      setCurrentWorkspaceId(null);
       return;
     }
+
     if (
       workspaces.find(
         (workspace) => workspace.label === label && workspace.isSelected
       )
     ) {
-      const selectedIndex = workspaces?.findIndex(
+      const selectedIndex = workspaces.findIndex(
         (workspace) => workspace.label === label
       );
       const newSelectedIndex = Math.max(selectedIndex - 1, 0);
@@ -88,14 +108,17 @@ export const useWorkspaces = ({apps}) => {
 
       if (newSelectedWorkspace) {
         updatedWorkspaces[newSelectedIndex].isSelected = true;
+        setCurrentWorkspaceId(newSelectedWorkspace.id);
         updateWorkspace(updatedWorkspaces);
       }
+    } else {
+      updateWorkspace(updatedWorkspaces);
     }
-    updateWorkspace(updatedWorkspaces);
   };
 
   return {
     workspaces,
+    currentWorkspaceId,
     updateWorkspace,
     handleWorkspaceSelection,
     handleMenuSelection,

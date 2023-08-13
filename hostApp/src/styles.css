@@ -96,8 +96,13 @@ mt-1 {
 }
 
 .text-2xl {
-  font-size: 1.5rem; /* 24px */
+  font-size: 1.1rem; /* 24px */
   line-height: 2rem; /* 32px */
+}
+
+.text-xl {
+  font-size: 1rem; /* 24px */
+  line-height: 1.8rem; /* 32px */
 }
 
 .items-center {

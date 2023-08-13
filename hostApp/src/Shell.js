@@ -14,32 +14,36 @@ import { getworkspaceState, setworkspaceState } from "./helpers/workspaceState";
 const Shell = ({ apps, menu, toggleMode, mode }) => {
   const [Component, setComponent] = useState(null);
   const [widgetStyle, setWidgetStyle] = useState("");
-  const [currentWorkspaceId, setCurrentWorkspaceId] = useState(null);
   const [uuid, setuuid] = useState(uuidv4());
   const {
     workspaces,
     handleWorkspaceSelection,
     handleMenuSelection,
     handleCloseWorkspace,
+    currentWorkspaceId,
   } = useWorkspaces({ apps });
 
+
+
   const loadWidget = (selectedWorkspace) => {
-    console.log("apps", apps ,  selectedWorkspace.widget);
     const selectedApp = apps.find(
       (app) => app.template.id === selectedWorkspace.widget
     );
-    console.log("selectedApp", selectedApp.template);
     const selectedTemplate = selectedApp.template;
     const widgetsPromises = [];
 
     selectedTemplate.widgets.forEach((widget) => {
-      const selectedWidget = apps.find((app) => app.template.id === widget.widget);
-      const subWidget = selectedWidget.template.widgets.find((app) => app.widget === widget.widget);
+      const selectedWidget = apps.find(
+        (app) => app.template.id === widget.widget
+      );
+      const subWidget = selectedWidget.template.widgets.find(
+        (app) => app.widget === widget.widget
+      );
       const widgetInfo = {
         url: selectedWidget.url,
         scope: subWidget.scope,
-        widget: subWidget.widget
-      }
+        widget: subWidget.widget,
+      };
       const widgetPromise = loadRemoteComponent(widgetInfo)()
         .then((module) => module.default)
         .catch((error) => {
@@ -70,7 +74,10 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
                     }}
                   >
                     <Component
-                    {...{ setWidgetStyle, widgetStyle, uuid, mode }}
+                      {...{ setWidgetStyle, widgetStyle, uuid, mode }}
+                      setworkspaceState={setworkspaceState}
+                      getworkspaceState={getworkspaceState}
+                      currentWorkspaceId={currentWorkspaceId}
                     />
                   </div>
                 )
@@ -92,7 +99,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     const selectedWorkspace = currentworkspaces?.find(
       (workspace) => workspace.isSelected
     );
-    setCurrentWorkspaceId(selectedWorkspace?.id);
+
     if (selectedWorkspace) {
       loadWidget(selectedWorkspace);
     } else {
@@ -125,7 +132,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         <div>
           <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
-              {!!Component ? <Component setworkspaceState={setworkspaceState(currentWorkspaceId)} getworkspaceState={getworkspaceState(currentWorkspaceId)}/> : <div></div>}
+              {!!Component ? <Component /> : <div></div>}
             </ShadowRoot>
           </React.Suspense>
         </div>
