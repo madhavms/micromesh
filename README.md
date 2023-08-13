@@ -60,7 +60,7 @@ The form requires info such as the url of the remote entry file, app id, remote 
 
 The micromesh platform provides workspace state persistence mechanism so that the workspace state not lost on workspace switching or page reloads. The workspace state is persisted to session storage.
 
-![]([https://github.com/madhavms/react-host-remote/blob/main/img/DarkMode.gif](https://raw.githubusercontent.com/madhavms/micromesh/main/img/workspace_persistence.png))
+![](https://raw.githubusercontent.com/madhavms/micromesh/main/img/workspace_persistence.png)
 
 ### 4. Client Message Bus for Widget Interoperability
 Source Code: [Message Bus](https://github.com/madhavms/react-host-remote/tree/main/message-bus)
