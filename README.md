@@ -58,7 +58,7 @@ The form requires info such as the url of the remote entry file, app id, remote 
 
 ### 3. Workspace state persistence
 
-The micromesh platform provides workspace state persistence mechanism so that the workspace state not lost on workspace switching or page reloads. The workspace state is persisted to session storage.
+The micromesh platform provides workspace state persistence mechanism so that the workspace state is not lost on workspace switching or page reload. The workspace state is persisted to session storage.
 
 ![](https://raw.githubusercontent.com/madhavms/micromesh/main/img/workspace_persistence.png)
 
