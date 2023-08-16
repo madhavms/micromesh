@@ -23,8 +23,6 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     currentWorkspaceId,
   } = useWorkspaces({ apps });
 
-
-
   const loadWidget = (selectedWorkspace) => {
     const selectedApp = apps.find(
       (app) => app.template.id === selectedWorkspace.widget
@@ -58,7 +56,15 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
       .then((components) => {
         // components array will contain all the loaded widget components
         // compose the components and place them in a container
-        const ComposedComponent = () => (
+        const ComposedComponent = ({
+          mode,
+          setWidgetStyle,
+          widgetStyle,
+          uuid,
+          setworkspaceState,
+          getworkspaceState,
+          currentWorkspaceId,
+        }) => (
           <React.Fragment>
             {selectedTemplate.layouts.map((layout, index) => {
               const Component = components[index];
@@ -74,10 +80,11 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
                     }}
                   >
                     <Component
-                      {...{ setWidgetStyle, widgetStyle, uuid, mode }}
+                      {...{ setWidgetStyle, widgetStyle, uuid }}
                       setworkspaceState={setworkspaceState}
                       getworkspaceState={getworkspaceState}
                       currentWorkspaceId={currentWorkspaceId}
+                      mode={mode}
                     />
                   </div>
                 )
@@ -132,7 +139,17 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         <div>
           <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>
-              {!!Component ? <Component /> : <div></div>}
+              {!!Component ? (
+                <Component
+                  {...{ setWidgetStyle, widgetStyle, uuid }}
+                  setworkspaceState={setworkspaceState}
+                  getworkspaceState={getworkspaceState}
+                  currentWorkspaceId={currentWorkspaceId}
+                  mode={mode}
+                />
+              ) : (
+                <div></div>
+              )}
             </ShadowRoot>
           </React.Suspense>
         </div>

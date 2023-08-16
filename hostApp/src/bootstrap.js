@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 import App from "./App";
-import LoadingSquare from "./components/LoadingSquare";
 import LoadingCircle from "./components/LoadingCircle";
 
 const rootElement = document.getElementById("root");
@@ -35,9 +34,8 @@ function AppContainer() {
   const [isLoading, setIsLoading] = useState(true);
   const [apps, setApps] = useState([]);
   const [menu, setMenu] = useState([]);
-  const [mode, setMode] = useState(() => localStorage.getItem("mode") || "light");
+  const [mode, setMode] = useState(localStorage.getItem("mode") || "light");
   const [isTransitioning, setIsTransitioning] = useState(false);
-
   const toggleMode = () => {
     const newMode = mode === "light" ? "dark" : "light";
     setMode(newMode);
