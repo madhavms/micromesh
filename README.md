@@ -54,7 +54,7 @@ This onboarding screen is used by the app development teams to onboard their mic
 The form requires info such as the url of the remote entry file, app id, remote id and the label which would be displayed on the menu.
 
 
-![](https://github.com/madhavms/react-host-remote/blob/main/img/OnboardingPage.gif)
+![](https://github.com/madhavms/onboarding-app/blob/main/Img/OboardingApp.png)
 
 ### 3. Workspace state persistence
 
