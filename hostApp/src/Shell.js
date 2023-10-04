@@ -23,6 +23,10 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     currentWorkspaceId,
   } = useWorkspaces({ apps });
 
+  const addStyleForShadowRoot = () => {
+    setWidgetStyle(window["widget-style"]);
+  };
+
   const loadWidget = (selectedWorkspace) => {
     const selectedApp = apps.find(
       (app) => app.template.id === selectedWorkspace.widget
@@ -58,7 +62,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         // compose the components and place them in a container
         const ComposedComponent = ({
           mode,
-          setWidgetStyle,
+          addStyleForShadowRoot,
           widgetStyle,
           uuid,
           setworkspaceState,
@@ -80,7 +84,8 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
                     }}
                   >
                     <Component
-                      {...{ setWidgetStyle, widgetStyle, uuid }}
+                      addStyleForShadowRoot={addStyleForShadowRoot}
+                      {...{ widgetStyle, uuid }}
                       setworkspaceState={setworkspaceState}
                       getworkspaceState={getworkspaceState}
                       currentWorkspaceId={currentWorkspaceId}
@@ -141,6 +146,7 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
             <ShadowRoot style={widgetStyle}>
               {!!Component ? (
                 <Component
+                  addStyleForShadowRoot={addStyleForShadowRoot}
                   {...{ setWidgetStyle, widgetStyle, uuid }}
                   setworkspaceState={setworkspaceState}
                   getworkspaceState={getworkspaceState}
