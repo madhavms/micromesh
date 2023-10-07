@@ -42,6 +42,11 @@ def add_variance(stock):
     randNum = random.uniform(1, 9)
     randNum = randNum if pos_or_neg == 1 else -randNum
     stock['last'] = round(stock['last'] + randNum, 2)
+
+    # Update the high and low values based on the new "last" price
+    stock['high'] = max(stock['high'], stock['last'])
+    stock['low'] = min(stock['low'], stock['last'])
+    
     return stock
 
 
