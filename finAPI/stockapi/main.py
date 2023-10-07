@@ -37,6 +37,13 @@ app.add_middleware(
     allow_headers=['*']
 )
 
+stock_data_in_memory = []  # Global variable to hold stock data in memory
+
+@app.on_event("startup")
+async def load_data_on_startup():
+    global stock_data_in_memory
+    stock_data_in_memory = load_stock_data()
+
 def add_variance(stock):
     pos_or_neg = random.randint(0, 1)
     randNum = random.uniform(1, 9)
@@ -162,14 +169,16 @@ async def root():
 
 @app.get('/stocks')
 def get_all_stocks():
-    stock_data = load_stock_data()
+    global stock_data_in_memory
+    stock_data = stock_data_in_memory
     return stock_data
 
 
 @app.get('/stocklist')
 def get_stock_list():
+    global stock_data_in_memory
     stock_list = []
-    stock_data = load_stock_data()
+    stock_data = stock_data_in_memory
     for stock in stock_data:
         stock_list.append({'id': stock['id'], 'name': stock['name']})
     return stock_list
@@ -177,7 +186,8 @@ def get_stock_list():
 
 @app.get('/stocks/{id}')
 def get_stock(id):
-    response = load_stock_data()
+    global stock_data_in_memory
+    response = stock_data_in_memory
     for stock_data in response:
         if stock_data['id'] == id:
             return add_variance(stock_data)
@@ -193,8 +203,9 @@ def get_risk(id):
 
 async def generate_stock_prices(websocket, symbol):
     while True:
+        global stock_data_in_memory
         # Generate a random stock price
-        response = load_stock_data()
+        response = stock_data_in_memory
         data_to_send = {}
         for stock_data in response:
             if stock_data['id'] == symbol:
