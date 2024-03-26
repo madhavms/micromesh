@@ -50,34 +50,6 @@ export default function Footer({ mode }) {
               Micromesh © {new Date().getFullYear()}
             </Typography>
           </Grid>
-          <Grid item>
-            <Box>
-              <Link
-                href="https://github.com/madhavms/react-host-remote"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.link}
-              >
-                <GitHubIcon />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/in/madhavmanohars/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.link}
-              >
-                <LinkedInIcon />
-              </Link>
-              <Link
-                href="https://medium.com/@madhavmanohar.s"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.link}
-              >
-                <MediumSvgIcon {...{classes}}/>
-              </Link>
-            </Box>
-          </Grid>
         </Grid>
       </Container>
     </footer>
