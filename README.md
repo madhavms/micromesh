@@ -51,7 +51,8 @@ The platform also introduces an enhanced workspace feature that utilizes a tabbe
 ### 2. Onboarding Page for Microfrontend Apps
 
 This onboarding screen is used by the app development teams to onboard their micro frontend application to the host application.
-The form requires info such as the url of the remote entry file, app id, remote id and the label which would be displayed on the menu.
+
+The app allows teams to create widgets which is composition of  multiple seperately deployed widgets at runtime. These widgets can also communicate during runtime using the message bus provided by the platform.(In the below example two seperate apps StockWidget and RiskWidget are composed at runtime as a single widget)
 
 
 ![](https://github.com/madhavms/micromesh/blob/main/img/micromesh_onboarding_app.gif)
