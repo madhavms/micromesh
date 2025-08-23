@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import FallbackComponent from "./components/Placeholder";
 import Footer from "./components/Footer";
 import About from "./components/AboutScreen";
+import Onboarding from "./components/Onboarding";
 import TabsBar from "./components/TabsBar";
 import { loadRemoteComponent } from "./helpers/remoteLoader";
 import { useWorkspaces } from "./helpers/workspaceHelper";
@@ -22,6 +23,9 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
     handleCloseWorkspace,
     currentWorkspaceId,
   } = useWorkspaces({ apps });
+  const [showOnboarding, setShowOnboarding] = useState(
+    () => !sessionStorage.getItem("onboardingComplete")
+  );
 
   const addStyleForShadowRoot = () => {
     setWidgetStyle(window["widget-style"]);
@@ -140,7 +144,19 @@ const Shell = ({ apps, menu, toggleMode, mode }) => {
         }}
       />
       <div className={mode === "light" ? "container" : "container-dark"}>
-        {!Component && workspaces.length === 0 && <About {...{ mode }} />}
+        {!Component && workspaces.length === 0 && (
+          showOnboarding ? (
+            <Onboarding
+              mode={mode}
+              onFinish={() => {
+                sessionStorage.setItem("onboardingComplete", "1");
+                setShowOnboarding(false);
+              }}
+            />
+          ) : (
+            <About {...{ mode }} />
+          )
+        )}
         <div>
           <React.Suspense fallback={<FallbackComponent />}>
             <ShadowRoot style={widgetStyle}>

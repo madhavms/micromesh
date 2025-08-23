@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Paper, Typography, Box } from "@material-ui/core";
+import ClockWidget from "./ClockWidget";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -72,6 +73,9 @@ const About = ({ mode }) => {
               applications concurrently in an organized manner.
             </Typography>
           </Box>
+        </Box>
+        <Box mt={4} display="flex" justifyContent="center">
+          <ClockWidget />
         </Box>
       </Paper>
     </Box>
